@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+<!ENTITY rfc2119 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
+<!ENTITY rfc3550 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3550.xml">
+<!ENTITY rfc3551 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3551.xml">
+<!ENTITY rfc4585 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4585.xml">
+]>
+<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
+<?rfc toc="yes" ?>
+<?rfc compact="yes" ?>
+<?rfc symrefs="no" ?>
+<rfc ipr="trust200902"
+     docName="draft-singh-rmcat-cc-eval-00.txt" category="info">
+<!-- What is the category field value-->
+<front>
+    <title abbrev="Evaluation Criteria for RMCAT">
+         Evaluation Criteria for RTP Congestion Avoidance Techniques
+    </title>
+    <author fullname="Varun Singh" initials="V" surname="Singh">
+      <organization>Aalto University</organization>
+      <address>
+        <postal>
+          <street>School of Electrical Engineering</street>
+          <street>Otakaari 5 A</street>
+          <city>Espoo</city>
+          <region>FIN</region>
+          <code>02150</code>
+          <country>Finland</country>
+        </postal>
+        <email>varun@comnet.tkk.fi</email>
+      </address>
+    </author>
+
+    <author initials="J." surname="Ott" fullname="Joerg Ott">
+        <organization>Aalto University</organization>
+          <address>
+            <postal>
+              <street>School of Electrical Engineering</street>
+              <street>Otakaari 5 A</street>
+              <city>Espoo</city>
+              <region>FIN</region>
+              <code>02150</code>
+              <country>Finland</country>
+            </postal>
+            <email>jo@comnet.tkk.fi</email>
+      </address>
+    </author>
+
+    <date year="2012" />
+    <area>RAI</area>
+    <workgroup>RMCAT Working Group</workgroup>
+    <keyword>RTP</keyword>
+    <keyword>RTCP</keyword>
+    <keyword>Congestion Control</keyword>
+    <abstract>
+      <t>
+      </t>
+    </abstract>
+</front>
+<middle>
+
+<section title="Introduction">
+    <t>
+    </t>
+</section>
+
+<section title="Terminology" anchor="sec-terminology">
+    <t>
+    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
+    NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL"
+    in this document are to be interpreted as described in BCP 14,
+    <xref target="RFC2119">RFC 2119</xref> and indicate requirement
+    levels for compliant implementations.
+    </t>
+    <t>
+    The terminology defined in <xref target="RFC3550">RTP</xref> and the
+    <xref target="RFC3551">RTP Profile for Audio and Video Conferences with
+    Minimal Control</xref> apply.
+    </t>
+</section>
+
+<section title="Metrics" anchor="cc-metrics">
+    <t>
+        <list style="symbols">
+        <t>(i) ABU</t>
+        <t>(ii) Stability</t>
+        <t>(iii) underutilization</t>
+        </list>
+    </t>
+</section>
+
+<section title="Methedology" anchor="cc-method">
+<t>
+</t>
+</section>
+
+<section title="Evaluation Scenarios" anchor="om-topo-oper">
+    <t> 
+   </t>
+   
+</section>
+
+
+
+</middle>
+<back>
+
+    <references title="Normative References"> 
+        
+        &rfc2119;
+        &rfc3550;
+        &rfc3551;
+<!-- &rfc4585; -->
+    </references>
+  </back>
+
+</rfc>
