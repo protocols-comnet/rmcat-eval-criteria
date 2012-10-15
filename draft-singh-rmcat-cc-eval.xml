@@ -119,18 +119,43 @@
 
         <section title="Metrics" anchor="cc-metrics">
             <t><xref target="RFC5166" /> describes the basic metrics for
-            congestion control. Section 2.1 of that document discusses the
+            congestion control. Metrics that are important to interactive
+            multimedia are:
+            <list style="symbols">
+                    <t>Delay</t>
+                    <t>Throughput</t>
+                    <t>Users' quality of experience</t>
+                    <t>Minimizing oscillations in encoding rate</t>
+                    <t>Reactivity to transient events</t>
+                    <t>Packet loss and discard rate</t>
+                </list>
+            
+            Section 2.1 of <xref target="RFC5166" /> discusses the
             tradeoff between throughput, delay and loss.</t>
             
-            <t> <list style="symbols">
-                <t>(i) Bandwidth Utilization
-                <list style="empty">
-                    <t>under-utilization</t>
-                    <t>overshooting</t>
-                </list></t>
-                <t>(ii) Packet Loss Rate</t>
+            <t> <list style="empty">
+                <t>(i) Bandwidth Utilization: is the ratio of the encoding 
+                rate to the (available) end-to-end network capacity. 
+                <list style="symbols">
+                    <t>Under-utilization: is the period of time when the
+                    endpoint's encoding rate is lower than the end-to-end
+                    capacity, i.e., the bandwidth utilization is less than
+                    1.</t>
+                    
+                    <t>Overuse: is the period of time when the endpoint's
+                    encoding rate is higher than the end-to-end capacity,
+                    i.e., the bandwidth utilization is greater than 1.</t>
+                    
+                    <t>Stability: is the period of time when the endpoint's
+                    encoding rate is relatively stable, i.e., the bandwidth
+                    utilization is constant.</t>
+                </list>
+                </t>
+                <t>(ii) Packet Loss and Discard Rate.</t>
                 <t>(iii) Quality</t>
-            </list> </t>
+            </list> 
+            [TBD]
+            </t>
 
             <t>[Editor's Note: Should the algorithm also compare average
             PSNR of test video sequences?]</t>
@@ -150,23 +175,28 @@
 
             <t><list style="numbers">
             <t>Avoiding Congestion Collapse: Does the congestion control
-            propose any changes to (or diverge from) the <xref
-            target="I-D.ietf-avtcore-rtp-circuit-breakers" >circuit breaker
-            conditions</xref> for avoiding congestion collapse.</t>
+            propose any changes to (or diverge from) the circuit breaker
+            conditions defined in <xref
+            target="I-D.ietf-avtcore-rtp-circuit-breakers" />.</t>
             
-            <t>Stability: changing the media encoding rate too often or by
-            too much may adversely affect the users' quality of
-            experience.</t>
+            <t>Stability: The congestion control should be assessed for its
+            stability when the path characteristics do not change over
+            time. Changing the media encoding rate too often or by too much
+            may adversely affect the users' quality of experience.</t>
             
             <t>Diverse environments: The congestion control algorithm
             should be assessed in heterogeneous environments, containing
-            both wired and wireless paths. Examples of wireless
+            both wired and wireless paths. Examples of wireless access
             technologies are: 802.11x, HSPA, WCDMA, or GPRS. One of the
             main challenges of the wireless environments is the inability
             to distinguish congestion induced loss from transmission
-            (bit-error) loss. Furthermore, packet loss may induce
-            additional delay in networks with wireless paths due to
-            link-layer retransmissions.</t>
+            (bit-error) loss. Congestion control algorithms may incorrectly
+            identify transmission loss as congestion loss and reduce the
+            media encoding rate too much, which may cause oscillatory
+            behavior and deteriorate the users' quality of experience.
+            Furthermore, packet loss may induce additional delay in
+            networks with wireless paths due to link-layer
+            retransmissions.</t>
             
             <t>Varying path characteristics: The congestion control
             algorithm should be evaluated for a range of path
@@ -175,17 +205,18 @@
             and a router's queue length. [Editor's Note: Different types of
             queueing mechanisms? Random Early Detection or only DropTail?].
             The main motivation for the previous and current criteria is to
-            figure out under what circumstances will the congestion control
-            algorithm break down and in which environments it may be safe
-            to deploy.</t>
+            figure out under what circumstances will the proposed
+            congestion control algorithm break down and in which
+            environments it may be safe to deploy.</t>
             
             <t>Reacting to transient events or interruptions: The
             congestion control algorithm should be able to handle changes
-            in end-to-end latency due to route updates, link failures,
-            handovers etc. In mobile environment the end-to-end capacity
-            may vary due to the interference, fading, handovers, etc. In
-            wired networks the end-to-end capacity may vary due to changes
-            in resource reservation.</t>
+            in end-to-end capacity and latency. Latency may change due to
+            route updates, link failures, handovers etc. In mobile
+            environment the end-to-end capacity may vary due to the
+            interference, fading, handovers, etc. In wired networks the
+            end-to-end capacity may vary due to changes in resource
+            reservation.</t>
             
             <t>Fairness with similar cross-traffic: The congestion control
             algorithm should be evaluated when competing with other RTP
@@ -197,37 +228,59 @@
             should be evaluated when competing with standard TCP. Short TCP
             flows may be considered as transient events and the RTP flow
             may give way to the short TCP flow to complete quickly.
-            However, long TCP flows (also known as elephant flows) may
-            starve out the RTP flow depending on router queue length. In
-            the latter case the proposed congestion control for RTP should
-            be as aggressive as <xref target="RFC5681">standard
-            TCP</xref>.</t>
+            However, long-lived TCP flows may starve out the RTP flow
+            depending on router queue length. In the latter case the
+            proposed congestion control for RTP should be as aggressive as
+            <xref target="RFC5681">standard TCP</xref>.</t>
             
             <t>Extensions to RTP/RTCP: The congestion control algorithm
             should indicate if any protocol extensions are required to
             implement it and should carefully describe the impact of the
             extension.</t>
-            </list> </t>
+            </list> 
+            </t>
+            
+            <section title="Minimum Requirements for Evaluation">
+                <t>[Editor's Note: The minimum set should be based on the
+                above set of guidelines]</t>
+            </section>
         </section>
         
         
         <section title="Example Evaluation Scenarios" anchor="cc-scenario">
+            <t>In the scenarios listed below, all RTP flows are
+            bi-directional and point-to-point.</t>
+            
             <t><list style="symbols">
-            <t>Single RTP flow on a fixed link: This scenario evaluates the
+            <t>RTP flow on a fixed link: This scenario evaluates the
             ramp-up to the bottleneck capacity and the stability of the
             proposed congestion control algorithm.</t>
             
-            <t>Single RTP flow on a variable capacity link: This scenario
-            evaluates the response of the proposed congestion control
-            algorithm to transient network events or due to interference
-            and handovers in mobile environments.</t>
+            <t>RTP flow on a variable capacity link: This scenario
+            evaluates the reactivity of the proposed congestion control
+            algorithm to transient network events due to interference and
+            handovers in mobile environments. Sample 3G bandwidth traces
+            are available at <xref target="3GPP.R1.081955" />.</t>
             
             <t>Fairness to RTP flows running the same congestion control
-            algorithm: Depending on the levels of </t>
+            algorithm: This scenario shows if the proposed algorithm can
+            share the bottleneck link equitably, irrespective of number of
+            flows.</t>
             
-            <t>Competing with short TCP flows: </t>
+            <t>Competing with long-lived TCP flows: In this scenario the
+            proposed algorithm is expected to be TCP-friendly, i.e., it
+            should neither starve out the competing TCP flows (causing a
+            congestion collapse) nor should it be starved out by TCP.</t>
             
-            <t>Competing with long TCP flows: </t>
+            <t>Competing with short TCP flows: Depending on the level of
+            statistical multiplexing on the bottleneck link, the proposed
+            algorithm may behave differently. If there are a few short TCP
+            flows then the proposed algorithm may observe these flows as
+            transient events and let them complete quickly. Alternatively,
+            if there are many short flows then the proposed algorithm may
+            have to compete with the flows as if they were long lived TCP
+            flows. [Editor's Note: many and few short TCP flows may depend
+            on the bottleneck link capacity.]</t>
             </list> </t>
         </section>
         
@@ -244,7 +297,7 @@
             possible that an algorithm is not recommended for certain
             environments or perform sub-optimally for the user.</t>
             
-            <t>[Editors Note: Should there be a distinction between
+            <t>[Editor's Note: Should there be a distinction between
             "Informational" and "Experimental" drafts for congestion
             control algorithms in RMCAT. <xref target="RFC5033" />
             describes Informational proposals as algorithms that are not
@@ -263,7 +316,11 @@
 
         <section title="IANA Considerations">
             <t>There are no IANA impacts in this memo.</t>
-        </section>        
+        </section>
+        <section title="Acknowledgements">
+          <t> Much of this document is derived from previous work on
+          congestion control at the IETF.</t>
+        </section>
     </middle>
     <back>
         <references title="Normative References"> 
@@ -283,6 +340,6 @@
         &rfc5033; <!-- CC Evaluation -->
         &rfc5166; <!-- CC Metrics -->
         &rfc5681; <!-- Standard TCP -->
-        </references>
+        <?rfc include="reference.3GPP.R1.081955"?>
     </back>
 </rfc>

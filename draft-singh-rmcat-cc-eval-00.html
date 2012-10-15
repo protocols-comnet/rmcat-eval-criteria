@@ -199,19 +199,23 @@ Terminology<br />
 Metrics<br />
 <a href="#cc-guidelines">4.</a>&nbsp;
 Guidelines<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#anchor2">4.1.</a>&nbsp;
+Minimum Requirements for Evaluation<br />
 <a href="#cc-scenario">5.</a>&nbsp;
 Example Evaluation Scenarios<br />
 <a href="#cc-proposal">6.</a>&nbsp;
 Status of Proposals<br />
-<a href="#anchor2">7.</a>&nbsp;
+<a href="#anchor3">7.</a>&nbsp;
 Security Considerations<br />
-<a href="#anchor3">8.</a>&nbsp;
+<a href="#anchor4">8.</a>&nbsp;
 IANA Considerations<br />
-<a href="#rfc.references1">9.</a>&nbsp;
+<a href="#anchor5">9.</a>&nbsp;
+Acknowledgements<br />
+<a href="#rfc.references1">10.</a>&nbsp;
 References<br />
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="#rfc.references1">9.1.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#rfc.references1">10.1.</a>&nbsp;
 Normative References<br />
-&nbsp;&nbsp;&nbsp;&nbsp;<a href="#rfc.references2">9.2.</a>&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#rfc.references2">10.2.</a>&nbsp;
 Informative References<br />
 <a href="#rfc.authors">&#167;</a>&nbsp;
 Authors' Addresses<br />
@@ -264,25 +268,56 @@ Terminology</h3>
 Metrics</h3>
 
 <p><a class='info' href='#RFC5166'>[RFC5166]<span> (</span><span class='info'>Floyd, S., &ldquo;Metrics for the Evaluation of Congestion Control Mechanisms,&rdquo; March&nbsp;2008.</span><span>)</span></a> describes the basic metrics for
-            congestion control. Section 2.1 of that document discusses the
+            congestion control. Metrics that are important to interactive
+            multimedia are:
+            </p>
+<ul class="text">
+<li>Delay
+</li>
+<li>Throughput
+</li>
+<li>Users' quality of experience
+</li>
+<li>Minimizing oscillations in encoding rate
+</li>
+<li>Reactivity to transient events
+</li>
+<li>Packet loss and discard rate
+</li>
+</ul><p>
+            
+            Section 2.1 of <a class='info' href='#RFC5166'>[RFC5166]<span> (</span><span class='info'>Floyd, S., &ldquo;Metrics for the Evaluation of Congestion Control Mechanisms,&rdquo; March&nbsp;2008.</span><span>)</span></a> discusses the
             tradeoff between throughput, delay and loss.
 </p>
 <p> </p>
-<ul class="text">
-<li>(i) Bandwidth Utilization
-                
 <blockquote class="text">
-<p>under-utilization
+<p>(i) Bandwidth Utilization: is the ratio of the encoding 
+                rate to the (available) end-to-end network capacity. 
+                </p>
+<ul class="text">
+<li>Under-utilization: is the period of time when the
+                    endpoint's encoding rate is lower than the end-to-end
+                    capacity, i.e., the bandwidth utilization is less than
+                    1.
+</li>
+<li>Overuse: is the period of time when the endpoint's
+                    encoding rate is higher than the end-to-end capacity,
+                    i.e., the bandwidth utilization is greater than 1.
+</li>
+<li>Stability: is the period of time when the endpoint's
+                    encoding rate is relatively stable, i.e., the bandwidth
+                    utilization is constant.
+</li>
+</ul>
+                
+
+<p>(ii) Packet Loss and Discard Rate.
 </p>
-<p>overshooting
+<p>(iii) Quality
 </p>
-</blockquote>
-</li>
-<li>(ii) Packet Loss Rate
-</li>
-<li>(iii) Quality
-</li>
-</ul><p> 
+</blockquote><p> 
+            [TBD]
+            
 </p>
 <p>[Editor's Note: Should the algorithm also compare average
             PSNR of test video sequences?]
@@ -300,22 +335,27 @@ Guidelines</h3>
 <p></p>
 <ol class="text">
 <li>Avoiding Congestion Collapse: Does the congestion control
-            propose any changes to (or diverge from) the <a class='info' href='#I-D.ietf-avtcore-rtp-circuit-breakers'>circuit breaker
-            conditions<span> (</span><span class='info'>Perkins, C. and V. Singh, &ldquo;RTP Congestion Control: Circuit Breakers for Unicast Sessions,&rdquo; October&nbsp;2012.</span><span>)</span></a> [I&#8209;D.ietf&#8209;avtcore&#8209;rtp&#8209;circuit&#8209;breakers] for avoiding congestion collapse.
+            propose any changes to (or diverge from) the circuit breaker
+            conditions defined in <a class='info' href='#I-D.ietf-avtcore-rtp-circuit-breakers'>[I&#8209;D.ietf&#8209;avtcore&#8209;rtp&#8209;circuit&#8209;breakers]<span> (</span><span class='info'>Perkins, C. and V. Singh, &ldquo;RTP Congestion Control: Circuit Breakers for Unicast Sessions,&rdquo; October&nbsp;2012.</span><span>)</span></a>.
 </li>
-<li>Stability: changing the media encoding rate too often or by
-            too much may adversely affect the users' quality of
-            experience.
+<li>Stability: The congestion control should be assessed for its
+            stability when the path characteristics do not change over
+            time. Changing the media encoding rate too often or by too much
+            may adversely affect the users' quality of experience.
 </li>
 <li>Diverse environments: The congestion control algorithm
             should be assessed in heterogeneous environments, containing
-            both wired and wireless paths. Examples of wireless
+            both wired and wireless paths. Examples of wireless access
             technologies are: 802.11x, HSPA, WCDMA, or GPRS. One of the
             main challenges of the wireless environments is the inability
             to distinguish congestion induced loss from transmission
-            (bit-error) loss. Furthermore, packet loss may induce
-            additional delay in networks with wireless paths due to
-            link-layer retransmissions.
+            (bit-error) loss. Congestion control algorithms may incorrectly
+            identify transmission loss as congestion loss and reduce the
+            media encoding rate too much, which may cause oscillatory
+            behavior and deteriorate the users' quality of experience.
+            Furthermore, packet loss may induce additional delay in
+            networks with wireless paths due to link-layer
+            retransmissions.
 </li>
 <li>Varying path characteristics: The congestion control
             algorithm should be evaluated for a range of path
@@ -324,17 +364,18 @@ Guidelines</h3>
             and a router's queue length. [Editor's Note: Different types of
             queueing mechanisms? Random Early Detection or only DropTail?].
             The main motivation for the previous and current criteria is to
-            figure out under what circumstances will the congestion control
-            algorithm break down and in which environments it may be safe
-            to deploy.
+            figure out under what circumstances will the proposed
+            congestion control algorithm break down and in which
+            environments it may be safe to deploy.
 </li>
 <li>Reacting to transient events or interruptions: The
             congestion control algorithm should be able to handle changes
-            in end-to-end latency due to route updates, link failures,
-            handovers etc. In mobile environment the end-to-end capacity
-            may vary due to the interference, fading, handovers, etc. In
-            wired networks the end-to-end capacity may vary due to changes
-            in resource reservation.
+            in end-to-end capacity and latency. Latency may change due to
+            route updates, link failures, handovers etc. In mobile
+            environment the end-to-end capacity may vary due to the
+            interference, fading, handovers, etc. In wired networks the
+            end-to-end capacity may vary due to changes in resource
+            reservation.
 </li>
 <li>Fairness with similar cross-traffic: The congestion control
             algorithm should be evaluated when competing with other RTP
@@ -346,11 +387,10 @@ Guidelines</h3>
             should be evaluated when competing with standard TCP. Short TCP
             flows may be considered as transient events and the RTP flow
             may give way to the short TCP flow to complete quickly.
-            However, long TCP flows (also known as elephant flows) may
-            starve out the RTP flow depending on router queue length. In
-            the latter case the proposed congestion control for RTP should
-            be as aggressive as <a class='info' href='#RFC5681'>standard
-            TCP<span> (</span><span class='info'>Allman, M., Paxson, V., and E. Blanton, &ldquo;TCP Congestion Control,&rdquo; September&nbsp;2009.</span><span>)</span></a> [RFC5681].
+            However, long-lived TCP flows may starve out the RTP flow
+            depending on router queue length. In the latter case the
+            proposed congestion control for RTP should be as aggressive as
+            <a class='info' href='#RFC5681'>standard TCP<span> (</span><span class='info'>Allman, M., Paxson, V., and E. Blanton, &ldquo;TCP Congestion Control,&rdquo; September&nbsp;2009.</span><span>)</span></a> [RFC5681].
 </li>
 <li>Extensions to RTP/RTCP: The congestion control algorithm
             should indicate if any protocol extensions are required to
@@ -358,29 +398,55 @@ Guidelines</h3>
             extension.
 </li>
 </ol><p> 
+            
+</p>
+<a name="anchor2"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4.1"></a><h3>4.1.&nbsp;
+Minimum Requirements for Evaluation</h3>
+
+<p>[Editor's Note: The minimum set should be based on the
+                above set of guidelines]
 </p>
 <a name="cc-scenario"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.5"></a><h3>5.&nbsp;
 Example Evaluation Scenarios</h3>
 
+<p>In the scenarios listed below, all RTP flows are
+            bi-directional and point-to-point.
+</p>
 <p></p>
 <ul class="text">
-<li>Single RTP flow on a fixed link: This scenario evaluates the
+<li>RTP flow on a fixed link: This scenario evaluates the
             ramp-up to the bottleneck capacity and the stability of the
             proposed congestion control algorithm.
 </li>
-<li>Single RTP flow on a variable capacity link: This scenario
-            evaluates the response of the proposed congestion control
-            algorithm to transient network events or due to interference
-            and handovers in mobile environments.
+<li>RTP flow on a variable capacity link: This scenario
+            evaluates the reactivity of the proposed congestion control
+            algorithm to transient network events due to interference and
+            handovers in mobile environments. Sample 3G bandwidth traces
+            are available at <a class='info' href='#3GPP.R1.081955'>[3GPP.R1.081955]<span> (</span><span class='info'>R1-081955, 3GPP., &ldquo;LTE Link Level Throughput Data for SA4 Evaluation Framework,&rdquo; 5&nbsp;2008.</span><span>)</span></a>.
 </li>
 <li>Fairness to RTP flows running the same congestion control
-            algorithm: Depending on the levels of 
+            algorithm: This scenario shows if the proposed algorithm can
+            share the bottleneck link equitably, irrespective of number of
+            flows.
 </li>
-<li>Competing with short TCP flows: 
+<li>Competing with long-lived TCP flows: In this scenario the
+            proposed algorithm is expected to be TCP-friendly, i.e., it
+            should neither starve out the competing TCP flows (causing a
+            congestion collapse) nor should it be starved out by TCP.
 </li>
-<li>Competing with long TCP flows: 
+<li>Competing with short TCP flows: Depending on the level of
+            statistical multiplexing on the bottleneck link, the proposed
+            algorithm may behave differently. If there are a few short TCP
+            flows then the proposed algorithm may observe these flows as
+            transient events and let them complete quickly. Alternatively,
+            if there are many short flows then the proposed algorithm may
+            have to compete with the flows as if they were long lived TCP
+            flows. [Editor's Note: many and few short TCP flows may depend
+            on the bottleneck link capacity.]
 </li>
 </ul><p> 
 </p>
@@ -399,7 +465,7 @@ Status of Proposals</h3>
             possible that an algorithm is not recommended for certain
             environments or perform sub-optimally for the user.
 </p>
-<p>[Editors Note: Should there be a distinction between
+<p>[Editor's Note: Should there be a distinction between
             "Informational" and "Experimental" drafts for congestion
             control algorithms in RMCAT. <a class='info' href='#RFC5033'>[RFC5033]<span> (</span><span class='info'>Floyd, S. and M. Allman, &ldquo;Specifying New Congestion Control Algorithms,&rdquo; August&nbsp;2007.</span><span>)</span></a>
             describes Informational proposals as algorithms that are not
@@ -408,7 +474,7 @@ Status of Proposals</h3>
             that are deemed safe in some environments but require a more
             thorough evaluation (from the community).]
 </p>
-<a name="anchor2"></a><br /><hr />
+<a name="anchor3"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.7"></a><h3>7.&nbsp;
 Security Considerations</h3>
@@ -417,21 +483,29 @@ Security Considerations</h3>
             However, sending more media data than the available end-to-end
             capacity may cause a congestion collapse.
 </p>
-<a name="anchor3"></a><br /><hr />
+<a name="anchor4"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.8"></a><h3>8.&nbsp;
 IANA Considerations</h3>
 
 <p>There are no IANA impacts in this memo.
 </p>
-<a name="rfc.references"></a><br /><hr />
+<a name="anchor5"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
 <a name="rfc.section.9"></a><h3>9.&nbsp;
+Acknowledgements</h3>
+
+<p> Much of this document is derived from previous work on
+          congestion control at the IETF.
+</p>
+<a name="rfc.references"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.10"></a><h3>10.&nbsp;
 References</h3>
 
 <a name="rfc.references1"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
-<h3>9.1.&nbsp;Normative References</h3>
+<h3>10.1.&nbsp;Normative References</h3>
 <table width="99%" border="0">
 <tr><td class="author-text" valign="top"><a name="RFC3550">[RFC3550]</a></td>
 <td class="author-text">Schulzrinne, H., Casner, S., Frederick, R., and V. Jacobson, &ldquo;<a href="http://tools.ietf.org/html/rfc3550">RTP: A Transport Protocol for Real-Time Applications</a>,&rdquo; STD&nbsp;64, RFC&nbsp;3550, July&nbsp;2003 (<a href="http://www.rfc-editor.org/rfc/rfc3550.txt">TXT</a>, <a href="http://www.rfc-editor.org/rfc/rfc3550.ps">PS</a>, <a href="http://www.rfc-editor.org/rfc/rfc3550.pdf">PDF</a>).</td></tr>
@@ -451,7 +525,7 @@ References</h3>
 
 <a name="rfc.references2"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
-<h3>9.2.&nbsp;Informative References</h3>
+<h3>10.2.&nbsp;Informative References</h3>
 <table width="99%" border="0">
 <tr><td class="author-text" valign="top"><a name="RFC5033">[RFC5033]</a></td>
 <td class="author-text">Floyd, S. and M. Allman, &ldquo;<a href="http://tools.ietf.org/html/rfc5033">Specifying New Congestion Control Algorithms</a>,&rdquo; BCP&nbsp;133, RFC&nbsp;5033, August&nbsp;2007 (<a href="http://www.rfc-editor.org/rfc/rfc5033.txt">TXT</a>).</td></tr>
@@ -459,6 +533,8 @@ References</h3>
 <td class="author-text">Floyd, S., &ldquo;<a href="http://tools.ietf.org/html/rfc5166">Metrics for the Evaluation of Congestion Control Mechanisms</a>,&rdquo; RFC&nbsp;5166, March&nbsp;2008 (<a href="http://www.rfc-editor.org/rfc/rfc5166.txt">TXT</a>).</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC5681">[RFC5681]</a></td>
 <td class="author-text">Allman, M., Paxson, V., and E. Blanton, &ldquo;<a href="http://tools.ietf.org/html/rfc5681">TCP Congestion Control</a>,&rdquo; RFC&nbsp;5681, September&nbsp;2009 (<a href="http://www.rfc-editor.org/rfc/rfc5681.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="3GPP.R1.081955">[3GPP.R1.081955]</a></td>
+<td class="author-text">R1-081955, 3GPP., &ldquo;<a href="http://www.3gpp.net/ftp/tsg_ran/WG1_RL1/TSGR1_53/Docs/R1-081955.zip">LTE Link Level Throughput Data for SA4 Evaluation Framework</a>,&rdquo; 3GPP&nbsp;R1-081955, 5&nbsp;2008.</td></tr>
 </table>
 
 <a name="rfc.authors"></a><br /><hr />

@@ -63,16 +63,16 @@ Table of Contents
    2.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . . . 3
    3.  Metrics . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
    4.  Guidelines  . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+     4.1.  Minimum Requirements for Evaluation . . . . . . . . . . . . 5
    5.  Example Evaluation Scenarios  . . . . . . . . . . . . . . . . . 5
-   6.  Status of Proposals . . . . . . . . . . . . . . . . . . . . . . 5
-   7.  Security Considerations . . . . . . . . . . . . . . . . . . . . 5
+   6.  Status of Proposals . . . . . . . . . . . . . . . . . . . . . . 6
+   7.  Security Considerations . . . . . . . . . . . . . . . . . . . . 6
    8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . . . 6
-   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . . . 6
-     9.1.  Normative References  . . . . . . . . . . . . . . . . . . . 6
-     9.2.  Informative References  . . . . . . . . . . . . . . . . . . 6
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . . . 7
-
-
+   9.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . 7
+   10. References  . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+     10.1. Normative References  . . . . . . . . . . . . . . . . . . . 7
+     10.2. Informative References  . . . . . . . . . . . . . . . . . . 7
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . . . 8
 
 
 
@@ -151,16 +151,16 @@ Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
 3.  Metrics
 
    [RFC5166] describes the basic metrics for congestion control.
-   Section 2.1 of that document discusses the tradeoff between
-   throughput, delay and loss.
+   Metrics that are important to interactive multimedia are:
+   o  Delay
+   o  Throughput
+   o  Users' quality of experience
+   o  Minimizing oscillations in encoding rate
+   o  Reactivity to transient events
+   o  Packet loss and discard rate
+   Section 2.1 of [RFC5166] discusses the tradeoff between throughput,
+   delay and loss.
 
-   o  (i) Bandwidth Utilization
-         under-utilization
-         overshooting
-   o  (ii) Packet Loss Rate
-   o  (iii) Quality
-
-   [Editor's Note: Should the algorithm also compare average PSNR of
 
 
 
@@ -169,6 +169,22 @@ Singh & Ott              Expires April 18, 2013                 [Page 3]
 Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
 
 
+      (i) Bandwidth Utilization: is the ratio of the encoding rate to
+      the (available) end-to-end network capacity.
+      *  Under-utilization: is the period of time when the endpoint's
+         encoding rate is lower than the end-to-end capacity, i.e., the
+         bandwidth utilization is less than 1.
+      *  Overuse: is the period of time when the endpoint's encoding
+         rate is higher than the end-to-end capacity, i.e., the
+         bandwidth utilization is greater than 1.
+      *  Stability: is the period of time when the endpoint's encoding
+         rate is relatively stable, i.e., the bandwidth utilization is
+         constant.
+      (ii) Packet Loss and Discard Rate.
+      (iii) Quality
+   [TBD]
+
+   [Editor's Note: Should the algorithm also compare average PSNR of
    test video sequences?]
 
 
@@ -181,42 +197,26 @@ Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
 
    1.  Avoiding Congestion Collapse: Does the congestion control propose
        any changes to (or diverge from) the circuit breaker conditions
-       [I-D.ietf-avtcore-rtp-circuit-breakers] for avoiding congestion
-       collapse.
-   2.  Stability: changing the media encoding rate too often or by too
-       much may adversely affect the users' quality of experience.
+       defined in [I-D.ietf-avtcore-rtp-circuit-breakers].
+   2.  Stability: The congestion control should be assessed for its
+       stability when the path characteristics do not change over time.
+       Changing the media encoding rate too often or by too much may
+       adversely affect the users' quality of experience.
    3.  Diverse environments: The congestion control algorithm should be
        assessed in heterogeneous environments, containing both wired and
-       wireless paths.  Examples of wireless technologies are: 802.11x,
-       HSPA, WCDMA, or GPRS.  One of the main challenges of the wireless
-       environments is the inability to distinguish congestion induced
-       loss from transmission (bit-error) loss.  Furthermore, packet
-       loss may induce additional delay in networks with wireless paths
-       due to link-layer retransmissions.
+       wireless paths.  Examples of wireless access technologies are:
+       802.11x, HSPA, WCDMA, or GPRS.  One of the main challenges of the
+       wireless environments is the inability to distinguish congestion
+       induced loss from transmission (bit-error) loss.  Congestion
+       control algorithms may incorrectly identify transmission loss as
+       congestion loss and reduce the media encoding rate too much,
+       which may cause oscillatory behavior and deteriorate the users'
+       quality of experience.  Furthermore, packet loss may induce
+       additional delay in networks with wireless paths due to link-
+       layer retransmissions.
    4.  Varying path characteristics: The congestion control algorithm
        should be evaluated for a range of path characteristics such as,
        different end-to-end capacity and latency, varying amount of
-       cross traffic on a bottle-neck link and a router's queue length.
-       [Editor's Note: Different types of queueing mechanisms?  Random
-       Early Detection or only DropTail?].  The main motivation for the
-       previous and current criteria is to figure out under what
-       circumstances will the congestion control algorithm break down
-       and in which environments it may be safe to deploy.
-   5.  Reacting to transient events or interruptions: The congestion
-       control algorithm should be able to handle changes in end-to-end
-       latency due to route updates, link failures, handovers etc.  In
-       mobile environment the end-to-end capacity may vary due to the
-       interference, fading, handovers, etc.  In wired networks the end-
-       to-end capacity may vary due to changes in resource reservation.
-   6.  Fairness with similar cross-traffic: The congestion control
-       algorithm should be evaluated when competing with other RTP flows
-       using the same congestion control algorithm.  The proposal should
-       highlight the bottleneck capacity share of each RTP flow.
-   7.  Impact on cross-traffic: The congestion control algorithm should
-       be evaluated when competing with standard TCP.  Short TCP flows
-       may be considered as transient events and the RTP flow may give
-       way to the short TCP flow to complete quickly.  However, long TCP
-       flows (also known as elephant flows) may starve out the RTP flow
 
 
 
@@ -225,27 +225,78 @@ Singh & Ott              Expires April 18, 2013                 [Page 4]
 Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
 
 
-       depending on router queue length.  In the latter case the
-       proposed congestion control for RTP should be as aggressive as
-       standard TCP [RFC5681].
+       cross traffic on a bottle-neck link and a router's queue length.
+       [Editor's Note: Different types of queueing mechanisms?  Random
+       Early Detection or only DropTail?].  The main motivation for the
+       previous and current criteria is to figure out under what
+       circumstances will the proposed congestion control algorithm
+       break down and in which environments it may be safe to deploy.
+   5.  Reacting to transient events or interruptions: The congestion
+       control algorithm should be able to handle changes in end-to-end
+       capacity and latency.  Latency may change due to route updates,
+       link failures, handovers etc.  In mobile environment the end-to-
+       end capacity may vary due to the interference, fading, handovers,
+       etc.  In wired networks the end-to-end capacity may vary due to
+       changes in resource reservation.
+   6.  Fairness with similar cross-traffic: The congestion control
+       algorithm should be evaluated when competing with other RTP flows
+       using the same congestion control algorithm.  The proposal should
+       highlight the bottleneck capacity share of each RTP flow.
+   7.  Impact on cross-traffic: The congestion control algorithm should
+       be evaluated when competing with standard TCP.  Short TCP flows
+       may be considered as transient events and the RTP flow may give
+       way to the short TCP flow to complete quickly.  However, long-
+       lived TCP flows may starve out the RTP flow depending on router
+       queue length.  In the latter case the proposed congestion control
+       for RTP should be as aggressive as standard TCP [RFC5681].
    8.  Extensions to RTP/RTCP: The congestion control algorithm should
        indicate if any protocol extensions are required to implement it
        and should carefully describe the impact of the extension.
 
+4.1.  Minimum Requirements for Evaluation
+
+   [Editor's Note: The minimum set should be based on the above set of
+   guidelines]
+
 
 5.  Example Evaluation Scenarios
 
-   o  Single RTP flow on a fixed link: This scenario evaluates the
-      ramp-up to the bottleneck capacity and the stability of the
-      proposed congestion control algorithm.
-   o  Single RTP flow on a variable capacity link: This scenario
-      evaluates the response of the proposed congestion control
-      algorithm to transient network events or due to interference and
-      handovers in mobile environments.
+   In the scenarios listed below, all RTP flows are bi-directional and
+   point-to-point.
+
+   o  RTP flow on a fixed link: This scenario evaluates the ramp-up to
+      the bottleneck capacity and the stability of the proposed
+      congestion control algorithm.
+   o  RTP flow on a variable capacity link: This scenario evaluates the
+      reactivity of the proposed congestion control algorithm to
+      transient network events due to interference and handovers in
+      mobile environments.  Sample 3G bandwidth traces are available at
+      [3GPP.R1.081955].
+
+
+
+
+Singh & Ott              Expires April 18, 2013                 [Page 5]
+
+Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
+
+
    o  Fairness to RTP flows running the same congestion control
-      algorithm: Depending on the levels of
-   o  Competing with short TCP flows:
-   o  Competing with long TCP flows:
+      algorithm: This scenario shows if the proposed algorithm can share
+      the bottleneck link equitably, irrespective of number of flows.
+   o  Competing with long-lived TCP flows: In this scenario the proposed
+      algorithm is expected to be TCP-friendly, i.e., it should neither
+      starve out the competing TCP flows (causing a congestion collapse)
+      nor should it be starved out by TCP.
+   o  Competing with short TCP flows: Depending on the level of
+      statistical multiplexing on the bottleneck link, the proposed
+      algorithm may behave differently.  If there are a few short TCP
+      flows then the proposed algorithm may observe these flows as
+      transient events and let them complete quickly.  Alternatively, if
+      there are many short flows then the proposed algorithm may have to
+      compete with the flows as if they were long lived TCP flows.
+      [Editor's Note: many and few short TCP flows may depend on the
+      bottleneck link capacity.]
 
 
 6.  Status of Proposals
@@ -259,7 +310,7 @@ Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
    safe to deploy.  It is possible that an algorithm is not recommended
    for certain environments or perform sub-optimally for the user.
 
-   [Editors Note: Should there be a distinction between "Informational"
+   [Editor's Note: Should there be a distinction between "Informational"
    and "Experimental" drafts for congestion control algorithms in RMCAT.
    [RFC5033] describes Informational proposals as algorithms that are
    not safe for deployment but are proposals to experiment with in
@@ -275,20 +326,26 @@ Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
    cause a congestion collapse.
 
 
-
-Singh & Ott              Expires April 18, 2013                 [Page 5]
-
-Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
-
-
 8.  IANA Considerations
 
    There are no IANA impacts in this memo.
 
 
-9.  References
 
-9.1.  Normative References
+Singh & Ott              Expires April 18, 2013                 [Page 6]
+
+Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
+
+
+9.  Acknowledgements
+
+   Much of this document is derived from previous work on congestion
+   control at the IETF.
+
+
+10.  References
+
+10.1.  Normative References
 
    [RFC3550]  Schulzrinne, H., Casner, S., Frederick, R., and V.
               Jacobson, "RTP: A Transport Protocol for Real-Time
@@ -323,24 +380,28 @@ Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
               draft-ietf-avtcore-rtp-circuit-breakers-00 (work in
               progress), October 2012.
 
-9.2.  Informative References
+10.2.  Informative References
 
    [RFC5033]  Floyd, S. and M. Allman, "Specifying New Congestion
               Control Algorithms", BCP 133, RFC 5033, August 2007.
 
-   [RFC5166]  Floyd, S., "Metrics for the Evaluation of Congestion
 
 
 
-Singh & Ott              Expires April 18, 2013                 [Page 6]
+Singh & Ott              Expires April 18, 2013                 [Page 7]
 
 Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
 
 
+   [RFC5166]  Floyd, S., "Metrics for the Evaluation of Congestion
               Control Mechanisms", RFC 5166, March 2008.
 
    [RFC5681]  Allman, M., Paxson, V., and E. Blanton, "TCP Congestion
               Control", RFC 5681, September 2009.
+
+   [3GPP.R1.081955]
+              R1-081955, 3GPP., "LTE Link Level Throughput Data for SA4
+              Evaluation Framework", 3GPP R1-081955, 5 2008.
 
 
 Authors' Addresses
@@ -383,10 +444,5 @@ Authors' Addresses
 
 
 
-
-
-
-
-
-Singh & Ott              Expires April 18, 2013                 [Page 7]
+Singh & Ott              Expires April 18, 2013                 [Page 8]
 
