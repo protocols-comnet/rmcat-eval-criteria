@@ -15,6 +15,8 @@
 "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-avtcore-rtp-circuit-breakers.xml">
 <!ENTITY I-D.ietf-ledbat-congestion PUBLIC "" 
 "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-ledbat-congestion.xml">
+<!ENTITY I-D.ietf-xrblock-rtcp-xr-qoe PUBLIC "" 
+"http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-xrblock-rtcp-xr-qoe.xml">
 ]>
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 <?rfc toc="yes" ?>
@@ -128,11 +130,11 @@
                     <t>Users' quality of experience</t>
                 </list></t>
                 <t></t>
-                <t>[Editor's Note: measurement interval are yet to be
+                <t>[Editor's Note: measurement interval and statistical
+                measures (min, max, mean, median) are yet to be
                 specified.]</t>
-            </list>
-            
-            Section 2.1 of <xref target="RFC5166" /> discusses the
+            </list></t>
+            <t> Section 2.1 of <xref target="RFC5166" /> discusses the
             tradeoff between throughput, delay and loss.</t>
             
             <t> <list style="empty">
@@ -152,19 +154,33 @@
                     encoding rate is relatively stable, i.e., the bandwidth
                     utilization is constant.</t>
                 </list></t>
+                <t></t>
+                
                 <t>(ii) Packet Loss and Discard Rate.</t>
-                <t>(iii) Fair Share. [Editor's Note: This metric should
-                match the one defined in the <xref
-                target="I-D.jesup-rtp-congestion-reqs">RMCAT
+                <t></t>
+                
+                <t>(iii) Fair Share. </t>
+                <t>[Editor's Note: This metric should match the one defined
+                in the <xref target="I-D.jesup-rtp-congestion-reqs">RMCAT
                 requirements</xref> document.]</t>
+                <t></t>
+                
                 <t>(iv) Quality: There are many different types of quality
-                metrics based on MOS for audio, PSNR for video.</t>
-            </list> 
-            [TBD]
+                metrics for audio and video. Audio quality is often
+                expressed by a MOS ("Mean Opinion Score") and can be
+                calculated using an objective algorithm <xref
+                target="I-D.ietf-xrblock-rtcp-xr-qoe" />. Section 4.7 of
+                <xref target="RFC3611" /> can also be used for VoIP
+                metrics. Similarly, there exist several metrics to measure
+                video quality, for example Peak Signal to Noise Ratio
+                (PSNR). </t>
+                <t>[Editor's Note: Should the algorithm compare average
+                PSNR of test video sequences or what other video quality
+                metric can be used?]</t>
+            </list>
             </t>
 
-            <t>[Editor's Note: Should the algorithm also compare average
-            PSNR of test video sequences?]</t>
+
         </section>
         
         <!--
@@ -254,12 +270,11 @@
             </section>
             
         </section>
-
-        <section title="Minimum Requirements for Evaluation">
-            <t>[Editor's Note: The minimum set should be based on the
-            above set of guidelines]</t>
-        </section>
         
+        <section title="Minimum Requirements for Evaluation">
+            <t>[Editor's Note: If needed, a minimum evaluation criteria can
+            be based on the above guidelines]</t>
+        </section>
         
         <section title="Example Evaluation Scenarios" anchor="cc-scenario">
             <t>In the scenarios listed below, all RTP flows are
@@ -357,6 +372,7 @@
         &rfc5033; <!-- CC Evaluation -->
         &rfc5166; <!-- CC Metrics -->
         &rfc5681; <!-- Standard TCP -->
+        &I-D.ietf-xrblock-rtcp-xr-qoe;
         <?rfc include="reference.3GPP.R1.081955"?>
     </back>
 </rfc>

@@ -64,12 +64,12 @@ Table of Contents
    3.  Metrics . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
    4.  Guidelines  . . . . . . . . . . . . . . . . . . . . . . . . . . 4
      4.1.  Avoiding Congestion Collapse  . . . . . . . . . . . . . . . 4
-     4.2.  Stability . . . . . . . . . . . . . . . . . . . . . . . . . 4
-     4.3.  Diverse Environments  . . . . . . . . . . . . . . . . . . . 4
+     4.2.  Stability . . . . . . . . . . . . . . . . . . . . . . . . . 5
+     4.3.  Diverse Environments  . . . . . . . . . . . . . . . . . . . 5
      4.4.  Varying Path Characteristics  . . . . . . . . . . . . . . . 5
      4.5.  Reacting to Transient Events or Interruptions . . . . . . . 5
      4.6.  Fairness With Similar Cross-Traffic . . . . . . . . . . . . 5
-     4.7.  Impact on Cross-Traffic . . . . . . . . . . . . . . . . . . 5
+     4.7.  Impact on Cross-Traffic . . . . . . . . . . . . . . . . . . 6
      4.8.  Extensions to RTP/RTCP  . . . . . . . . . . . . . . . . . . 6
    5.  Minimum Requirements for Evaluation . . . . . . . . . . . . . . 6
    6.  Example Evaluation Scenarios  . . . . . . . . . . . . . . . . . 6
@@ -77,10 +77,10 @@ Table of Contents
    8.  Security Considerations . . . . . . . . . . . . . . . . . . . . 7
    9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . . . 7
    10. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . 7
-   11. References  . . . . . . . . . . . . . . . . . . . . . . . . . . 7
-     11.1. Normative References  . . . . . . . . . . . . . . . . . . . 7
+   11. References  . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+     11.1. Normative References  . . . . . . . . . . . . . . . . . . . 8
      11.2. Informative References  . . . . . . . . . . . . . . . . . . 8
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . . . 8
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . . . 9
 
 
 
@@ -158,9 +158,9 @@ Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
       *  Packet loss and discard rate
       *  Users' quality of experience
 
-      [Editor's Note: measurement interval are yet to be specified.]
-   Section 2.1 of [RFC5166] discusses the tradeoff between throughput,
-   delay and loss.
+      [Editor's Note: measurement interval and statistical measures
+      (min, max, mean, median) are yet to be specified.]
+
 
 
 
@@ -168,6 +168,9 @@ Singh & Ott              Expires April 18, 2013                 [Page 3]
 
 Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
 
+
+   Section 2.1 of [RFC5166] discusses the tradeoff between throughput,
+   delay and loss.
 
       (i) Bandwidth Utilization: is the ratio of the encoding rate to
       the (available) end-to-end path capacity.
@@ -180,16 +183,22 @@ Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
       *  Stability: is the period of time when the endpoint's encoding
          rate is relatively stable, i.e., the bandwidth utilization is
          constant.
-      (ii) Packet Loss and Discard Rate.
-      (iii) Fair Share.  [Editor's Note: This metric should match the
-      one defined in the RMCAT requirements
-      [I-D.jesup-rtp-congestion-reqs] document.]
-      (iv) Quality: There are many different types of quality metrics
-      based on MOS for audio, PSNR for video.
-   [TBD]
 
-   [Editor's Note: Should the algorithm also compare average PSNR of
-   test video sequences?]
+      (ii) Packet Loss and Discard Rate.
+
+      (iii) Fair Share.
+      [Editor's Note: This metric should match the one defined in the
+      RMCAT requirements [I-D.jesup-rtp-congestion-reqs] document.]
+
+      (iv) Quality: There are many different types of quality metrics
+      for audio and video.  Audio quality is often expressed by a MOS
+      ("Mean Opinion Score") and can be calculated using an objective
+      algorithm [I-D.ietf-xrblock-rtcp-xr-qoe].  Section 4.7 of
+      [RFC3611] can also be used for VoIP metrics.  Similarly, there
+      exist several metrics to measure video quality, for example Peak
+      Signal to Noise Ratio (PSNR).
+      [Editor's Note: Should the algorithm compare average PSNR of test
+      video sequences or what other video quality metric can be used?]
 
 
 4.  Guidelines
@@ -205,6 +214,17 @@ Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
    the circuit breaker conditions defined in
    [I-D.ietf-avtcore-rtp-circuit-breakers].
 
+
+
+
+
+
+
+Singh & Ott              Expires April 18, 2013                 [Page 4]
+
+Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
+
+
 4.2.  Stability
 
    The congestion control should be assessed for its stability when the
@@ -217,14 +237,6 @@ Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
    The congestion control algorithm should be assessed in heterogeneous
    environments, containing both wired and wireless paths.  Examples of
    wireless access technologies are: 802.11x, HSPA, WCDMA, or GPRS.  One
-
-
-
-Singh & Ott              Expires April 18, 2013                 [Page 4]
-
-Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
-
-
    of the main challenges of the wireless environments is the inability
    to distinguish congestion induced loss from transmission (bit-error)
    loss.  Congestion control algorithms may incorrectly identify
@@ -262,6 +274,13 @@ Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
    The proposal should highlight the bottleneck capacity share of each
    RTP flow.
 
+
+
+Singh & Ott              Expires April 18, 2013                 [Page 5]
+
+Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
+
+
 4.7.  Impact on Cross-Traffic
 
    The congestion control algorithm should be evaluated when competing
@@ -272,15 +291,6 @@ Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
    proposed congestion control for RTP should be as aggressive as
    standard TCP [RFC5681].
 
-
-
-
-
-Singh & Ott              Expires April 18, 2013                 [Page 5]
-
-Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
-
-
 4.8.  Extensions to RTP/RTCP
 
    The congestion control algorithm should indicate if any protocol
@@ -290,8 +300,8 @@ Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
 
 5.  Minimum Requirements for Evaluation
 
-   [Editor's Note: The minimum set should be based on the above set of
-   guidelines]
+   [Editor's Note: If needed, a minimum evaluation criteria can be based
+   on the above guidelines]
 
 
 6.  Example Evaluation Scenarios
@@ -318,6 +328,16 @@ Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
       neither starve out the competing TCP flows (causing a congestion
       collapse) nor should it be starved out by TCP.
 
+
+
+
+
+Singh & Ott              Expires April 18, 2013                 [Page 6]
+
+Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
+
+
+
       [S5] Competing with short TCP flows: Depending on the level of
       statistical multiplexing on the bottleneck link, the proposed
       algorithm may behave differently.  If there are a few short TCP
@@ -327,14 +347,6 @@ Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
       compete with the flows as if they were long lived TCP flows.
       [Editor's Note: many and few short TCP flows may depend on the
       bottleneck link capacity.]
-
-
-
-
-
-Singh & Ott              Expires April 18, 2013                 [Page 6]
-
-Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
 
 
 7.  Status of Proposals
@@ -373,6 +385,14 @@ Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
    control at the IETF.
 
 
+
+
+
+Singh & Ott              Expires April 18, 2013                 [Page 7]
+
+Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
+
+
 11.  References
 
 11.1.  Normative References
@@ -384,14 +404,6 @@ Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
    [RFC3551]  Schulzrinne, H. and S. Casner, "RTP Profile for Audio and
               Video Conferences with Minimal Control", STD 65, RFC 3551,
               July 2003.
-
-
-
-
-Singh & Ott              Expires April 18, 2013                 [Page 7]
-
-Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
-
 
    [RFC3611]  Friedman, T., Caceres, R., and A. Clark, "RTP Control
               Protocol Extended Reports (RTCP XR)", RFC 3611,
@@ -429,24 +441,23 @@ Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
    [RFC5681]  Allman, M., Paxson, V., and E. Blanton, "TCP Congestion
               Control", RFC 5681, September 2009.
 
-   [3GPP.R1.081955]
-              R1-081955, 3GPP., "LTE Link Level Throughput Data for SA4
-              Evaluation Framework", 3GPP R1-081955, 5 2008.
-
-
-
-
-
-
-
-
-
 
 
 
 Singh & Ott              Expires April 18, 2013                 [Page 8]
 
 Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
+
+
+   [I-D.ietf-xrblock-rtcp-xr-qoe]
+              Hunt, G., Clark, A., Wu, W., Schott, R., and G. Zorn,
+              "RTCP XR Blocks for QoE Metric Reporting",
+              draft-ietf-xrblock-rtcp-xr-qoe-02 (work in progress),
+              July 2012.
+
+   [3GPP.R1.081955]
+              R1-081955, 3GPP., "LTE Link Level Throughput Data for SA4
+              Evaluation Framework", 3GPP R1-081955, 5 2008.
 
 
 Authors' Addresses
@@ -469,17 +480,6 @@ Authors' Addresses
    Finland
 
    Email: jo@comnet.tkk.fi
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -303,12 +303,13 @@ Metrics</h3>
 
 <p>
 </p>
-<p>[Editor's Note: measurement interval are yet to be
+<p>[Editor's Note: measurement interval and statistical
+                measures (min, max, mean, median) are yet to be
                 specified.]
 </p>
-</blockquote><p>
-            
-            Section 2.1 of <a class='info' href='#RFC5166'>[RFC5166]<span> (</span><span class='info'>Floyd, S., &ldquo;Metrics for the Evaluation of Congestion Control Mechanisms,&rdquo; March&nbsp;2008.</span><span>)</span></a> discusses the
+</blockquote>
+
+<p> Section 2.1 of <a class='info' href='#RFC5166'>[RFC5166]<span> (</span><span class='info'>Floyd, S., &ldquo;Metrics for the Evaluation of Congestion Control Mechanisms,&rdquo; March&nbsp;2008.</span><span>)</span></a> discusses the
             tradeoff between throughput, delay and loss.
 </p>
 <p> </p>
@@ -332,21 +333,35 @@ Metrics</h3>
 </li>
 </ul>
 
+<p>
+</p>
 <p>(ii) Packet Loss and Discard Rate.
 </p>
-<p>(iii) Fair Share. [Editor's Note: This metric should
-                match the one defined in the <a class='info' href='#I-D.jesup-rtp-congestion-reqs'>RMCAT
+<p>
+</p>
+<p>(iii) Fair Share. 
+</p>
+<p>[Editor's Note: This metric should match the one defined
+                in the <a class='info' href='#I-D.jesup-rtp-congestion-reqs'>RMCAT
                 requirements<span> (</span><span class='info'>Jesup, R. and H. Alvestrand, &ldquo;Congestion Control Requirements For Real Time Media,&rdquo; March&nbsp;2012.</span><span>)</span></a> [I&#8209;D.jesup&#8209;rtp&#8209;congestion&#8209;reqs] document.]
 </p>
+<p>
+</p>
 <p>(iv) Quality: There are many different types of quality
-                metrics based on MOS for audio, PSNR for video.
+                metrics for audio and video. Audio quality is often
+                expressed by a MOS ("Mean Opinion Score") and can be
+                calculated using an objective algorithm <a class='info' href='#I-D.ietf-xrblock-rtcp-xr-qoe'>[I&#8209;D.ietf&#8209;xrblock&#8209;rtcp&#8209;xr&#8209;qoe]<span> (</span><span class='info'>Hunt, G., Clark, A., Wu, W., Schott, R., and G. Zorn, &ldquo;RTCP XR Blocks for QoE Metric Reporting,&rdquo; July&nbsp;2012.</span><span>)</span></a>. Section 4.7 of
+                <a class='info' href='#RFC3611'>[RFC3611]<span> (</span><span class='info'>Friedman, T., Caceres, R., and A. Clark, &ldquo;RTP Control Protocol Extended Reports (RTCP XR),&rdquo; November&nbsp;2003.</span><span>)</span></a> can also be used for VoIP
+                metrics. Similarly, there exist several metrics to measure
+                video quality, for example Peak Signal to Noise Ratio
+                (PSNR). 
 </p>
-</blockquote><p> 
-            [TBD]
+<p>[Editor's Note: Should the algorithm compare average
+                PSNR of test video sequences or what other video quality
+                metric can be used?]
+</p>
+</blockquote><p>
             
-</p>
-<p>[Editor's Note: Should the algorithm also compare average
-            PSNR of test video sequences?]
 </p>
 <a name="cc-guidelines"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -460,8 +475,8 @@ Extensions to RTP/RTCP</h3>
 <a name="rfc.section.5"></a><h3>5.&nbsp;
 Minimum Requirements for Evaluation</h3>
 
-<p>[Editor's Note: The minimum set should be based on the
-            above set of guidelines]
+<p>[Editor's Note: If needed, a minimum evaluation criteria can
+            be based on the above guidelines]
 </p>
 <a name="cc-scenario"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -594,6 +609,8 @@ References</h3>
 <td class="author-text">Floyd, S., &ldquo;<a href="http://tools.ietf.org/html/rfc5166">Metrics for the Evaluation of Congestion Control Mechanisms</a>,&rdquo; RFC&nbsp;5166, March&nbsp;2008 (<a href="http://www.rfc-editor.org/rfc/rfc5166.txt">TXT</a>).</td></tr>
 <tr><td class="author-text" valign="top"><a name="RFC5681">[RFC5681]</a></td>
 <td class="author-text">Allman, M., Paxson, V., and E. Blanton, &ldquo;<a href="http://tools.ietf.org/html/rfc5681">TCP Congestion Control</a>,&rdquo; RFC&nbsp;5681, September&nbsp;2009 (<a href="http://www.rfc-editor.org/rfc/rfc5681.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="I-D.ietf-xrblock-rtcp-xr-qoe">[I-D.ietf-xrblock-rtcp-xr-qoe]</a></td>
+<td class="author-text">Hunt, G., Clark, A., Wu, W., Schott, R., and G. Zorn, &ldquo;<a href="http://tools.ietf.org/html/draft-ietf-xrblock-rtcp-xr-qoe-02">RTCP XR Blocks for QoE Metric Reporting</a>,&rdquo; draft-ietf-xrblock-rtcp-xr-qoe-02 (work in progress), July&nbsp;2012 (<a href="http://www.ietf.org/internet-drafts/draft-ietf-xrblock-rtcp-xr-qoe-02.txt">TXT</a>).</td></tr>
 <tr><td class="author-text" valign="top"><a name="3GPP.R1.081955">[3GPP.R1.081955]</a></td>
 <td class="author-text">R1-081955, 3GPP., &ldquo;<a href="http://www.3gpp.net/ftp/tsg_ran/WG1_RL1/TSGR1_53/Docs/R1-081955.zip">LTE Link Level Throughput Data for SA4 Evaluation Framework</a>,&rdquo; 3GPP&nbsp;R1-081955, 5&nbsp;2008.</td></tr>
 </table>
