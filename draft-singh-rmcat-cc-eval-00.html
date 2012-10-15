@@ -1,0 +1,498 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en"><head><title>Evaluating Congestion Control for Interactive Real-time Media.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="Evaluating Congestion Control for Interactive Real-time Media.">
+<meta name="keywords" content="RTP, RTCP, Congestion Control">
+<meta name="generator" content="xml2rfc v1.36 (http://xml.resource.org/)">
+<style type='text/css'><!--
+        body {
+                font-family: verdana, charcoal, helvetica, arial, sans-serif;
+                font-size: small; color: #000; background-color: #FFF;
+                margin: 2em;
+        }
+        h1, h2, h3, h4, h5, h6 {
+                font-family: helvetica, monaco, "MS Sans Serif", arial, sans-serif;
+                font-weight: bold; font-style: normal;
+        }
+        h1 { color: #900; background-color: transparent; text-align: right; }
+        h3 { color: #333; background-color: transparent; }
+
+        td.RFCbug {
+                font-size: x-small; text-decoration: none;
+                width: 30px; height: 30px; padding-top: 2px;
+                text-align: justify; vertical-align: middle;
+                background-color: #000;
+        }
+        td.RFCbug span.RFC {
+                font-family: monaco, charcoal, geneva, "MS Sans Serif", helvetica, verdana, sans-serif;
+                font-weight: bold; color: #666;
+        }
+        td.RFCbug span.hotText {
+                font-family: charcoal, monaco, geneva, "MS Sans Serif", helvetica, verdana, sans-serif;
+                font-weight: normal; text-align: center; color: #FFF;
+        }
+
+        table.TOCbug { width: 30px; height: 15px; }
+        td.TOCbug {
+                text-align: center; width: 30px; height: 15px;
+                color: #FFF; background-color: #900;
+        }
+        td.TOCbug a {
+                font-family: monaco, charcoal, geneva, "MS Sans Serif", helvetica, sans-serif;
+                font-weight: bold; font-size: x-small; text-decoration: none;
+                color: #FFF; background-color: transparent;
+        }
+
+        td.header {
+                font-family: arial, helvetica, sans-serif; font-size: x-small;
+                vertical-align: top; width: 33%;
+                color: #FFF; background-color: #666;
+        }
+        td.author { font-weight: bold; font-size: x-small; margin-left: 4em; }
+        td.author-text { font-size: x-small; }
+
+        /* info code from SantaKlauss at http://www.madaboutstyle.com/tooltip2.html */
+        a.info {
+                /* This is the key. */
+                position: relative;
+                z-index: 24;
+                text-decoration: none;
+        }
+        a.info:hover {
+                z-index: 25;
+                color: #FFF; background-color: #900;
+        }
+        a.info span { display: none; }
+        a.info:hover span.info {
+                /* The span will display just on :hover state. */
+                display: block;
+                position: absolute;
+                font-size: smaller;
+                top: 2em; left: -5em; width: 15em;
+                padding: 2px; border: 1px solid #333;
+                color: #900; background-color: #EEE;
+                text-align: left;
+        }
+
+        a { font-weight: bold; }
+        a:link    { color: #900; background-color: transparent; }
+        a:visited { color: #633; background-color: transparent; }
+        a:active  { color: #633; background-color: transparent; }
+
+        p { margin-left: 2em; margin-right: 2em; }
+        p.copyright { font-size: x-small; }
+        p.toc { font-size: small; font-weight: bold; margin-left: 3em; }
+        table.toc { margin: 0 0 0 3em; padding: 0; border: 0; vertical-align: text-top; }
+        td.toc { font-size: small; font-weight: bold; vertical-align: text-top; }
+
+        ol.text { margin-left: 2em; margin-right: 2em; }
+        ul.text { margin-left: 2em; margin-right: 2em; }
+        li      { margin-left: 3em; }
+
+        /* RFC-2629 <spanx>s and <artwork>s. */
+        em     { font-style: italic; }
+        strong { font-weight: bold; }
+        dfn    { font-weight: bold; font-style: normal; }
+        cite   { font-weight: normal; font-style: normal; }
+        tt     { color: #036; }
+        tt, pre, pre dfn, pre em, pre cite, pre span {
+                font-family: "Courier New", Courier, monospace; font-size: small;
+        }
+        pre {
+                text-align: left; padding: 4px;
+                color: #000; background-color: #CCC;
+        }
+        pre dfn  { color: #900; }
+        pre em   { color: #66F; background-color: #FFC; font-weight: normal; }
+        pre .key { color: #33C; font-weight: bold; }
+        pre .id  { color: #900; }
+        pre .str { color: #000; background-color: #CFF; }
+        pre .val { color: #066; }
+        pre .rep { color: #909; }
+        pre .oth { color: #000; background-color: #FCF; }
+        pre .err { background-color: #FCC; }
+
+        /* RFC-2629 <texttable>s. */
+        table.all, table.full, table.headers, table.none {
+                font-size: small; text-align: center; border-width: 2px;
+                vertical-align: top; border-collapse: collapse;
+        }
+        table.all, table.full { border-style: solid; border-color: black; }
+        table.headers, table.none { border-style: none; }
+        th {
+                font-weight: bold; border-color: black;
+                border-width: 2px 2px 3px 2px;
+        }
+        table.all th, table.full th { border-style: solid; }
+        table.headers th { border-style: none none solid none; }
+        table.none th { border-style: none; }
+        table.all td {
+                border-style: solid; border-color: #333;
+                border-width: 1px 2px;
+        }
+        table.full td, table.headers td, table.none td { border-style: none; }
+
+        hr { height: 1px; }
+        hr.insert {
+                width: 80%; border-style: none; border-width: 0;
+                color: #CCC; background-color: #CCC;
+        }
+--></style>
+</head>
+<body>
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<table summary="layout" width="66%" border="0" cellpadding="0" cellspacing="0"><tr><td><table summary="layout" width="100%" border="0" cellpadding="2" cellspacing="1">
+<tr><td class="header">RMCAT Working Group</td><td class="header">V. Singh</td></tr>
+<tr><td class="header">Internet-Draft</td><td class="header">J. Ott</td></tr>
+<tr><td class="header">Intended status: BCP</td><td class="header">Aalto University</td></tr>
+<tr><td class="header">Expires: April 18, 2013</td><td class="header">October 15, 2012</td></tr>
+</table></td></tr></table>
+<h1><br />Evaluating Congestion Control for Interactive Real-time Media.<br />draft-singh-rmcat-cc-eval-00.txt</h1>
+
+<h3>Abstract</h3>
+
+<p>The Real-time Transport Protocol (RTP) is used to transmit
+            media in telephony and video conferencing applications. This
+            document describes the guidelines to evaluate new congestion
+            control algorithms for interactive point-to-point real-time
+            media.
+</p>
+<h3>Status of this Memo</h3>
+<p>
+This Internet-Draft is submitted  in full
+conformance with the provisions of BCP&nbsp;78 and BCP&nbsp;79.</p>
+<p>
+Internet-Drafts are working documents of the Internet Engineering
+Task Force (IETF).  Note that other groups may also distribute
+working documents as Internet-Drafts.  The list of current
+Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
+<p>
+Internet-Drafts are draft documents valid for a maximum of six months
+and may be updated, replaced, or obsoleted by other documents at any time.
+It is inappropriate to use Internet-Drafts as reference material or to cite
+them other than as &ldquo;work in progress.&rdquo;</p>
+<p>
+This Internet-Draft will expire on April 18, 2013.</p>
+
+<h3>Copyright Notice</h3>
+<p>
+Copyright (c) 2012 IETF Trust and the persons identified as the
+document authors.  All rights reserved.</p>
+<p>
+This document is subject to BCP 78 and the IETF Trust's Legal
+Provisions Relating to IETF Documents
+(http://trustee.ietf.org/license-info) in effect on the date of
+publication of this document.  Please review these documents
+carefully, as they describe your rights and restrictions with respect
+to this document. Code Components extracted from this document must
+include Simplified BSD License text as described in Section 4.e of
+the Trust Legal Provisions and are provided without warranty as
+described in the Simplified BSD License.</p>
+<a name="toc"></a><br /><hr />
+<h3>Table of Contents</h3>
+<p class="toc">
+<a href="#anchor1">1.</a>&nbsp;
+Introduction<br />
+<a href="#sec-terminology">2.</a>&nbsp;
+Terminology<br />
+<a href="#cc-metrics">3.</a>&nbsp;
+Metrics<br />
+<a href="#cc-guidelines">4.</a>&nbsp;
+Guidelines<br />
+<a href="#cc-scenario">5.</a>&nbsp;
+Example Evaluation Scenarios<br />
+<a href="#cc-proposal">6.</a>&nbsp;
+Status of Proposals<br />
+<a href="#anchor2">7.</a>&nbsp;
+Security Considerations<br />
+<a href="#anchor3">8.</a>&nbsp;
+IANA Considerations<br />
+<a href="#rfc.references1">9.</a>&nbsp;
+References<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#rfc.references1">9.1.</a>&nbsp;
+Normative References<br />
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#rfc.references2">9.2.</a>&nbsp;
+Informative References<br />
+<a href="#rfc.authors">&#167;</a>&nbsp;
+Authors' Addresses<br />
+</p>
+<br clear="all" />
+
+<a name="anchor1"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.1"></a><h3>1.&nbsp;
+Introduction</h3>
+
+<p>This memo describes the guidelines to help with evaluating
+            new congestion control algorithms for interactive
+            point-to-point real time media. The requirements for the
+            congestion control algorithm are outlined in <a class='info' href='#I-D.jesup-rtp-congestion-reqs'>[I&#8209;D.jesup&#8209;rtp&#8209;congestion&#8209;reqs]<span> (</span><span class='info'>Jesup, R. and H. Alvestrand, &ldquo;Congestion Control Requirements For Real Time Media,&rdquo; March&nbsp;2012.</span><span>)</span></a>). This document
+            builds upon previous work at the IETF: <a class='info' href='#RFC5033'>Specifying New Congestion Control
+            Algorithms<span> (</span><span class='info'>Floyd, S. and M. Allman, &ldquo;Specifying New Congestion Control Algorithms,&rdquo; August&nbsp;2007.</span><span>)</span></a> [RFC5033] and <a class='info' href='#RFC5166'>Metrics for the
+            Evaluation of Congestion Control Algorithms<span> (</span><span class='info'>Floyd, S., &ldquo;Metrics for the Evaluation of Congestion Control Mechanisms,&rdquo; March&nbsp;2008.</span><span>)</span></a> [RFC5166].
+</p>
+<p>The guidelines proposed in the document are intended to
+            prevent a congestion collapse, promote fair capacity usage and
+            optimize the media flow's throughput, delay, loss and quality.
+            Furthermore, the proposed algorithms are expected to operate
+            within the envelope of the circuit breakers defined in <a class='info' href='#I-D.ietf-avtcore-rtp-circuit-breakers'>[I&#8209;D.ietf&#8209;avtcore&#8209;rtp&#8209;circuit&#8209;breakers]<span> (</span><span class='info'>Perkins, C. and V. Singh, &ldquo;RTP Congestion Control: Circuit Breakers for Unicast Sessions,&rdquo; October&nbsp;2012.</span><span>)</span></a>.
+</p>
+<p>This document only provides broad-level criteria for
+            evaluating a new congestion control algorithm and the working
+            group should expect a thorough scientific study to make its
+            decision. The results of the evaluation are not expected to be
+            included within the internet-draft but should be cited in the
+            document.
+</p>
+<a name="sec-terminology"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.2"></a><h3>2.&nbsp;
+Terminology</h3>
+
+<p>[Editor's Note: Should the document use RFC2119
+            language.]
+</p>
+<p> The terminology defined in <a class='info' href='#RFC3550'>RTP<span> (</span><span class='info'>Schulzrinne, H., Casner, S., Frederick, R., and V. Jacobson, &ldquo;RTP: A Transport Protocol for Real-Time Applications,&rdquo; July&nbsp;2003.</span><span>)</span></a> [RFC3550], <a class='info' href='#RFC3551'>RTP Profile
+            for Audio and Video Conferences with Minimal Control<span> (</span><span class='info'>Schulzrinne, H. and S. Casner, &ldquo;RTP Profile for Audio and Video Conferences with Minimal Control,&rdquo; July&nbsp;2003.</span><span>)</span></a> [RFC3551],
+            <a class='info' href='#RFC3611'>RTCP Extended Report (XR)<span> (</span><span class='info'>Friedman, T., Caceres, R., and A. Clark, &ldquo;RTP Control Protocol Extended Reports (RTCP XR),&rdquo; November&nbsp;2003.</span><span>)</span></a> [RFC3611], <a class='info' href='#RFC4585'>Extended RTP Profile for RTCP-based Feedback
+            (RTP/AVPF)<span> (</span><span class='info'>Ott, J., Wenger, S., Sato, N., Burmeister, C., and J. Rey, &ldquo;Extended RTP Profile for Real-time Transport Control Protocol (RTCP)-Based Feedback (RTP/AVPF),&rdquo; July&nbsp;2006.</span><span>)</span></a> [RFC4585] and <a class='info' href='#RFC5506'>Support for
+            Reduced-Size RTCP<span> (</span><span class='info'>Johansson, I. and M. Westerlund, &ldquo;Support for Reduced-Size Real-Time Transport Control Protocol (RTCP): Opportunities and Consequences,&rdquo; April&nbsp;2009.</span><span>)</span></a> [RFC5506] apply.
+</p>
+<a name="cc-metrics"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.3"></a><h3>3.&nbsp;
+Metrics</h3>
+
+<p><a class='info' href='#RFC5166'>[RFC5166]<span> (</span><span class='info'>Floyd, S., &ldquo;Metrics for the Evaluation of Congestion Control Mechanisms,&rdquo; March&nbsp;2008.</span><span>)</span></a> describes the basic metrics for
+            congestion control. Section 2.1 of that document discusses the
+            tradeoff between throughput, delay and loss.
+</p>
+<p> </p>
+<ul class="text">
+<li>(i) Bandwidth Utilization
+                
+<blockquote class="text">
+<p>under-utilization
+</p>
+<p>overshooting
+</p>
+</blockquote>
+</li>
+<li>(ii) Packet Loss Rate
+</li>
+<li>(iii) Quality
+</li>
+</ul><p> 
+</p>
+<p>[Editor's Note: Should the algorithm also compare average
+            PSNR of test video sequences?]
+</p>
+<a name="cc-guidelines"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.4"></a><h3>4.&nbsp;
+Guidelines</h3>
+
+<p>A congestion control algorithm should be tested in
+            simulation or a testbed environment, and repeated multiple
+            times to infer statistical significance. The following 
+            guidelines may be considered for evaluation:
+</p>
+<p></p>
+<ol class="text">
+<li>Avoiding Congestion Collapse: Does the congestion control
+            propose any changes to (or diverge from) the <a class='info' href='#I-D.ietf-avtcore-rtp-circuit-breakers'>circuit breaker
+            conditions<span> (</span><span class='info'>Perkins, C. and V. Singh, &ldquo;RTP Congestion Control: Circuit Breakers for Unicast Sessions,&rdquo; October&nbsp;2012.</span><span>)</span></a> [I&#8209;D.ietf&#8209;avtcore&#8209;rtp&#8209;circuit&#8209;breakers] for avoiding congestion collapse.
+</li>
+<li>Stability: changing the media encoding rate too often or by
+            too much may adversely affect the users' quality of
+            experience.
+</li>
+<li>Diverse environments: The congestion control algorithm
+            should be assessed in heterogeneous environments, containing
+            both wired and wireless paths. Examples of wireless
+            technologies are: 802.11x, HSPA, WCDMA, or GPRS. One of the
+            main challenges of the wireless environments is the inability
+            to distinguish congestion induced loss from transmission
+            (bit-error) loss. Furthermore, packet loss may induce
+            additional delay in networks with wireless paths due to
+            link-layer retransmissions.
+</li>
+<li>Varying path characteristics: The congestion control
+            algorithm should be evaluated for a range of path
+            characteristics such as, different end-to-end capacity and
+            latency, varying amount of cross traffic on a bottle-neck link
+            and a router's queue length. [Editor's Note: Different types of
+            queueing mechanisms? Random Early Detection or only DropTail?].
+            The main motivation for the previous and current criteria is to
+            figure out under what circumstances will the congestion control
+            algorithm break down and in which environments it may be safe
+            to deploy.
+</li>
+<li>Reacting to transient events or interruptions: The
+            congestion control algorithm should be able to handle changes
+            in end-to-end latency due to route updates, link failures,
+            handovers etc. In mobile environment the end-to-end capacity
+            may vary due to the interference, fading, handovers, etc. In
+            wired networks the end-to-end capacity may vary due to changes
+            in resource reservation.
+</li>
+<li>Fairness with similar cross-traffic: The congestion control
+            algorithm should be evaluated when competing with other RTP
+            flows using the same congestion control algorithm. The proposal
+            should highlight the bottleneck capacity share of each RTP
+            flow.
+</li>
+<li>Impact on cross-traffic: The congestion control algorithm
+            should be evaluated when competing with standard TCP. Short TCP
+            flows may be considered as transient events and the RTP flow
+            may give way to the short TCP flow to complete quickly.
+            However, long TCP flows (also known as elephant flows) may
+            starve out the RTP flow depending on router queue length. In
+            the latter case the proposed congestion control for RTP should
+            be as aggressive as <a class='info' href='#RFC5681'>standard
+            TCP<span> (</span><span class='info'>Allman, M., Paxson, V., and E. Blanton, &ldquo;TCP Congestion Control,&rdquo; September&nbsp;2009.</span><span>)</span></a> [RFC5681].
+</li>
+<li>Extensions to RTP/RTCP: The congestion control algorithm
+            should indicate if any protocol extensions are required to
+            implement it and should carefully describe the impact of the
+            extension.
+</li>
+</ol><p> 
+</p>
+<a name="cc-scenario"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.5"></a><h3>5.&nbsp;
+Example Evaluation Scenarios</h3>
+
+<p></p>
+<ul class="text">
+<li>Single RTP flow on a fixed link: This scenario evaluates the
+            ramp-up to the bottleneck capacity and the stability of the
+            proposed congestion control algorithm.
+</li>
+<li>Single RTP flow on a variable capacity link: This scenario
+            evaluates the response of the proposed congestion control
+            algorithm to transient network events or due to interference
+            and handovers in mobile environments.
+</li>
+<li>Fairness to RTP flows running the same congestion control
+            algorithm: Depending on the levels of 
+</li>
+<li>Competing with short TCP flows: 
+</li>
+<li>Competing with long TCP flows: 
+</li>
+</ul><p> 
+</p>
+<a name="cc-proposal"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.6"></a><h3>6.&nbsp;
+Status of Proposals</h3>
+
+<p>Congestion control algorithms are expected to be published
+            as "Experimental" documents until they are shown to be safe to
+            deploy. An algorithm published as a draft should be
+            experimented in simulation, or a controlled environment
+            (testbed) to show its applicability. Every congestion control
+            algorithm should include a note describing the environments in
+            which the algorithm is tested and safe to deploy. It is
+            possible that an algorithm is not recommended for certain
+            environments or perform sub-optimally for the user.
+</p>
+<p>[Editors Note: Should there be a distinction between
+            "Informational" and "Experimental" drafts for congestion
+            control algorithms in RMCAT. <a class='info' href='#RFC5033'>[RFC5033]<span> (</span><span class='info'>Floyd, S. and M. Allman, &ldquo;Specifying New Congestion Control Algorithms,&rdquo; August&nbsp;2007.</span><span>)</span></a>
+            describes Informational proposals as algorithms that are not
+            safe for deployment but are proposals to experiment with in
+            simulation/testbeds. While Experimental algorithms are ones
+            that are deemed safe in some environments but require a more
+            thorough evaluation (from the community).]
+</p>
+<a name="anchor2"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.7"></a><h3>7.&nbsp;
+Security Considerations</h3>
+
+<p>Security issues have not been discussed in this memo.
+            However, sending more media data than the available end-to-end
+            capacity may cause a congestion collapse.
+</p>
+<a name="anchor3"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.8"></a><h3>8.&nbsp;
+IANA Considerations</h3>
+
+<p>There are no IANA impacts in this memo.
+</p>
+<a name="rfc.references"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<a name="rfc.section.9"></a><h3>9.&nbsp;
+References</h3>
+
+<a name="rfc.references1"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<h3>9.1.&nbsp;Normative References</h3>
+<table width="99%" border="0">
+<tr><td class="author-text" valign="top"><a name="RFC3550">[RFC3550]</a></td>
+<td class="author-text">Schulzrinne, H., Casner, S., Frederick, R., and V. Jacobson, &ldquo;<a href="http://tools.ietf.org/html/rfc3550">RTP: A Transport Protocol for Real-Time Applications</a>,&rdquo; STD&nbsp;64, RFC&nbsp;3550, July&nbsp;2003 (<a href="http://www.rfc-editor.org/rfc/rfc3550.txt">TXT</a>, <a href="http://www.rfc-editor.org/rfc/rfc3550.ps">PS</a>, <a href="http://www.rfc-editor.org/rfc/rfc3550.pdf">PDF</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC3551">[RFC3551]</a></td>
+<td class="author-text">Schulzrinne, H. and S. Casner, &ldquo;<a href="http://tools.ietf.org/html/rfc3551">RTP Profile for Audio and Video Conferences with Minimal Control</a>,&rdquo; STD&nbsp;65, RFC&nbsp;3551, July&nbsp;2003 (<a href="http://www.rfc-editor.org/rfc/rfc3551.txt">TXT</a>, <a href="http://www.rfc-editor.org/rfc/rfc3551.ps">PS</a>, <a href="http://www.rfc-editor.org/rfc/rfc3551.pdf">PDF</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC3611">[RFC3611]</a></td>
+<td class="author-text">Friedman, T., Caceres, R., and A. Clark, &ldquo;<a href="http://tools.ietf.org/html/rfc3611">RTP Control Protocol Extended Reports (RTCP XR)</a>,&rdquo; RFC&nbsp;3611, November&nbsp;2003 (<a href="http://www.rfc-editor.org/rfc/rfc3611.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC4585">[RFC4585]</a></td>
+<td class="author-text">Ott, J., Wenger, S., Sato, N., Burmeister, C., and J. Rey, &ldquo;<a href="http://tools.ietf.org/html/rfc4585">Extended RTP Profile for Real-time Transport Control Protocol (RTCP)-Based Feedback (RTP/AVPF)</a>,&rdquo; RFC&nbsp;4585, July&nbsp;2006 (<a href="http://www.rfc-editor.org/rfc/rfc4585.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC5506">[RFC5506]</a></td>
+<td class="author-text">Johansson, I. and M. Westerlund, &ldquo;<a href="http://tools.ietf.org/html/rfc5506">Support for Reduced-Size Real-Time Transport Control Protocol (RTCP): Opportunities and Consequences</a>,&rdquo; RFC&nbsp;5506, April&nbsp;2009 (<a href="http://www.rfc-editor.org/rfc/rfc5506.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="I-D.jesup-rtp-congestion-reqs">[I-D.jesup-rtp-congestion-reqs]</a></td>
+<td class="author-text">Jesup, R. and H. Alvestrand, &ldquo;<a href="http://tools.ietf.org/html/draft-jesup-rtp-congestion-reqs-00">Congestion Control Requirements For Real Time Media</a>,&rdquo; draft-jesup-rtp-congestion-reqs-00 (work in progress), March&nbsp;2012 (<a href="http://www.ietf.org/internet-drafts/draft-jesup-rtp-congestion-reqs-00.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="I-D.ietf-avtcore-rtp-circuit-breakers">[I-D.ietf-avtcore-rtp-circuit-breakers]</a></td>
+<td class="author-text">Perkins, C. and V. Singh, &ldquo;<a href="http://tools.ietf.org/html/draft-ietf-avtcore-rtp-circuit-breakers-00">RTP Congestion Control: Circuit Breakers for Unicast Sessions</a>,&rdquo; draft-ietf-avtcore-rtp-circuit-breakers-00 (work in progress), October&nbsp;2012 (<a href="http://www.ietf.org/internet-drafts/draft-ietf-avtcore-rtp-circuit-breakers-00.txt">TXT</a>).</td></tr>
+</table>
+
+<a name="rfc.references2"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<h3>9.2.&nbsp;Informative References</h3>
+<table width="99%" border="0">
+<tr><td class="author-text" valign="top"><a name="RFC5033">[RFC5033]</a></td>
+<td class="author-text">Floyd, S. and M. Allman, &ldquo;<a href="http://tools.ietf.org/html/rfc5033">Specifying New Congestion Control Algorithms</a>,&rdquo; BCP&nbsp;133, RFC&nbsp;5033, August&nbsp;2007 (<a href="http://www.rfc-editor.org/rfc/rfc5033.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC5166">[RFC5166]</a></td>
+<td class="author-text">Floyd, S., &ldquo;<a href="http://tools.ietf.org/html/rfc5166">Metrics for the Evaluation of Congestion Control Mechanisms</a>,&rdquo; RFC&nbsp;5166, March&nbsp;2008 (<a href="http://www.rfc-editor.org/rfc/rfc5166.txt">TXT</a>).</td></tr>
+<tr><td class="author-text" valign="top"><a name="RFC5681">[RFC5681]</a></td>
+<td class="author-text">Allman, M., Paxson, V., and E. Blanton, &ldquo;<a href="http://tools.ietf.org/html/rfc5681">TCP Congestion Control</a>,&rdquo; RFC&nbsp;5681, September&nbsp;2009 (<a href="http://www.rfc-editor.org/rfc/rfc5681.txt">TXT</a>).</td></tr>
+</table>
+
+<a name="rfc.authors"></a><br /><hr />
+<table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
+<h3>Authors' Addresses</h3>
+<table width="99%" border="0" cellpadding="0" cellspacing="0">
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Varun Singh</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Aalto University</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">School of Electrical Engineering</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Otakaari 5 A</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Espoo, FIN  02150</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Finland</td></tr>
+<tr><td class="author" align="right">Email:&nbsp;</td>
+<td class="author-text"><a href="mailto:varun@comnet.tkk.fi">varun@comnet.tkk.fi</a></td></tr>
+<tr cellpadding="3"><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Joerg Ott</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Aalto University</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">School of Electrical Engineering</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Otakaari 5 A</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Espoo, FIN  02150</td></tr>
+<tr><td class="author-text">&nbsp;</td>
+<td class="author-text">Finland</td></tr>
+<tr><td class="author" align="right">Email:&nbsp;</td>
+<td class="author-text"><a href="mailto:jo@comnet.tkk.fi">jo@comnet.tkk.fi</a></td></tr>
+</table>
+</body></html>

@@ -3,115 +3,286 @@
 <!ENTITY rfc2119 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
 <!ENTITY rfc3550 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3550.xml">
 <!ENTITY rfc3551 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3551.xml">
+<!ENTITY rfc3611 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3611.xml">
 <!ENTITY rfc4585 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4585.xml">
+<!ENTITY rfc5506 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5506.xml">
+<!ENTITY rfc5166 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5166.xml">
+<!ENTITY rfc5033 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5033.xml">
+<!ENTITY rfc5681 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5681.xml">
+<!ENTITY I-D.jesup-rtp-congestion-reqs PUBLIC "" 
+"http://xml.resource.org/public/rfc/bibxml3/reference.I-D.jesup-rtp-congestion-reqs.xml">
+<!ENTITY I-D.ietf-avtcore-rtp-circuit-breakers PUBLIC "" 
+"http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-avtcore-rtp-circuit-breakers.xml">
+<!ENTITY I-D.ietf-ledbat-congestion PUBLIC "" 
+"http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-ledbat-congestion.xml">
 ]>
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 <?rfc toc="yes" ?>
 <?rfc compact="yes" ?>
-<?rfc symrefs="no" ?>
-<rfc ipr="trust200902"
-     docName="draft-singh-rmcat-cc-eval-00.txt" category="info">
-<!-- What is the category field value-->
-<front>
-    <title abbrev="Evaluation Criteria for RMCAT">
-         Evaluation Criteria for RTP Congestion Avoidance Techniques
-    </title>
-    <author fullname="Varun Singh" initials="V" surname="Singh">
-      <organization>Aalto University</organization>
-      <address>
-        <postal>
-          <street>School of Electrical Engineering</street>
-          <street>Otakaari 5 A</street>
-          <city>Espoo</city>
-          <region>FIN</region>
-          <code>02150</code>
-          <country>Finland</country>
-        </postal>
-        <email>varun@comnet.tkk.fi</email>
-      </address>
-    </author>
-
-    <author initials="J." surname="Ott" fullname="Joerg Ott">
-        <organization>Aalto University</organization>
-          <address>
-            <postal>
-              <street>School of Electrical Engineering</street>
-              <street>Otakaari 5 A</street>
-              <city>Espoo</city>
-              <region>FIN</region>
-              <code>02150</code>
-              <country>Finland</country>
-            </postal>
-            <email>jo@comnet.tkk.fi</email>
-      </address>
-    </author>
-
-    <date year="2012" />
-    <area>RAI</area>
-    <workgroup>RMCAT Working Group</workgroup>
-    <keyword>RTP</keyword>
-    <keyword>RTCP</keyword>
-    <keyword>Congestion Control</keyword>
-    <abstract>
-      <t>
-      </t>
-    </abstract>
-</front>
-<middle>
-
-<section title="Introduction">
-    <t>
-    </t>
-</section>
-
-<section title="Terminology" anchor="sec-terminology">
-    <t>
-    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
-    NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL"
-    in this document are to be interpreted as described in BCP 14,
-    <xref target="RFC2119">RFC 2119</xref> and indicate requirement
-    levels for compliant implementations.
-    </t>
-    <t>
-    The terminology defined in <xref target="RFC3550">RTP</xref> and the
-    <xref target="RFC3551">RTP Profile for Audio and Video Conferences with
-    Minimal Control</xref> apply.
-    </t>
-</section>
-
-<section title="Metrics" anchor="cc-metrics">
-    <t>
-        <list style="symbols">
-        <t>(i) ABU</t>
-        <t>(ii) Stability</t>
-        <t>(iii) underutilization</t>
-        </list>
-    </t>
-</section>
-
-<section title="Methedology" anchor="cc-method">
-<t>
-</t>
-</section>
-
-<section title="Evaluation Scenarios" anchor="om-topo-oper">
-    <t> 
-   </t>
-   
-</section>
-
-
-
-</middle>
-<back>
-
-    <references title="Normative References"> 
+<?rfc symrefs="yes" ?>
+<rfc ipr="trust200902" docName="draft-singh-rmcat-cc-eval-00.txt" category="bcp">
+    <!-- What is the category field value-->
+    <front>
+        <title abbrev="Evaluating Congestion Control for RMCAT"> 
+            Evaluating Congestion Control for Interactive Real-time Media.
+            <!--Evaluation Criteria for RTP Congestion Avoidance Techniques -->
+        </title>
+        <author fullname="Varun Singh" initials="V" surname="Singh">
+            <organization>Aalto University</organization>
+            <address>
+                <postal>
+                    <street>School of Electrical Engineering</street>
+                    <street>Otakaari 5 A</street>
+                    <city>Espoo</city>
+                    <region>FIN</region>
+                    <code>02150</code>
+                    <country>Finland</country>
+                </postal>
+                <email>varun@comnet.tkk.fi</email>
+            </address>
+        </author>
+        <author initials="J." surname="Ott" fullname="Joerg Ott">
+            <organization>Aalto University</organization>
+            <address>
+                <postal>
+                    <street>School of Electrical Engineering</street>
+                    <street>Otakaari 5 A</street>
+                    <city>Espoo</city>
+                    <region>FIN</region>
+                    <code>02150</code>
+                    <country>Finland</country>
+                </postal>
+                <email>jo@comnet.tkk.fi</email>
+            </address>
+        </author>
+        <date year="2012"/>
+        <area>RAI</area>
+        <workgroup>RMCAT Working Group</workgroup>
+        <keyword>RTP</keyword>
+        <keyword>RTCP</keyword>
+        <keyword>Congestion Control</keyword>
+        <abstract>
+            <t>The Real-time Transport Protocol (RTP) is used to transmit
+            media in telephony and video conferencing applications. This
+            document describes the guidelines to evaluate new congestion
+            control algorithms for interactive point-to-point real-time
+            media.</t>
+        </abstract>
+    </front>
+    <middle>
+        <section title="Introduction">
+            
+            <t>This memo describes the guidelines to help with evaluating
+            new congestion control algorithms for interactive
+            point-to-point real time media. The requirements for the
+            congestion control algorithm are outlined in <xref
+            target="I-D.jesup-rtp-congestion-reqs" />). This document
+            builds upon previous work at the IETF: <xref
+            target="RFC5033">Specifying New Congestion Control
+            Algorithms</xref> and <xref target="RFC5166">Metrics for the
+            Evaluation of Congestion Control Algorithms</xref>.</t>
+            
+            <t>The guidelines proposed in the document are intended to
+            prevent a congestion collapse, promote fair capacity usage and
+            optimize the media flow's throughput, delay, loss and quality.
+            Furthermore, the proposed algorithms are expected to operate
+            within the envelope of the circuit breakers defined in <xref
+            target="I-D.ietf-avtcore-rtp-circuit-breakers" />.</t>
+            
+            <t>This document only provides broad-level criteria for
+            evaluating a new congestion control algorithm and the working
+            group should expect a thorough scientific study to make its
+            decision. The results of the evaluation are not expected to be
+            included within the internet-draft but should be cited in the
+            document.</t>
+            
+        </section>
         
-        &rfc2119;
+        <section title="Terminology" anchor="sec-terminology">
+            <!--<t> The key words "MUST", "MUST NOT", "REQUIRED", "SHALL",
+            "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and
+            "OPTIONAL" in this document are to be interpreted as described
+            in BCP 14, <xref target="RFC2119" /> and indicate requirement
+            levels for compliant implementations. </t> -->
+
+            <t>[Editor's Note: Should the document use RFC2119
+            language.]</t>
+            
+            <t> The terminology defined in <xref
+            target="RFC3550">RTP</xref>, <xref target="RFC3551">RTP Profile
+            for Audio and Video Conferences with Minimal Control</xref>,
+            <xref target="RFC3611">RTCP Extended Report (XR)</xref>, <xref
+            target="RFC4585">Extended RTP Profile for RTCP-based Feedback
+            (RTP/AVPF)</xref> and <xref target="RFC5506">Support for
+            Reduced-Size RTCP</xref> apply.</t>
+        </section>
+
+        <section title="Metrics" anchor="cc-metrics">
+            <t><xref target="RFC5166" /> describes the basic metrics for
+            congestion control. Section 2.1 of that document discusses the
+            tradeoff between throughput, delay and loss.</t>
+            
+            <t> <list style="symbols">
+                <t>(i) Bandwidth Utilization
+                <list style="empty">
+                    <t>under-utilization</t>
+                    <t>overshooting</t>
+                </list></t>
+                <t>(ii) Packet Loss Rate</t>
+                <t>(iii) Quality</t>
+            </list> </t>
+
+            <t>[Editor's Note: Should the algorithm also compare average
+            PSNR of test video sequences?]</t>
+        </section>
+        
+        <!--
+        <section title="Congestion control requirements" anchor="cc-require">
+            <t> </t>
+        </section>
+        -->
+        
+        <section title="Guidelines" anchor="cc-guidelines">
+            <t>A congestion control algorithm should be tested in
+            simulation or a testbed environment, and repeated multiple
+            times to infer statistical significance. The following 
+            guidelines may be considered for evaluation:</t>
+
+            <t><list style="numbers">
+            <t>Avoiding Congestion Collapse: Does the congestion control
+            propose any changes to (or diverge from) the <xref
+            target="I-D.ietf-avtcore-rtp-circuit-breakers" >circuit breaker
+            conditions</xref> for avoiding congestion collapse.</t>
+            
+            <t>Stability: changing the media encoding rate too often or by
+            too much may adversely affect the users' quality of
+            experience.</t>
+            
+            <t>Diverse environments: The congestion control algorithm
+            should be assessed in heterogeneous environments, containing
+            both wired and wireless paths. Examples of wireless
+            technologies are: 802.11x, HSPA, WCDMA, or GPRS. One of the
+            main challenges of the wireless environments is the inability
+            to distinguish congestion induced loss from transmission
+            (bit-error) loss. Furthermore, packet loss may induce
+            additional delay in networks with wireless paths due to
+            link-layer retransmissions.</t>
+            
+            <t>Varying path characteristics: The congestion control
+            algorithm should be evaluated for a range of path
+            characteristics such as, different end-to-end capacity and
+            latency, varying amount of cross traffic on a bottle-neck link
+            and a router's queue length. [Editor's Note: Different types of
+            queueing mechanisms? Random Early Detection or only DropTail?].
+            The main motivation for the previous and current criteria is to
+            figure out under what circumstances will the congestion control
+            algorithm break down and in which environments it may be safe
+            to deploy.</t>
+            
+            <t>Reacting to transient events or interruptions: The
+            congestion control algorithm should be able to handle changes
+            in end-to-end latency due to route updates, link failures,
+            handovers etc. In mobile environment the end-to-end capacity
+            may vary due to the interference, fading, handovers, etc. In
+            wired networks the end-to-end capacity may vary due to changes
+            in resource reservation.</t>
+            
+            <t>Fairness with similar cross-traffic: The congestion control
+            algorithm should be evaluated when competing with other RTP
+            flows using the same congestion control algorithm. The proposal
+            should highlight the bottleneck capacity share of each RTP
+            flow.</t>
+            
+            <t>Impact on cross-traffic: The congestion control algorithm
+            should be evaluated when competing with standard TCP. Short TCP
+            flows may be considered as transient events and the RTP flow
+            may give way to the short TCP flow to complete quickly.
+            However, long TCP flows (also known as elephant flows) may
+            starve out the RTP flow depending on router queue length. In
+            the latter case the proposed congestion control for RTP should
+            be as aggressive as <xref target="RFC5681">standard
+            TCP</xref>.</t>
+            
+            <t>Extensions to RTP/RTCP: The congestion control algorithm
+            should indicate if any protocol extensions are required to
+            implement it and should carefully describe the impact of the
+            extension.</t>
+            </list> </t>
+        </section>
+        
+        
+        <section title="Example Evaluation Scenarios" anchor="cc-scenario">
+            <t><list style="symbols">
+            <t>Single RTP flow on a fixed link: This scenario evaluates the
+            ramp-up to the bottleneck capacity and the stability of the
+            proposed congestion control algorithm.</t>
+            
+            <t>Single RTP flow on a variable capacity link: This scenario
+            evaluates the response of the proposed congestion control
+            algorithm to transient network events or due to interference
+            and handovers in mobile environments.</t>
+            
+            <t>Fairness to RTP flows running the same congestion control
+            algorithm: Depending on the levels of </t>
+            
+            <t>Competing with short TCP flows: </t>
+            
+            <t>Competing with long TCP flows: </t>
+            </list> </t>
+        </section>
+        
+        
+        <section title="Status of Proposals" anchor="cc-proposal">
+            
+            <t>Congestion control algorithms are expected to be published
+            as "Experimental" documents until they are shown to be safe to
+            deploy. An algorithm published as a draft should be
+            experimented in simulation, or a controlled environment
+            (testbed) to show its applicability. Every congestion control
+            algorithm should include a note describing the environments in
+            which the algorithm is tested and safe to deploy. It is
+            possible that an algorithm is not recommended for certain
+            environments or perform sub-optimally for the user.</t>
+            
+            <t>[Editors Note: Should there be a distinction between
+            "Informational" and "Experimental" drafts for congestion
+            control algorithms in RMCAT. <xref target="RFC5033" />
+            describes Informational proposals as algorithms that are not
+            safe for deployment but are proposals to experiment with in
+            simulation/testbeds. While Experimental algorithms are ones
+            that are deemed safe in some environments but require a more
+            thorough evaluation (from the community).]</t>
+            
+        </section>
+        
+        <section title="Security Considerations">
+            <t>Security issues have not been discussed in this memo.
+            However, sending more media data than the available end-to-end
+            capacity may cause a congestion collapse.</t>
+        </section>
+
+        <section title="IANA Considerations">
+            <t>There are no IANA impacts in this memo.</t>
+        </section>        
+    </middle>
+    <back>
+        <references title="Normative References"> 
+        <!--&rfc2119;-->
+        <!-- RTP related -->
         &rfc3550;
         &rfc3551;
-<!-- &rfc4585; -->
-    </references>
-  </back>
-
+        &rfc3611;
+        &rfc4585;
+        &rfc5506;
+        
+        <!--RMCAT related -->
+        &I-D.jesup-rtp-congestion-reqs;
+        &I-D.ietf-avtcore-rtp-circuit-breakers;
+        </references>
+        <references title="Informative References"> 
+        &rfc5033; <!-- CC Evaluation -->
+        &rfc5166; <!-- CC Metrics -->
+        &rfc5681; <!-- Standard TCP -->
+        </references>
+    </back>
 </rfc>
