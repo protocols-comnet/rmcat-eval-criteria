@@ -22,7 +22,7 @@
 <?rfc toc="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc symrefs="yes" ?>
-<rfc ipr="trust200902" docName="draft-singh-rmcat-cc-eval-00.txt" category="info">
+<rfc ipr="trust200902" docName="draft-singh-rmcat-cc-eval-01.txt" category="info">
     <!-- What is the category field value-->
     <front>
         <title abbrev="Evaluating Congestion Control for RMCAT"> 
@@ -58,8 +58,8 @@
             </address>
         </author>
         <date year="2012"/>
-        <area>RAI</area>
-        <workgroup>RMCAT Working Group</workgroup>
+        <area>TSV</area>
+        <workgroup>RMCAT WG</workgroup>
         <keyword>RTP</keyword>
         <keyword>RTCP</keyword>
         <keyword>Congestion Control</keyword>
@@ -134,6 +134,7 @@
                 measures (min, max, mean, median) are yet to be
                 specified.]</t>
             </list></t>
+            
             <t> Section 2.1 of <xref target="RFC5166" /> discusses the
             tradeoff between throughput, delay and loss.</t>
             
@@ -150,9 +151,9 @@
                     encoding rate is higher than the end-to-end capacity,
                     i.e., the bandwidth utilization is greater than 1.</t>
                     
-                    <t>Stability: is the period of time when the endpoint's
-                    encoding rate is relatively stable, i.e., the bandwidth
-                    utilization is constant.</t>
+                    <t>Steady-state: is the period of time when the
+                    endpoint's encoding rate is relatively stable, i.e.,
+                    the bandwidth utilization is constant.</t>
                 </list></t>
                 <t></t>
                 
@@ -160,11 +161,14 @@
                 <t></t>
                 
                 <t>(iii) Fair Share. </t>
+                <t></t>
+                
                 <t>[Editor's Note: This metric should match the one defined
                 in the <xref target="I-D.jesup-rtp-congestion-reqs">RMCAT
                 requirements</xref> document.]</t>
                 <t></t>
                 
+                <!--
                 <t>(iv) Quality: There are many different types of quality
                 metrics for audio and video. Audio quality is often
                 expressed by a MOS ("Mean Opinion Score") and can be
@@ -177,6 +181,7 @@
                 <t>[Editor's Note: Should the algorithm compare average
                 PSNR of test video sequences or what other video quality
                 metric can be used?]</t>
+                -->
             </list>
             </t>
 
@@ -208,6 +213,13 @@
             affect the users' quality of experience.</t>
             </section>
             
+            <section title ="Audio and Video">
+            <t>The congestion control algorithm should be assessed with
+            different types of media behavior, i.e., the media should
+            contain idle and data-limited periods. For example, periods of
+            silence or low motion.</t>
+            </section>
+            
             <section title="Diverse Environments">
             <t>The congestion control algorithm should be assessed in
             heterogeneous environments, containing both wired and wireless
@@ -227,12 +239,14 @@
             <t>The congestion control algorithm should be evaluated for a
             range of path characteristics such as, different end-to-end
             capacity and latency, varying amount of cross traffic on a
-            bottle-neck link and a router's queue length. [Editor's Note:
-            Different types of queueing mechanisms? Random Early Detection
-            or only DropTail?]. The main motivation for the previous and
-            current criteria is to determine under which circumstances will
-            the proposed congestion control algorithm break down and also
-            determine the operational range of the algorithm.</t>
+            bottle-neck link and a router's queue length. The main
+            motivation for the previous and current criteria is to
+            determine under which circumstances will the proposed
+            congestion control algorithm break down and also determine the
+            operational range of the algorithm.</t>
+            
+            <t>[Editor's Note: Different types of queueing mechanisms?
+            Random Early Detection or only DropTail?].</t>
             </section>
             
             <section title="Reacting to Transient Events or Interruptions">
@@ -261,6 +275,10 @@
             the latter case the proposed congestion control for RTP should
             be as aggressive as <xref target="RFC5681">standard
             TCP</xref>.</t>
+            
+            <t>The proposal should also measure the impact on varied
+            number of cross-traffic sources, i.e., few and many competing
+            flows.</t>
             </section>
             
             <section title="Extensions to RTP/RTCP">
@@ -312,8 +330,12 @@
             flows as transient events and let them complete quickly.
             Alternatively, if there are many short flows then the proposed
             algorithm may have to compete with the flows as if they were
-            long lived TCP flows. [Editor's Note: many and few short TCP
-            flows may depend on the bottleneck link capacity.]</t>
+            long lived TCP flows.</t> 
+            <t></t>
+            
+            <t>[Editor's Note: definition of many and
+            few short TCP flows may depend on the bottleneck link
+            capacity.]</t>
             </list> </t>
         </section>
         
@@ -352,6 +374,12 @@
         <section title="Acknowledgements">
           <t> Much of this document is derived from previous work on
           congestion control at the IETF.</t>
+          <t> The authors would like to thank 
+          Harald Alvestrand, Luca De Cicco, Wesley Eddy, Stefan Holmer,
+          Randell Jesup Piers O'Hanlon, Timothy B. Terriberry, Michael
+          Welzl
+          for providing valuable feedback on earlier versions of this
+          draft.</t>
         </section>
     </middle>
     <back>
@@ -363,16 +391,29 @@
         &rfc3611;
         &rfc4585;
         &rfc5506;
-        
         <!--RMCAT related -->
         &I-D.jesup-rtp-congestion-reqs;
         &I-D.ietf-avtcore-rtp-circuit-breakers;
         </references>
+        
         <references title="Informative References"> 
         &rfc5033; <!-- CC Evaluation -->
         &rfc5166; <!-- CC Metrics -->
         &rfc5681; <!-- Standard TCP -->
-        &I-D.ietf-xrblock-rtcp-xr-qoe;
+        <!--&I-D.ietf-xrblock-rtcp-xr-qoe;-->
         <?rfc include="reference.3GPP.R1.081955"?>
+        <section anchor="App-a" title="Change Log"> 
+        <t>Note to the RFC-Editor: please remove this section prior to
+        publication as an RFC.</t>
+            <section title="Changes in draft-singh-rmcat-cc-eval-01">
+            <t><list style="symbols">
+                <t>Removed QoE metrics.</t>
+                <t>Changed stability to steady-state.</t> 
+                <t>Added measuring impact against few and many
+                flows.</t>
+                <t>Added guideline for idle and data-limited periods.</t>
+            </list></t> 
+            </section>
+        </section>
     </back>
 </rfc>
