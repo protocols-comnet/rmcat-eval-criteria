@@ -217,7 +217,7 @@
             affect the users' quality of experience.</t>
             </section>
             
-            <section title ="Audio and Video">
+            <section title ="Media Traffic">
             <t>The congestion control algorithm should be assessed with
             different types of media behavior, i.e., the media should
             contain idle and data-limited periods. For example, periods of

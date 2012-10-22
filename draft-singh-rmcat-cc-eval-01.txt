@@ -65,7 +65,7 @@ Table of Contents
    4.  Guidelines  . . . . . . . . . . . . . . . . . . . . . . . . . . 4
      4.1.  Avoiding Congestion Collapse  . . . . . . . . . . . . . . . 4
      4.2.  Stability . . . . . . . . . . . . . . . . . . . . . . . . . 4
-     4.3.  Audio and Video . . . . . . . . . . . . . . . . . . . . . . 4
+     4.3.  Media Traffic . . . . . . . . . . . . . . . . . . . . . . . 4
      4.4.  Diverse Environments  . . . . . . . . . . . . . . . . . . . 5
      4.5.  Varying Path Characteristics  . . . . . . . . . . . . . . . 5
      4.6.  Reacting to Transient Events or Interruptions . . . . . . . 5
@@ -213,7 +213,7 @@ Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
    encoding rate too often or by too much may adversely affect the
    users' quality of experience.
 
-4.3.  Audio and Video
+4.3.  Media Traffic
 
    The congestion control algorithm should be assessed with different
    types of media behavior, i.e., the media should contain idle and
