@@ -29,6 +29,7 @@
             Evaluating Congestion Control for Interactive Real-time Media.
             <!--Evaluation Criteria for RTP Congestion Avoidance Techniques -->
         </title>
+        
         <author fullname="Varun Singh" initials="V" surname="Singh">
             <organization>Aalto University</organization>
             <address>
@@ -41,8 +42,10 @@
                     <country>Finland</country>
                 </postal>
                 <email>varun@comnet.tkk.fi</email>
+                <uri>http://www.netlab.tkk.fi/~varun/</uri>
             </address>
         </author>
+        
         <author initials="J." surname="Ott" fullname="Joerg Ott">
             <organization>Aalto University</organization>
             <address>
@@ -57,6 +60,7 @@
                 <email>jo@comnet.tkk.fi</email>
             </address>
         </author>
+        
         <date year="2012"/>
         <area>TSV</area>
         <workgroup>RMCAT WG</workgroup>
@@ -217,7 +221,7 @@
             <t>The congestion control algorithm should be assessed with
             different types of media behavior, i.e., the media should
             contain idle and data-limited periods. For example, periods of
-            silence or low motion.</t>
+            silence for audio or varying amount of motion for video.</t>
             </section>
             
             <section title="Diverse Environments">
@@ -276,9 +280,9 @@
             be as aggressive as <xref target="RFC5681">standard
             TCP</xref>.</t>
             
-            <t>The proposal should also measure the impact on varied
-            number of cross-traffic sources, i.e., few and many competing
-            flows.</t>
+            <t>The proposal should also measure the impact on varied number
+            of cross-traffic sources, i.e., few and many competing flows,
+            or mixing various amounts of TCP and similar cross-traffic.</t>
             </section>
             
             <section title="Extensions to RTP/RTCP">
@@ -296,7 +300,9 @@
         
         <section title="Example Evaluation Scenarios" anchor="cc-scenario">
             <t>In the scenarios listed below, all RTP flows are
-            bi-directional and point-to-point.</t>
+            bi-directional and point-to-point. <xref
+            target="TCP-eval-suite"/> contains examples of TCP traffic
+            load and scenario settings.</t>
             
             <t><list style="empty">
             <t>[S1] RTP flow on a fixed link: This scenario evaluates the
@@ -335,7 +341,9 @@
             
             <t>[Editor's Note: definition of many and
             few short TCP flows may depend on the bottleneck link
-            capacity.]</t>
+            capacity.]</t><t></t>
+            <t>[Editor's Note: clarify if media packets are generated using
+            a traffic generator.]</t>
             </list> </t>
         </section>
         
@@ -375,9 +383,15 @@
           <t> Much of this document is derived from previous work on
           congestion control at the IETF.</t>
           <t> The authors would like to thank 
-          Harald Alvestrand, Luca De Cicco, Wesley Eddy, Stefan Holmer,
-          Randell Jesup Piers O'Hanlon, Timothy B. Terriberry, Michael
-          Welzl
+          Harald Alvestrand, 
+          Luca De Cicco, 
+          Wesley Eddy, 
+          Lars Eggert,
+          Stefan Holmer, 
+          Randell Jesup, 
+          Piers O'Hanlon, 
+          Timothy B. Terriberry and
+          Michael Welzl
           for providing valuable feedback on earlier versions of this
           draft.</t>
         </section>
@@ -402,6 +416,23 @@
         &rfc5681; <!-- Standard TCP -->
         <!--&I-D.ietf-xrblock-rtcp-xr-qoe;-->
         <?rfc include="reference.3GPP.R1.081955"?>
+        <reference anchor="TCP-eval-suite">
+          <front>
+            <title>Towards a Common TCP Evaluation Suite</title>
+            <author initials="A." surname="Lachlan"   fullname="Andrew Lachlan"/>
+            <author initials="C." surname="Marcondes" fullname="Cesar Marcondes"/>
+            <author initials="S." surname="Floyd"  fullname="Sally Floyd"/>
+            <author initials="L." surname="Dunn"  fullname="Lawrence Dunn"/>
+            <author initials="R." surname="Guillier"  fullname="Romeric Guillier"/>
+            <author initials="W." surname="Gang"  fullname="Wang Gang"/>
+            <author initials="L." surname="Eggert"  fullname="Lars Eggert"/>
+            <author initials="S." surname="Ha"  fullname="Sangtae Ha"/>            
+            <author initials="I." surname="Rhee"  fullname="Injong Rhee"/>
+            <date month="August" year="2008"/>
+          </front>
+          <seriesInfo name="Proc. PFLDnet." value="2008"/>
+        </reference>
+        </references>
         <section anchor="App-a" title="Change Log"> 
         <t>Note to the RFC-Editor: please remove this section prior to
         publication as an RFC.</t>
@@ -412,6 +443,8 @@
                 <t>Added measuring impact against few and many
                 flows.</t>
                 <t>Added guideline for idle and data-limited periods.</t>
+                <t>Added reference to TCP evaluation suite in example
+                evaluation scenarios.</t>
             </list></t> 
             </section>
         </section>
