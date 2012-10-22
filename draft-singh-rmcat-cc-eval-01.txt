@@ -76,11 +76,11 @@ Table of Contents
    6.  Example Evaluation Scenarios  . . . . . . . . . . . . . . . . . 6
    7.  Status of Proposals . . . . . . . . . . . . . . . . . . . . . . 7
    8.  Security Considerations . . . . . . . . . . . . . . . . . . . . 7
-   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . . . 7
-   10. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . 7
+   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . . . 8
+   10. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . 8
    11. References  . . . . . . . . . . . . . . . . . . . . . . . . . . 8
      11.1. Normative References  . . . . . . . . . . . . . . . . . . . 8
-     11.2. Informative References  . . . . . . . . . . . . . . . . . . 8
+     11.2. Informative References  . . . . . . . . . . . . . . . . . . 9
    Appendix A.  Change Log . . . . . . . . . . . . . . . . . . . . . . 9
      A.1.  Changes in draft-singh-rmcat-cc-eval-01 . . . . . . . . . . 9
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . . . 9
@@ -225,7 +225,8 @@ Singh & Ott              Expires April 25, 2013                 [Page 4]
 Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
 
 
-   data-limited periods.  For example, periods of silence or low motion.
+   data-limited periods.  For example, periods of silence for audio or
+   varying amount of motion for video.
 
 4.4.  Diverse Environments
 
@@ -275,7 +276,6 @@ Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
 
 
 
-
 Singh & Ott              Expires April 25, 2013                 [Page 5]
 
 Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
@@ -292,7 +292,8 @@ Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
    standard TCP [RFC5681].
 
    The proposal should also measure the impact on varied number of
-   cross-traffic sources, i.e., few and many competing flows.
+   cross-traffic sources, i.e., few and many competing flows, or mixing
+   various amounts of TCP and similar cross-traffic.
 
 4.9.  Extensions to RTP/RTCP
 
@@ -310,7 +311,8 @@ Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
 6.  Example Evaluation Scenarios
 
    In the scenarios listed below, all RTP flows are bi-directional and
-   point-to-point.
+   point-to-point.  [TCP-eval-suite] contains examples of TCP traffic
+   load and scenario settings.
 
       [S1] RTP flow on a fixed link: This scenario evaluates the ramp-up
       to the bottleneck capacity and the stability of the proposed
@@ -326,9 +328,7 @@ Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
       algorithm: This scenario shows if the proposed algorithm can share
       the bottleneck link equitably, irrespective of number of flows.
 
-      [S4] Competing with long-lived TCP flows: In this scenario the
-      proposed algorithm is expected to be TCP-friendly, i.e., it should
-      neither starve out the competing TCP flows (causing a congestion
+
 
 
 
@@ -337,6 +337,10 @@ Singh & Ott              Expires April 25, 2013                 [Page 6]
 Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
 
 
+
+      [S4] Competing with long-lived TCP flows: In this scenario the
+      proposed algorithm is expected to be TCP-friendly, i.e., it should
+      neither starve out the competing TCP flows (causing a congestion
       collapse) nor should it be starved out by TCP.
 
       [S5] Competing with short TCP flows: Depending on the level of
@@ -349,6 +353,9 @@ Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
 
       [Editor's Note: definition of many and few short TCP flows may
       depend on the bottleneck link capacity.]
+
+      [Editor's Note: clarify if media packets are generated using a
+      traffic generator.]
 
 
 7.  Status of Proposals
@@ -376,6 +383,16 @@ Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
    Security issues have not been discussed in this memo.
 
 
+
+
+
+
+
+Singh & Ott              Expires April 25, 2013                 [Page 7]
+
+Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
+
+
 9.  IANA Considerations
 
    There are no IANA impacts in this memo.
@@ -386,17 +403,10 @@ Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
    Much of this document is derived from previous work on congestion
    control at the IETF.
 
-
-
-Singh & Ott              Expires April 25, 2013                 [Page 7]
-
-Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
-
-
    The authors would like to thank Harald Alvestrand, Luca De Cicco,
-   Wesley Eddy, Stefan Holmer, Randell Jesup Piers O'Hanlon, Timothy B.
-   Terriberry, Michael Welzl for providing valuable feedback on earlier
-   versions of this draft.
+   Wesley Eddy, Lars Eggert, Stefan Holmer, Randell Jesup, Piers
+   O'Hanlon, Timothy B. Terriberry and Michael Welzl for providing
+   valuable feedback on earlier versions of this draft.
 
 
 11.  References
@@ -431,6 +441,14 @@ Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
               March 2012.
 
    [I-D.ietf-avtcore-rtp-circuit-breakers]
+
+
+
+Singh & Ott              Expires April 25, 2013                 [Page 8]
+
+Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
+
+
               Perkins, C. and V. Singh, "RTP Congestion Control: Circuit
               Breakers for Unicast Sessions",
               draft-ietf-avtcore-rtp-circuit-breakers-00 (work in
@@ -441,14 +459,6 @@ Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
    [RFC5033]  Floyd, S. and M. Allman, "Specifying New Congestion
               Control Algorithms", BCP 133, RFC 5033, August 2007.
 
-
-
-
-Singh & Ott              Expires April 25, 2013                 [Page 8]
-
-Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
-
-
    [RFC5166]  Floyd, S., "Metrics for the Evaluation of Congestion
               Control Mechanisms", RFC 5166, March 2008.
 
@@ -458,6 +468,12 @@ Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
    [3GPP.R1.081955]
               R1-081955, 3GPP., "LTE Link Level Throughput Data for SA4
               Evaluation Framework", 3GPP R1-081955, 5 2008.
+
+   [TCP-eval-suite]
+              Lachlan, A., Marcondes, C., Floyd, S., Dunn, L., Guillier,
+              R., Gang, W., Eggert, L., Ha, S., and I. Rhee, "Towards a
+              Common TCP Evaluation Suite", Proc. PFLDnet. 2008,
+              August 2008.
 
 
 Appendix A.  Change Log
@@ -471,6 +487,22 @@ A.1.  Changes in draft-singh-rmcat-cc-eval-01
    o  Changed stability to steady-state.
    o  Added measuring impact against few and many flows.
    o  Added guideline for idle and data-limited periods.
+   o  Added reference to TCP evaluation suite in example evaluation
+      scenarios.
+
+
+
+
+
+
+
+
+
+
+
+Singh & Ott              Expires April 25, 2013                 [Page 9]
+
+Internet-Draft   Evaluating Congestion Control for RMCAT    October 2012
 
 
 Authors' Addresses
@@ -483,6 +515,7 @@ Authors' Addresses
    Finland
 
    Email: varun@comnet.tkk.fi
+   URI:   http://www.netlab.tkk.fi/~varun/
 
 
    Joerg Ott
@@ -500,5 +533,28 @@ Authors' Addresses
 
 
 
-Singh & Ott              Expires April 25, 2013                 [Page 9]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Singh & Ott              Expires April 25, 2013                [Page 10]
 

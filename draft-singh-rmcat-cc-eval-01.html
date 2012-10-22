@@ -394,7 +394,7 @@ Audio and Video</h3>
 <p>The congestion control algorithm should be assessed with
             different types of media behavior, i.e., the media should
             contain idle and data-limited periods. For example, periods of
-            silence or low motion.
+            silence for audio or varying amount of motion for video.
 </p>
 <a name="anchor5"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -468,9 +468,9 @@ Impact on Cross-Traffic</h3>
             be as aggressive as <a class='info' href='#RFC5681'>standard
             TCP<span> (</span><span class='info'>Allman, M., Paxson, V., and E. Blanton, &ldquo;TCP Congestion Control,&rdquo; September&nbsp;2009.</span><span>)</span></a> [RFC5681].
 </p>
-<p>The proposal should also measure the impact on varied
-            number of cross-traffic sources, i.e., few and many competing
-            flows.
+<p>The proposal should also measure the impact on varied number
+            of cross-traffic sources, i.e., few and many competing flows,
+            or mixing various amounts of TCP and similar cross-traffic.
 </p>
 <a name="anchor10"></a><br /><hr />
 <table summary="layout" cellpadding="0" cellspacing="2" class="TOCbug" align="right"><tr><td class="TOCbug"><a href="#toc">&nbsp;TOC&nbsp;</a></td></tr></table>
@@ -495,7 +495,8 @@ Minimum Requirements for Evaluation</h3>
 Example Evaluation Scenarios</h3>
 
 <p>In the scenarios listed below, all RTP flows are
-            bi-directional and point-to-point.
+            bi-directional and point-to-point. <a class='info' href='#TCP-eval-suite'>[TCP&#8209;eval&#8209;suite]<span> (</span><span class='info'>Lachlan, A., Marcondes, C., Floyd, S., Dunn, L., Guillier, R., Gang, W., Eggert, L., Ha, S., and I. Rhee, &ldquo;Towards a Common TCP Evaluation Suite,&rdquo; August&nbsp;2008.</span><span>)</span></a> contains examples of TCP traffic
+            load and scenario settings.
 </p>
 <p></p>
 <blockquote class="text">
@@ -541,6 +542,11 @@ Example Evaluation Scenarios</h3>
 <p>[Editor's Note: definition of many and
             few short TCP flows may depend on the bottleneck link
             capacity.]
+</p>
+<p>
+</p>
+<p>[Editor's Note: clarify if media packets are generated using
+            a traffic generator.]
 </p>
 </blockquote><p> 
 </p>
@@ -591,9 +597,15 @@ Acknowledgements</h3>
           congestion control at the IETF.
 </p>
 <p> The authors would like to thank 
-          Harald Alvestrand, Luca De Cicco, Wesley Eddy, Stefan Holmer,
-          Randell Jesup Piers O'Hanlon, Timothy B. Terriberry, Michael
-          Welzl
+          Harald Alvestrand, 
+          Luca De Cicco, 
+          Wesley Eddy, 
+          Lars Eggert,
+          Stefan Holmer, 
+          Randell Jesup, 
+          Piers O'Hanlon, 
+          Timothy B. Terriberry and
+          Michael Welzl
           for providing valuable feedback on earlier versions of this
           draft.
 </p>
@@ -634,6 +646,8 @@ References</h3>
 <td class="author-text">Allman, M., Paxson, V., and E. Blanton, &ldquo;<a href="http://tools.ietf.org/html/rfc5681">TCP Congestion Control</a>,&rdquo; RFC&nbsp;5681, September&nbsp;2009 (<a href="http://www.rfc-editor.org/rfc/rfc5681.txt">TXT</a>).</td></tr>
 <tr><td class="author-text" valign="top"><a name="3GPP.R1.081955">[3GPP.R1.081955]</a></td>
 <td class="author-text">R1-081955, 3GPP., &ldquo;<a href="http://www.3gpp.net/ftp/tsg_ran/WG1_RL1/TSGR1_53/Docs/R1-081955.zip">LTE Link Level Throughput Data for SA4 Evaluation Framework</a>,&rdquo; 3GPP&nbsp;R1-081955, 5&nbsp;2008.</td></tr>
+<tr><td class="author-text" valign="top"><a name="TCP-eval-suite">[TCP-eval-suite]</a></td>
+<td class="author-text">Lachlan, A., Marcondes, C., Floyd, S., Dunn, L., Guillier, R., Gang, W., Eggert, L., Ha, S., and I. Rhee, &ldquo;Towards a Common TCP Evaluation Suite,&rdquo; Proc. PFLDnet.&nbsp;2008, August&nbsp;2008.</td></tr>
 </table>
 
 <a name="App-a"></a><br /><hr />
@@ -660,6 +674,9 @@ Changes in draft-singh-rmcat-cc-eval-01</h3>
 </li>
 <li>Added guideline for idle and data-limited periods.
 </li>
+<li>Added reference to TCP evaluation suite in example
+                evaluation scenarios.
+</li>
 </ul>
 
 <a name="rfc.authors"></a><br /><hr />
@@ -680,6 +697,8 @@ Changes in draft-singh-rmcat-cc-eval-01</h3>
 <td class="author-text">Finland</td></tr>
 <tr><td class="author" align="right">Email:&nbsp;</td>
 <td class="author-text"><a href="mailto:varun@comnet.tkk.fi">varun@comnet.tkk.fi</a></td></tr>
+<tr><td class="author" align="right">URI:&nbsp;</td>
+<td class="author-text"><a href="http://www.netlab.tkk.fi/~varun/">http://www.netlab.tkk.fi/~varun/</a></td></tr>
 <tr cellpadding="3"><td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr><td class="author-text">&nbsp;</td>
 <td class="author-text">Joerg Ott</td></tr>
