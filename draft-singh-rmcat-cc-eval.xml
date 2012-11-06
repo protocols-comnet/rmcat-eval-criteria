@@ -22,11 +22,11 @@
 <?rfc toc="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc symrefs="yes" ?>
-<rfc ipr="trust200902" docName="draft-singh-rmcat-cc-eval-01.txt" category="info">
+<rfc ipr="trust200902" docName="draft-singh-rmcat-cc-eval-02.txt" category="info">
     <!-- What is the category field value-->
     <front>
         <title abbrev="Evaluating Congestion Control for RMCAT"> 
-            Evaluating Congestion Control for Interactive Real-time Media.
+            Evaluating Congestion Control for Interactive Real-time Media
             <!--Evaluation Criteria for RTP Congestion Avoidance Techniques -->
         </title>
         
