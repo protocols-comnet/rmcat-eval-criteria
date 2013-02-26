@@ -7,8 +7,8 @@
 #             echo Working directory is dirty >&2; \
 #         fi
 
-DRAFTS =	draft-singh-rmcat-cc-eval.html \
-			draft-singh-rmcat-cc-eval.txt \
+DRAFTS =	draft-singh-rmcat-cc-eval.txt \
+            draft-singh-rmcat-cc-eval.html \
 			draft-singh-rmcat-cc-eval.pdf
 CMDSEP = ;
 #VERSION = 00 
@@ -17,12 +17,14 @@ all: $(DRAFTS)
 
 %.txt: %.xml
 	@echo "generate $< -> $@"
-	@xml2rfc $<
+	@echo xml2rfc $< -f $@ --text
+	@xml2rfc $< -f $@ --text
 	#@egrep -ns --colour "\\bmust|required|shall|should|recommended|may|optional\\b" $< || true
 
 %.html: %.xml
 	@echo "generate $< -> $@"
-	@xml2rfc $< $@
+	@echo xml2rfc $< -f $@ --html
+	@xml2rfc $< -f $@ --html
 
 %.pdf: %.txt
 	@echo "enscript $< -> $@"

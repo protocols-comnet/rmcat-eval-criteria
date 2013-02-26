@@ -61,7 +61,7 @@
             </address>
         </author>
         
-        <date year="2012"/>
+        <date year="2013"/>
         <area>TSV</area>
         <workgroup>RMCAT WG</workgroup>
         <keyword>RTP</keyword>
@@ -88,11 +88,11 @@
             Algorithms</xref> and <xref target="RFC5166">Metrics for the
             Evaluation of Congestion Control Algorithms</xref>.</t>
             
-            <t>The guidelines proposed in the document are intended to
-            prevent a congestion collapse, promote fair capacity usage and
-            optimize the media flow's throughput, delay, loss and quality.
-            Furthermore, the proposed algorithms are expected to operate
-            within the envelope of the circuit breakers defined in <xref
+            <t>The guidelines proposed in the document are intended to prevent
+            a congestion collapse, promote fair capacity usage and optimize
+            the media flow's throughput, and quality. Furthermore, the
+            proposed algorithms are expected to operate within the envelope of
+            the circuit breakers defined in <xref
             target="I-D.ietf-avtcore-rtp-circuit-breakers" />.</t>
             
             <t>This document only provides broad-level criteria for
@@ -124,20 +124,16 @@
             <t><xref target="RFC5166" /> describes the basic metrics for
             congestion control. Metrics that are important to interactive
             multimedia are:
-            <list style="empty">
-                <t><list style="symbols">
-                    <t>Delay</t>
-                    <t>Throughput</t>
+                <list style="symbols">
+                    <t>Throughput: (Sending Rate, Receiving Rate, Goodput)</t>
                     <t>Minimizing oscillations in encoding rate (stability)</t>
                     <t>Reactivity to transient events</t>
                     <t>Packet loss and discard rate</t>
                     <t>Users' quality of experience</t>
                 </list></t>
-                <t></t>
-                <t>[Editor's Note: measurement interval and statistical
-                measures (min, max, mean, median) are yet to be
-                specified.]</t>
-            </list></t>
+            <t>[Editor's Note: measurement interval and statistical
+            measures (min, max, mean, median, standard deviation and 
+            variance) are yet to be specified.]</t>
             
             <t> Section 2.1 of <xref target="RFC5166" /> discusses the
             tradeoff between throughput, delay and loss.</t>
@@ -167,25 +163,27 @@
                 <t>(iii) Fair Share. </t>
                 <t></t>
                 
-                <t>[Editor's Note: This metric should match the one defined
+                <t>[Editor's Note: This metric should match the ones defined
                 in the <xref target="I-D.jesup-rtp-congestion-reqs">RMCAT
                 requirements</xref> document.]</t>
                 <t></t>
                 
-                <!--
                 <t>(iv) Quality: There are many different types of quality
                 metrics for audio and video. Audio quality is often
                 expressed by a MOS ("Mean Opinion Score") and can be
-                calculated using an objective algorithm <xref
-                target="I-D.ietf-xrblock-rtcp-xr-qoe" />. Section 4.7 of
-                <xref target="RFC3611" /> can also be used for VoIP
-                metrics. Similarly, there exist several metrics to measure
+                calculated using an objective algorithm (E-model/R-model). 
+                Section 4.7 of <xref target="RFC3611" /> can also be used 
+                for VoIP metrics. Similarly, there exist several metrics to measure
                 video quality, for example Peak Signal to Noise Ratio
                 (PSNR). </t>
+
                 <t>[Editor's Note: Should the algorithm compare average
                 PSNR of test video sequences or what other video quality
-                metric can be used?]</t>
-                -->
+                metric can be used? If Quality is used as a metric, it should
+                not be the only metric used to compare rate-control schemes.
+                Also, algorithms using different codecs cannot be compared].
+                </t>
+
             </list>
             </t>
 
@@ -228,7 +226,7 @@
             <t>The congestion control algorithm should be assessed in
             heterogeneous environments, containing both wired and wireless
             paths. Examples of wireless access technologies are: 802.11x,
-            HSPA, WCDMA, or GPRS. One of the main challenges of the
+            GPRS, HSPA, or LTE. One of the main challenges of the
             wireless environments is the inability to distinguish
             congestion induced loss from transmission (bit-error) loss.
             Congestion control algorithms may incorrectly identify
@@ -271,6 +269,10 @@
             </section>
             
             <section title="Impact on Cross-Traffic">
+            <t>[Editor's Note: There was discussion about removing this
+            guideline, however, no decision was made
+            <xref target="I-D.jesup-rtp-congestion-reqs"/>.]</t>
+
             <t>The congestion control algorithm should be evaluated when
             competing with standard TCP. Short TCP flows may be considered
             as transient events and the RTP flow may give way to the short
@@ -300,28 +302,103 @@
         
         <section title="Example Evaluation Scenarios" anchor="cc-scenario">
             <t>In the scenarios listed below, all RTP flows are
-            bi-directional and point-to-point. <xref
-            target="TCP-eval-suite"/> contains examples of TCP traffic
-            load and scenario settings.</t>
+            bi-directional and point-to-point.</t>
+
+            <t>Unless specified, the following parameters are used in each scenario:</t>
+            <t><list style="symbols">
+                <t>Video Start Rate: 128 kbps</t>
+                <t>Maximum end-to-end delay: 300ms, packets arriving 
+                after this are discarded</t>
+                <t>Video Frame rate: 15 </t>
+                <t>Audio packetization interval: 20ms </t>
+                <t>MTU: 1450 bytes</t>
+                <t>[Editor's Note: the numbers in this section are TBD]</t>
+            </list></t>
+
+            <t>Topology:<list style="symbols">
+                <t>Dumbbell, the endpoint is connected to the bottleneck
+                link via an access links. The bottleneck may be shared by multiple 
+                endpoints.</t>
+                <t>Parking lot: there are three bottleneck links arranged horizontally,
+                these links are connected by access links. In this case, flows may share
+                different bottleneck links.</t>
+            </list></t>
+
+            <t>[Editor's note: Should the queue-size be specified as well?].</t>
+
+
+            <section title="[S1] RTP flow on a fixed link">
+            <t>This scenario evaluates the ramp-up to the bottleneck capacity and 
+            the stability of the proposed congestion control algorithm.</t>
+
+            <t>This scenario uses the dumbbell topology and both the access link 
+            can be ADSL (500kbps uplink, 256 downlink, 2ms one-way delay) 
+            or WLAN (54Mbps, 2ms one-way delay, 2-5% packet loss rate and 
+            link layer re-transmissions).  
+            </t>
+
+            <t>
+            The bottleneck link can have one  of the following capacities: 
+            500kbps, 1Mbps, 5Mbps and link delay: 10ms, 50ms, 120ms.
+            </t>
+
+            <t>Each congestion control algorithm should plot the variation of the 
+            sending rate against time, also plot the instances of packets losses.
+            Additionally, measure the time taken for the sending rate to reach 
+            the end-to-end capacity (average and standard deviation over 
+            10 simulation runs).
+            </t>
+            </section>
+
+            <section title="[S2] RTP flow on a variable capacity link">
             
-            <t><list style="empty">
-            <t>[S1] RTP flow on a fixed link: This scenario evaluates the
-            ramp-up to the bottleneck capacity and the stability of the
-            proposed congestion control algorithm.</t>
-            <t></t>
+            <t>This scenario evaluates the reactivity of the proposed congestion 
+            control algorithm to transient network events due to interference and
+            handovers in mobile environments.</t>
+
+            <t>This scenario uses the dumbbell topology, and both end-points use
+            3G/LTE access. 
+            Sample 3G/LTE (uplink and downlink) bandwidth traces are 
+            available at  <xref target="SA4-EVAL"/>, loss patterns at 
+            <xref target="SA4-LR"/> and the link delay: 30ms, 80ms. 
+            The bottleneck link can have one  of the following capacities: 
+            500kbps, 5Mbps and link delay: 20ms.</t>
+
+            <t>Each congestion control algorithm should plot the variation of the 
+            sending rate against time, also plot the instances of packets losses.
+            </t>
+            </section>
+
+            <section title="[S3] Fairness to RTP flows running the same congestion
+            control algorithm (self-fairness)">
             
-            <t>[S2] RTP flow on a variable capacity link: This scenario
-            evaluates the reactivity of the proposed congestion control
-            algorithm to transient network events due to interference and
-            handovers in mobile environments. Sample 3G bandwidth traces
-            are available at <xref target="3GPP.R1.081955" />.</t>
-            <t></t>
-            
-            <t>[S3] Fairness to RTP flows running the same congestion
-            control algorithm: This scenario shows if the proposed
+            <t>This scenario shows if the proposed
             algorithm can share the bottleneck link equitably, irrespective
             of number of flows.</t>
-            <t></t>
+
+            <t>In this scenario there is more than one endpoint connected
+            to the bottleneck link. 
+            <list style="none">
+                <t>(a) All the access links have the same link characteristics and
+                start at the same time (see [S1]). The bottleneck link can have one of
+                the following link capacity: 500kbpsm 5Mbpps and link delay 20ms.</t>
+
+                <t>(b) The access links have different link characteristics [See S1]
+                    but start at the same time.</t>
+
+                <t>(c) An RTP flow is added at 10s intervals (upto 5 flows), 
+                   the late arriving flows have increasing access link 
+                   delay (0, 5, 10, 20, 50ms). 
+                   The bottleneck link can have one  of the following capacities:  
+                   1Mbps, 10Mbps and link delay: 10ms, 50ms, 120ms. </t>
+            </list></t>
+
+            <t>[Parking lot topology simulation: TBD]</t>
+            
+            </section>
+
+            <section title="[S4 and S5] Competing with short and long TCP flows">
+            <t>[Editor's Note: Remove these scenarios?]</t>
             
             <t>[S4] Competing with long-lived TCP flows: In this scenario
             the proposed algorithm is expected to be TCP-friendly, i.e., it
@@ -337,14 +414,18 @@
             Alternatively, if there are many short flows then the proposed
             algorithm may have to compete with the flows as if they were
             long lived TCP flows.</t> 
-            <t></t>
+            <t><xref target="TCP-eval-suite"/> contains examples of TCP traffic
+            load and scenario settings.</t>
             
             <t>[Editor's Note: definition of many and
             few short TCP flows may depend on the bottleneck link
-            capacity.]</t><t></t>
+            capacity.]</t>
+            <t></t>
             <t>[Editor's Note: clarify if media packets are generated using
             a traffic generator.]</t>
-            </list> </t>
+            </section>
+
+            
         </section>
         
         
@@ -387,11 +468,14 @@
           Luca De Cicco, 
           Wesley Eddy, 
           Lars Eggert,
+          Vinayak Hegde,
           Stefan Holmer, 
           Randell Jesup, 
           Piers O'Hanlon, 
-          Timothy B. Terriberry and
-          Michael Welzl
+          Colin Perkins,
+          Timothy B. Terriberry,
+          Michael Welzl, and
+          Sarker Zaheduzzaman
           for providing valuable feedback on earlier versions of this
           draft.</t>
         </section>
@@ -414,8 +498,41 @@
         &rfc5033; <!-- CC Evaluation -->
         &rfc5166; <!-- CC Metrics -->
         &rfc5681; <!-- Standard TCP -->
-        <!--&I-D.ietf-xrblock-rtcp-xr-qoe;-->
+        
+        <!--
+        &I-D.ietf-xrblock-rtcp-xr-qoe;
         <?rfc include="reference.3GPP.R1.081955"?>
+        -->
+        
+        <reference anchor="SA4-EVAL">
+            <front>
+                <title>LTE Link Level Throughput Data for SA4 Evaluation Framework</title>
+                <author initials="3GPP" surname="R1-081955" fullname="3GPP R1-081955">
+                    <organization />
+                </author>
+                <date month="5" year="2008" />
+                <abstract>
+                <t>In R1-081720, 3GPP SA4 has requested RAN1 and RAN2 for link
+                level throughput traces to be used in an evaluation framework
+                they are developing for dynamic video rate adaptation.
+                </t></abstract>
+            </front>
+            <seriesInfo name="3GPP" value="R1-081955" />
+            <format type='ZIP' octets='3459875' target='http://www.3gpp.net/ftp/tsg_ran/WG1_RL1/TSGR1_53/Docs/R1-081955.zip' />
+        </reference>
+   
+        <reference anchor="SA4-LR">
+            <front>
+                <title>Error Patterns for MBMS Streaming over UTRAN and GERAN</title>
+                <author initials="3GPP" surname="S4-050560" fullname="3GPP S4-050560">
+                    <organization />
+                </author>
+                <date month="5" year="2008" />
+            </front>
+            <seriesInfo name="3GPP" value="S4-050560" />
+            <format type='ZIP' octets='335322' target='http://www.3gpp.org/FTP/tsg_sa/WG4_CODEC/TSGS4_36/Docs/S4-050560.zip' />
+        </reference>
+
         <reference anchor="TCP-eval-suite">
           <front>
             <title>Towards a Common TCP Evaluation Suite</title>
@@ -432,10 +549,19 @@
           </front>
           <seriesInfo name="Proc. PFLDnet." value="2008"/>
         </reference>
+
         </references>
+        
+        
         <section anchor="App-a" title="Change Log"> 
         <t>Note to the RFC-Editor: please remove this section prior to
         publication as an RFC.</t>
+            <section title="Changes in draft-singh-rmcat-cc-eval-02">
+            <t><list style="symbols">
+                <t>Added scenario descriptions.</t>
+            </list></t> 
+            </section>
+
             <section title="Changes in draft-singh-rmcat-cc-eval-01">
             <t><list style="symbols">
                 <t>Removed QoE metrics.</t>
