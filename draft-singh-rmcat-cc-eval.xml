@@ -22,7 +22,7 @@
 <?rfc toc="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc symrefs="yes" ?>
-<rfc ipr="trust200902" docName="draft-singh-rmcat-cc-eval-02.txt" category="info">
+<rfc ipr="trust200902" docName="draft-singh-rmcat-cc-eval-03.txt" category="info">
     <!-- What is the category field value-->
     <front>
         <title abbrev="Evaluating Congestion Control for RMCAT"> 
@@ -365,7 +365,8 @@
             500kbps, 5Mbps and link delay: 20ms.</t>
 
             <t>Each congestion control algorithm should plot the variation of the 
-            sending rate against time, also plot the instances of packets losses.
+            sending rate, 3G link capacity against time, also plot the 
+            instances of packets losses.
             </t>
             </section>
 
