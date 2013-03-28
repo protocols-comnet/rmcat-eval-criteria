@@ -1,0 +1,50 @@
+IETF 85 WEEK
+------------------------------------------------------------------------
+Tuesday: (From: http://www.ietf.org/mail-archive/web/rmcat/current/msg00203.html)
+------------------------------------------------------------------------
+The discussion yielded the following application scenarios
+(network scenarios/link characteristics will be discussed
+separately):
+
+0. Single Flow (no fairness)
+1. Competing with the same/homogeneous flows
+    (i.e., all flows are interactive multimedia)
+2. Competing with long-lived TCP
+3. Competing with bursty TCP
+4. Competing with bitorrent/LEDBAT.
+5. Competing with unresponsive interactive multimedia
+    (i.e., not only CBR)
+---
+6. Competing with data-channel
+    (probably covered by bursty/long-lived tcp flows?)
+    
+------------------------------------------------------------------------
+Friday:
+------------------------------------------------------------------------
+Summary of discussion (at the IETF):
+ - A minimum set of application scenarios for fairness.
+
+- A long discussion on fairness for the application scenarios,
+which lead to decision on logging: RTP timestamp, sequence number, 
+packet size, sent or receive timestamp (+?) for each RTP flow 
+at both the endpoints. Plot the delay and throughput curves from this.
+
+- Correct me if I am wrong: but the decision was to start with
+something simple for fairness and adapt the definition for each
+scenario. 
+
+------------------------------------------------------------------------
+28.03.2013
+------------------------------------------------------------------------
+Agenda:
+5 mins: Recap of meeting
+Rest: How to proceed with the Fairness criteria
+
+At the IETF we discussed
+- application scenarios for fairness
+- discussion on fairness
+- packet logs for flows
+
+What is missing:
+- network scenarios
+- link characteristics
