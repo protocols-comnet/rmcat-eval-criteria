@@ -17,7 +17,7 @@ separately):
 ---
 6. Competing with data-channel
     (probably covered by bursty/long-lived tcp flows?)
-    
+
 ------------------------------------------------------------------------
 Friday:
 ------------------------------------------------------------------------
@@ -46,5 +46,18 @@ At the IETF we discussed
 - packet logs for flows
 
 What is missing:
-- network scenarios
-- link characteristics
+- media variation (real video streams, packet generator)
+- application or service characteristics ()
+- fairness scenarios (above!)
+- network scenarios (wifi: model varying delay. 3G: model vary delay, throughput and loss.)
+- link characteristics (Queue types, latency, linkbw)
+------------------------------------------------------------------------
+Application
+
+
+Self-fairness is really important
+nice flows vs delay causing flows
+
+throughput, forward/backward delay, delay variation, loss rate
+
+wiki
