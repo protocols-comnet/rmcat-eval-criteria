@@ -822,8 +822,216 @@ payload size
 
         </references>
         
+        <section anchor="app-scenario-1" title="Proposal to evaluate 
+        Self-fairness of RMCAT congestion control algorithm">
+            
+            <t>The goal of the experiment discussed in this section is to
+            initially take out as many unknowns from the experiments. Later
+            experiments can define more complex environments, topologies and
+            media behavior. This experiment evaluates the performance of the
+            RMCAT sender competing with other similar RMCAT flows (running the
+            same algorithm or other RMCAT proposals) on the bottleneck link.
+            There are up to 20 RMCAT flows competing for capacity on the
+            bottleneck link, but media only flows in one direction, from
+            senders (S1..S20) to receivers (R1..R20) and the feedback packets
+            flow in the reverse direction. </t>
+            
+            <t><xref target="fig-exp1" /> shows the experiment setup and
+            compared to the simple topology in <xref target="fig-eval-topo" />
+            it has a maximum of 20 flows. Groups of 10 receivers are connected
+            to the bottleneck link through two different routers (Router C and
+            D). The rationale for adding these additional routers is to create
+            two delay legs, i.e., two groups of endpoints with different
+            network latencies and measure the performance of the RMCAT
+            congestion control algorithm. If fewer than 10 sources are
+            initialized, all traffic flows experience the same delay because
+            they share the same delay leg. </t>
+            
+            
+            <t>Router A has a single forward direction bottleneck link (i.e.,
+            the bottleneck capacity and delay constraints applies only to the
+            media packets going from the sender to the receiver, the feedback
+            packets are unaffected). Hence, the Round-Trip Time (RTT) is
+            primarily composed of the bottleneck queue delay and any forward
+            path (propagation) latency. The main reason for not applying any
+            constraints on the return path is to provide the best-case
+            performance scenario for the congestion control algorithm. In
+            later experiments, it is possible to add similar capacity and
+            delay constraints on the return path.</t>
+            
+<figure anchor="fig-exp1" title="Self-fairness Evaluation Setup">
+<artwork><![CDATA[                                                   
+                                                                +---+
+                                                          / === |R1 |
++---+                                           +-----+  //     +---+
+|S1 |======= \                               / =|  C  | //           
++---+        \\                             //  +-----+ \\      (...)
+              \\                           //            \\          
++---+       +-----+      Bottleneck     +-----+           \\    +---+
+|S2 |=======|  A  |-------------------->|  B  |            \ ===|R10|
++---+       |     |<--------------------|     |                 +---+
+            +-----+        Link         +-----+                      
+(...)         //                           \\                   +---+
+             //                             \\            / === |R11|
++---+       //                               \\  +-----+ //     +---+
+|S20|====== /                                 \ =|  D  |//           
++---+                                            +-----+\\      (...)
+                                                         \\          
+                                                          \\    +---+
+                                                           \ ===|R20|
+                                                                +---+
+]]></artwork>
+</figure>
+            
+            
+            
+            <t>Loss impairments are applied at Router C and Router D, but only
+            to the feedback flows. If the losses are set to 0%, it represents
+            a case where the return path is over-provisioned for all traffic.
+            In later experiments the loss impairments can be added to the
+            media path as well. </t>
+            
+            <t> The media sources are configured to send infinite amount of
+            data, i.e., the sources always have data to send and have no data
+            limited intervals. Additionally, the media sources are always 
+            successful in generating the media rate requested by the RMCAT 
+            congestion control algorithm. In this experiment, we avoid the 
+            potentially complicated scenario of using media traffic generators 
+            that try to model the behavior of media codecs (mainly the 
+            burstiness). </t>
+
+
+
+        <section title="Evaluation Parameters">
+            <section title="Media Traffic Generator">
+            <t>The media source always generates at the rate requested by the
+            congestion control. Furthermore, the media packet generator is
+            subject to the following constraints:
+            <list style="numbers">
+                <t>It MUST emit a packet at least once per 100 ms time
+                interval.</t>
+                
+                <t>For low media rate source: when generating data at a rate
+                less than a maximum length MTU every 100 ms would allow (e.g.,
+                120 kbps = 1500 bytes/packet * 10 packets/sec * 8 bits/byte
+                for 1500 byte packets), the RMCAT source must modulate the
+                packet size (RTP payload size) of RTP packets that are sent
+                every 100 ms to attain the desired rate.</t>
+                
+                <t>For high media rate sources: when generating data at a rate
+                greater than a maximum length MTU every 100 ms would allow,
+                the source must do so by sending (approximately) maximum MTU
+                sized packets and adjusting the inter-departure interval to be
+                approximately equal. The intent of this to ensure the data is
+                sent relatively smoothly independent of the bitrate, subject
+                to the first constraint.</t>
+            </list></t>
+            </section>
+            
+            <section title="Bottleneck Link Bandwidth">
+            <t>The bottleneck link bandwidth is dimensioned such that each
+            RMCAT flow in an ideal situation (with perfectly equal capacity
+            sharing for all the flows on the bottleneck) obtains the following
+            throughputs: 200 kbps, 800 kbps, 1.3 Mbps and 4 Mbps.<vspace/>
+            
+            For example, experiments with five RMCAT flows with an 800
+            kbps/flow target rate should set the bottleneck link capacity to 4
+            Mbps. </t>
+            </section>
+            
+            <section title="Bottleneck Link Queue Type and Length">
+            <t>The bottleneck link queue (Router A) is a simple FIFO queue
+            having a buffer length corresponding to 70 ms, 500 ms or 2000 ms
+            of delay at the bottleneck link rate (i.e., actual buffer lengths
+            in bytes are dependent on bottleneck link bandwidth).</t>
+            </section>
+            
+            <section title="RMCAT flows and delay legs">
+            <t>Experiments run with 1, 3, 5, 10 and 20 RMCAT sources, they are 
+            outlined as follows:
+             <list style="numbers">
+                 <t>Experiments with 1, 3, and 5 RMCAT flows, all RMCAT flows 
+                 commence simultaneously. A single delay leg is used and
+                 the link latency is set to one of the following : 
+                 0 ms, 50 ms and 150 ms.
+                 </t>
+                 <t> For 10 and 20 source experiments where all RMCAT flows
+                 begin simultaneously the sources are split evenly into two
+                 different bulk delay legs. One leg is set to 0 ms bulk delay
+                 leg and the other is set to 150 ms.                 
+                  </t>
+                  <t>For 10 and 20 source experiments where the first set will
+                  use 0 ms of bulk delay and the second set will use 150 ms
+                  bulk delay.
+                  <list style="numbers">
+                      <t>Random starts within interval [0 ms, 500 ms].</t>
+                      <t>One “early-coming” flow (i.e., the 1st flow starting
+                      and achieving steady-state before the next N-1
+                      simultaneously begin). </t>
+                      <t>One “late-coming” flow (i.e., the Nth flow starting
+                      after steady-state has occurred for the existing N-1
+                      flows). </t>
+                  </list>
+                  These cases assess if there are any early or late-comer
+                  advantages or disadvantages for a particular algorithm and
+                  to see if any unfairness is reproducible or
+                  unpredictable.</t>
+                  
+             </list></t>
+             <t> [Open issue (A.1): which group does the early and late flow
+             belong to?] </t>
+             <t>[Open issue (A.2): Start rate for the media flows]</t>
+             
+            </section>
+            
+            <section title="Impairment Generator">
+                <t>Packet loss is created in the reverse path (affects only
+                feedback packets). Cases of 0%, 1%, 5% and 10% are studied for
+                the 1, 3, and 5 RMCAT flow experiments, losses are not applied
+                to flows with 10 or 20 RMCAT flows. </t>
+            </section>
+        </section>
         
-        <section anchor="App-a" title="Change Log"> 
+        <section title="Proposed Passing Criteria for Experiment">
+            <t>[Editor's note: there has been little or no discussion on the 
+            below criteria, however, they are listed for the sake of 
+            completeness</t>
+            <t>No unfairness is observed, i.e., at steady state each flow
+            attains a throughput between [ B/(3*N), (3*B)/N ], where B is the
+            link bandwidth and N is the number of flows.</t>
+            <t>No flow experiences packet loss when queue length is set to 500
+            ms or greater </t>
+            <t>All individual sources must be in their steady state within
+            twenty LRTTs (where LRTT is defined as the RTT associated with the
+            flow with the Largest RTT in the experiment). ]</t>
+        </section>
+        
+        <section title="Extensability">
+            <t>The above scenario describes only RMCAT sources competing for 
+            capacity on the bottleneck link, however, future experiments can 
+            use different types of cross-traffic (as described in <xref 
+            target="eval-scen-traffic" />).</t>
+            
+            <t>Currently, the forward path (carrying media packets) is
+            characterized to add delay and a fixed bottleneck link capacity,
+            in the future packet losses and capacity changes can be applied to
+            mimic a wireless link layer (for e.g., WiFi, 3G, LTE).
+            Additionally, only losses are applied to the reverse path
+            (carrying feedback packets), later experiments can apply the same
+            forward path (carrying media packets) impairments to the reverse
+            path.</t>
+            
+        </section>
+            
+        </section>
+        
+        <section anchor="contrib" title="Contributors">
+            <t>The content and concepts within this document are a product of 
+            the discussion carried out in the Design Team.</t>
+            <t>Michael Ramalho provided the text for the scenario discussed in
+            <xref target="app-scenario-1" />.</t>
+        </section>
+        
         <section anchor="App-cl" title="Change Log"> 
         <t>Note to the RFC-Editor: please remove this section prior to
         publication as an RFC.</t>
@@ -832,6 +1040,7 @@ payload size
                 <t>Incorporate the discussion within the design team.</t>
                 <t>Added a section on evaluation parameters, it describes the 
                 flow and network characteristics.</t>
+                <t>Added Appendix with self-fairness experiment.</t>
             </list></t> 
             </section>
 
