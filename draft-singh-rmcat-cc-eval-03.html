@@ -512,7 +512,7 @@
 
   <h1 id="rfc.section.1"><a href="#rfc.section.1">1.</a> Introduction</h1>
 <p id="rfc.section.1.p.1">This memo describes the guidelines to help with evaluating new congestion control algorithms for interactive point-to-point real time media. The requirements for the congestion control algorithm are outlined in <a href="#I-D.jesup-rmcat-reqs">[I-D.jesup-rmcat-reqs]</a>). This document builds upon previous work at the IETF: <a href="#RFC5033">Specifying New Congestion Control Algorithms</a> <cite title="NONE">[RFC5033]</cite> and <a href="#RFC5166">Metrics for the Evaluation of Congestion Control Algorithms</a> <cite title="NONE">[RFC5166]</cite>.</p>
-<p id="rfc.section.1.p.2">The guidelines proposed in the document are intended to prevent a congestion collapse, promote fair capacity usage and optimize the media flow's throughput, and quality. Furthermore, the proposed algorithms are expected to operate within the envelope of the circuit breakers defined in <a href="#I-D.ietf-avtcore-rtp-circuit-breakers">[I-D.ietf-avtcore-rtp-circuit-breakers]</a>.</p>
+<p id="rfc.section.1.p.2">The guidelines proposed in the document are intended to help prevent a congestion collapse, promote fair capacity usage and optimize the media flow's throughput. Furthermore, the proposed algorithms are expected to operate within the envelope of the circuit breakers defined in <a href="#I-D.ietf-avtcore-rtp-circuit-breakers">[I-D.ietf-avtcore-rtp-circuit-breakers]</a>.</p>
 <p id="rfc.section.1.p.3">This document only provides broad-level criteria for evaluating a new congestion control algorithm and the working group should expect a thorough scientific study to make its decision. The results of the evaluation are not expected to be included within the internet-draft but should be cited in the document.</p>
 <h1 id="rfc.section.2"><a href="#rfc.section.2">2.</a> <a href="#sec-terminology" id="sec-terminology">Terminology</a></h1>
 <p id="rfc.section.2.p.1">The terminology defined in <a href="#RFC3550">RTP</a> <cite title="NONE">[RFC3550]</cite>, <a href="#RFC3551">RTP Profile for Audio and Video Conferences with Minimal Control</a> <cite title="NONE">[RFC3551]</cite>, <a href="#RFC3611">RTCP Extended Report (XR)</a> <cite title="NONE">[RFC3611]</cite>, <a href="#RFC4585">Extended RTP Profile for RTCP-based Feedback (RTP/AVPF)</a> <cite title="NONE">[RFC4585]</cite> and <a href="#RFC5506">Support for Reduced-Size RTCP</a> <cite title="NONE">[RFC5506]</cite> apply.</p>
@@ -520,27 +520,25 @@
 <p><a href="#RFC5166">[RFC5166]</a> describes the basic metrics for congestion control. Metrics that are important to interactive multimedia are: </p>
 
 <ul>
-  <li>Throughput</li>
-  <li>Minimizing oscillations in encoding rate (stability)</li>
-  <li>Delay</li>
-  <li>Reactivity to transient events</li>
+  <li>Throughput.</li>
+  <li>Minimizing oscillations in the transmission rate (stability) when the end-to-end capacity varies slowly.</li>
+  <li>Delay.</li>
+  <li>Reactivity to transient events.</li>
   <li>Packet losses and discards.</li>
-  <li>Users' quality of experience</li>
 </ul>
-<p id="rfc.section.3.p.2">Each experiment logs every incoming and outgoing packet (the RTP logging format is described in <a href="#rtp-logging">Section 3.1</a>). The logging can be done inside the application or at the endpoints using pcap (packet capture, e.g., tcpdump, wireshark). The following are measured based on the information in the logs: </p>
+<p id="rfc.section.3.p.2">Each experiment logs every incoming and outgoing packet (the RTP logging format is described in <a href="#rtp-logging">Section 3.1</a>). The logging can be done inside the application or at the endpoints using pcap (packet capture, e.g., tcpdump, wireshark). The following are calculated based on the information in the packet logs: </p>
 
 <ol>
   <li>Sending rate, Receiver rate, Goodput</li>
   <li>Packet delay</li>
   <li>Packet loss</li>
-  <li>Post-repair loss: residual loss after retransmission or FEC.</li>
   <li>Packets discarded from the playout or de-jitter buffer</li>
 </ol>
-<p id="rfc.section.3.p.3">[Open issue (1): Instead of defining fairness, there has been discussion on defining "unfairness". The criteria are:<br/> 1. Do not trigger the circuit breaker.<br/> 2. Over 3 times or less than 1/3 times the throughput for a stream compared to similar competing streams on a bottleneck. The competing streams have similar RTTs.<br/> 3. Over 3 times delay compared to RTT measurements performed before starting the flow.<br/> Here, rather than discussing the number '3'? Does the criteria capture Unfairness adequately?]</p>
-<p id="rfc.section.3.p.4">[Open issue (2): Convergence time was discussed briefly in the design meetings. It is defined as: the time it takes the congestion control to reach a stable rate (at startup or after new RMCAT flows are added). What is a stable rate?]</p>
-<p id="rfc.section.3.p.5">[Open issue (3): previous versions of the document had Bandwidth Utilization, defined as ratio of sending rate to the available bottleneck capacity. This is useful when the RMCAT flow is by itself or competing with similar flows (where the assumption would be that all flows get an equal share). Remove this?]</p>
-<p id="rfc.section.3.p.6">From the logs the statistical measures (min, max, mean, standard deviation and variance) for the whole duration of the call can be calculated for each metric.</p>
-<p id="rfc.section.3.p.7">Also the metrics (sending rate, receiver rate, goodput, latency) can be visualized in graphs as variation over time, the measurements in the plot are at 1 second intervals. Additionally, from the logs it is possible to plot the histogram or CDF of packet delay.</p>
+<p id="rfc.section.3.p.3">[Editor's note: How to handle packet re-transmissions? loss before retransmission, after retransmission?]</p>
+<p id="rfc.section.3.p.4">[Open issue (1): Instead of defining fairness, there has been discussion on defining "unfairness". The criteria are:<br/> 1. Do not trigger the circuit breaker.<br/> 2. Over 3 times or less than 1/3 times the throughput for an RMCAT media stream compared to identical RMCAT streams competing on a bottleneck, for a case when the competing streams have similar RTTs.<br/> 3. Over 3 times delay compared to RTT measurements performed before starting the RMCAT flow or for the case when competing with identical RMCAT streams having similar RTTs.<br/> Here, rather than discussing the number '3'? Does the criteria capture Unfairness adequately?]</p>
+<p id="rfc.section.3.p.5">[Open issue (2): Convergence time was discussed briefly in the design meetings. It is defined as: the time it takes the congestion control to reach a stable rate (at startup or after new RMCAT flows are added). What is a stable rate?]</p>
+<p id="rfc.section.3.p.6">[Open issue (3): previous versions of the document had Bandwidth Utilization, defined as ratio of sending rate to the available bottleneck capacity. This is useful when the RMCAT flow is by itself or competing with similar flows (where the assumption would be that all flows get an equal share). Remove this?]</p>
+<p id="rfc.section.3.p.7">From the logs the statistical measures (min, max, mean, standard deviation and variance) for the whole duration or any specific part of the session can be calculated. Also the metrics (sending rate, receiver rate, goodput, latency) can be visualized in graphs as variation over time, the measurements in the plot are at 1 second intervals. Additionally, from the logs it is possible to plot the histogram or CDF of packet delay.</p>
 <p id="rfc.section.3.p.8">Section 2.1 of <a href="#RFC5166">[RFC5166]</a> discusses the tradeoff between throughput, delay and loss.</p>
 <p id="rfc.section.3.p.9">[Open issue (4): Application trade-off is yet to be defined. see <a href="#I-D.jesup-rmcat-reqs">RMCAT requirements</a> <cite title="NONE">[I-D.jesup-rmcat-reqs]</cite> document. Perhaps each experiment should define the application's expectation or trade-off.]</p>
 <p/>
@@ -556,13 +554,13 @@
         payload size
 </pre>
 <p class="figure"></p>
-<p id="rfc.section.3.1.p.2">[Open issue (5): Should the retransmissions and FEC for post-repair loss metric be logged in a separate file? the repair streams have different payload type and/or SSRC.]</p>
+<p id="rfc.section.3.1.p.2">[Open issue (5): Should the retransmissions for post-repair loss metric be logged in a separate file? the repair streams have different payload type and/or SSRC.]</p>
 <h1 id="rfc.section.4"><a href="#rfc.section.4">4.</a> <a href="#cc-guidelines" id="cc-guidelines">Guidelines</a></h1>
 <p id="rfc.section.4.p.1">A congestion control algorithm should be tested in simulation or a testbed environment, and the experiments should be repeated multiple times to infer statistical significance.  The following guidelines are considered for evaluation:</p>
 <h1 id="rfc.section.4.1"><a href="#rfc.section.4.1">4.1.</a> Avoiding Congestion Collapse</h1>
 <p id="rfc.section.4.1.p.1">Does the congestion control propose any changes to (or diverge from) the circuit breaker conditions defined in <a href="#I-D.ietf-avtcore-rtp-circuit-breakers">[I-D.ietf-avtcore-rtp-circuit-breakers]</a>.</p>
 <h1 id="rfc.section.4.2"><a href="#rfc.section.4.2">4.2.</a> Stability</h1>
-<p id="rfc.section.4.2.p.1">The congestion control should be assessed for its stability when the path characteristics do not change over time. Changing the media encoding rate too often or by too much may adversely affect the users' quality of experience.</p>
+<p id="rfc.section.4.2.p.1">The congestion control should be assessed for its stability when the path characteristics do not change over time. Changing the media encoding rate estimate too often or by too much may adversely affect the application layer performance.</p>
 <h1 id="rfc.section.4.3"><a href="#rfc.section.4.3">4.3.</a> Media Traffic</h1>
 <p id="rfc.section.4.3.p.1">The congestion control algorithm should be assessed with different types of media behavior, i.e., the media should contain idle and data-limited periods. For example, periods of silence for audio or varying amount of motion for video. However, the evaluation can be done in two stages. In the first stage, media stream can generate traffic at the rate calculated by the congestion controller. In the second stage, real codecs or models of video codecs should be used to mimic real-world cases.</p>
 <h1 id="rfc.section.4.4"><a href="#rfc.section.4.4">4.4.</a> Start-up Behaviour</h1>
@@ -587,7 +585,7 @@
 <h1 id="rfc.section.5"><a href="#rfc.section.5">5.</a> Minimum Requirements for Evaluation</h1>
 <p id="rfc.section.5.p.1">[Editor's Note: If needed, a minimum evaluation criteria can be based on the above guidelines]</p>
 <h1 id="rfc.section.6"><a href="#rfc.section.6">6.</a> <a href="#cc-fw" id="cc-fw">Evaluation Parameters</a></h1>
-<p id="rfc.section.6.p.1">An evaluation scenario is created from a list of network, link and flow characteristics.</p>
+<p id="rfc.section.6.p.1">An evaluation scenario is created from a list of network, link and flow characteristics. The parameters discussed in the following subsections are meant to aid in creating evaluation scenarios and do not describe an evaluation scenario. The scenario discussed in <a href="#app-scenario-1">Appendix A</a> takes into account all these parameters.</p>
 <h1 id="rfc.section.6.1"><a href="#rfc.section.6.1">6.1.</a> <a href="#eval-scen-traffic" id="eval-scen-traffic">Bottleneck Traffic Flows</a></h1>
 <p id="rfc.section.6.1.p.1">The network scenario describes the types of flows sharing the common bottleneck with a single RMCAT flow, they are: </p>
 
@@ -620,7 +618,7 @@
 <p class="figure">Figure 1: Simple Topology</p>
 <p id="rfc.section.6.1.p.3">[Open Issue (7): Discuss more complex topologies]</p>
 <h1 id="rfc.section.6.2"><a href="#rfc.section.6.2">6.2.</a> Access Links</h1>
-<p id="rfc.section.6.2.p.1">The media senders and receivers are typically connected to the bottleneck link over high bandwidth, low latency links. Common access links are: </p>
+<p id="rfc.section.6.2.p.1">The media senders and receivers are typically connected to the bottleneck link, common access links are: </p>
 
 <ol>
   <li>Ethernet (LAN)</li>
@@ -631,17 +629,18 @@
 <p> [Open issue (8): need to describe parameters or traces to model WLAN and 3G/LTE.] </p>
 <p id="rfc.section.6.2.p.2">A real-world network typically consists of a mixture of links, the most important aspect is to identify the location of the bottleneck link. The bottleneck link can move from one node to another depending on the amount of cross-traffic or due to the varying link capacity. The design of the experiments should take this into account. In the simplest case the access link may not be the bottleneck link but an intermediate node.</p>
 <h1 id="rfc.section.6.3"><a href="#rfc.section.6.3">6.3.</a> Bottleneck Link Parameters</h1>
-<p id="rfc.section.6.3.p.1">The bottleneck link carries multiple flows, these flows may be other RMCAT flows or other types of cross-traffic. The experiments should dimension the bottleneck link based on the number of flows and the expected behavior. For example, if 5 media flows are expected to share the bottleneck link equally, the bottleneck link is set to 5 times the media rate.</p>
-<p id="rfc.section.6.3.p.2">If the experiment carries only media in one direction, then the upstream bottleneck link carries media packets while the downstream bottleneck carries the feedback packets. The bottleneck link parameters discussed in this section apply only to a single direction, hence the bottleneck link in the reverse direction can choose the same or have different parameters.</p>
-<p id="rfc.section.6.3.p.3">The link latency corresponds to the propagation delay, the experiments are expected to verify that the congestion control is able to work in challenging situations, for example over trans-continental and/or satellite links. The experiment should pick one of the following values: </p>
+<p id="rfc.section.6.3.p.1">The bottleneck link carries multiple flows, these flows may be other RMCAT flows or other types of cross-traffic. The experiments should dimension the bottleneck link based on the number of flows and the expected behavior. For example, if 5 media flows are expected to share the bottleneck link equally, the bottleneck link is set to 5 times the desired transmission rate.</p>
+<p id="rfc.section.6.3.p.2">If the experiment carries only media in one direction, then the upstream (sender to receiver) bottleneck link carries media packets while the downstream (receiver to sender) bottleneck carries the feedback packets. The bottleneck link parameters discussed in this section apply only to a single direction, hence the bottleneck link in the reverse direction can choose the same or have different parameters.</p>
+<p id="rfc.section.6.3.p.3">The link latency corresponds to the propagation delay of the link, i.e., the time it takes for a packet to traverse the bottleneck link, it does not include queuing delay. In an experiment with several links the experiment should describe if the links add latency or not. It is possible for experiments to have multiple hops with different link latencies. Experiments are expected to verify that the congestion control is able to work in challenging situations, for example over trans-continental and/or satellite links. The experiment should pick link latency values from the following: </p>
 
 <ol>
-  <li>Very low delay: 1ms</li>
-  <li>Low delay:  50ms </li>
-  <li>High delay: 150ms </li>
-  <li>Extreme delay: 300ms</li>
+  <li>Very low latency: 0-1ms</li>
+  <li>Low latency:  50ms </li>
+  <li>High latency: 150ms </li>
+  <li>Extreme latency: 300ms</li>
 </ol>
-<p id="rfc.section.6.3.p.4">Similarly, to model lossy links, the experiments can choose one of the following loss rates, the fractional loss is the ratio of packets lost and packets sent.  </p>
+<p id="rfc.section.6.3.p.4">[Editor's note: currently describes the latency for a single link, instead of end-to-end delay. Which is preferred? or both?]</p>
+<p id="rfc.section.6.3.p.5">Similarly, to model lossy links, the experiments can choose one of the following loss rates, the fractional loss is the ratio of packets lost and packets sent.  </p>
 
 <ol>
   <li>no loss: 0%</li>
@@ -661,11 +660,9 @@
   <li>Buffer-bloated: 2000ms</li>
 </ol>
 
-<p> However, the size of the queue is typically measured in bytes or packets and to convert the queue length measured in seconds to 1) queue length in bytes: </p>
+<p> However, the size of the queue is typically measured in bytes or packets and to convert the queue length measured in seconds to queue length in bytes: </p>
 <p id="rfc.section.6.4.p.2">QueueSize (in bytes) = QueueSize (in sec) x Throughput (in bps)/8</p>
-<p id="rfc.section.6.4.p.3">and 2) queue length in packets:</p>
-<p id="rfc.section.6.4.p.4">QueueSize (in pkts) = QueueSize (in bytes)/MTU, MTU=1500</p>
-<p id="rfc.section.6.4.p.5">[Open issue (11): Confirm the above values, do we need to define parameters for other types of queues?]</p>
+<p id="rfc.section.6.4.p.3">[Open issue (11): Confirm the above values, do we need to define parameters for other types of queues?]</p>
 <h1 id="rfc.section.6.5"><a href="#rfc.section.6.5">6.5.</a> Media Flow Parameters</h1>
 <p id="rfc.section.6.5.p.1">The media sources can be modeled in two ways. In the first, the sources always have data to send, i.e., have no data limited intervals and are able to generate the media rate requested by the RMCAT congestion control algorithm. In the second, the traffic generator models the behavior of a media codec, mainly the burstiness (time-varying data produced by a video GOP).</p>
 <p id="rfc.section.6.5.p.2">At the beginning of the session, the media sources are configured to start at a given start rate, they are: </p>
@@ -676,7 +673,6 @@
   <li>1300 kbps</li>
   <li>4000 kbps</li>
 </ol>
-<p id="rfc.section.6.5.p.3">The scenario described in <a href="#app-scenario-1">Appendix A</a> takes into account these network and flow considerations.</p>
 <h1 id="rfc.section.6.6"><a href="#rfc.section.6.6">6.6.</a> Cross-traffic Parameters</h1>
 <p id="rfc.section.6.6.p.1">[Open issue(12): TCP cross-traffic parameters are still TBD, mainly the bursty TCP. Long-lived TCP flows will download data throughout the session and are expected to have infinite amount of data to send or receive.]</p>
 <h1 id="rfc.section.7"><a href="#rfc.section.7">7.</a> <a href="#cc-proposal" id="cc-proposal">Status of Proposals</a></h1>

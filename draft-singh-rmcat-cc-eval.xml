@@ -88,11 +88,11 @@
             Algorithms</xref> and <xref target="RFC5166">Metrics for the
             Evaluation of Congestion Control Algorithms</xref>.</t>
             
-            <t>The guidelines proposed in the document are intended to prevent
-            a congestion collapse, promote fair capacity usage and optimize
-            the media flow's throughput, and quality. Furthermore, the
-            proposed algorithms are expected to operate within the envelope of
-            the circuit breakers defined in <xref
+            <t>The guidelines proposed in the document are intended to help
+            prevent a congestion collapse, promote fair capacity usage and
+            optimize the media flow's throughput. Furthermore, the proposed
+            algorithms are expected to operate within the envelope of the
+            circuit breakers defined in <xref
             target="I-D.ietf-avtcore-rtp-circuit-breakers" />.</t>
             
             <t>This document only provides broad-level criteria for
@@ -125,36 +125,40 @@
         congestion control. Metrics that are important to interactive
         multimedia are:
         <list style="symbols"> 
-            <t>Throughput</t> 
-            <t>Minimizing oscillations in encoding rate (stability)</t>
-            <t>Delay</t> <t>Reactivity to transient events</t>
+            <t>Throughput.</t> 
+            <t>Minimizing oscillations in the transmission rate (stability)
+            when the end-to-end capacity varies slowly.</t>
+            <t>Delay.</t> 
+            <t>Reactivity to transient events.</t>
             <t>Packet losses and discards.</t>
-            <t>Users' quality of experience</t> 
+            <!-- <t>Users' quality of experience</t>  -->
         </list></t>
         
          <t>Each experiment logs every incoming and outgoing packet (the RTP
          logging format is described in <xref target="rtp-logging" />). The
          logging can be done inside the application or at the endpoints using
          pcap (packet capture, e.g., tcpdump, wireshark). The following are
-         measured based on the information in the logs:
+         calculated based on the information in the packet logs:
          <list style="numbers"> 
             <t>Sending rate, Receiver rate, Goodput</t> 
             <t>Packet delay</t>
             <t>Packet loss</t>
-            <t>Post-repair loss: residual loss after retransmission or
-            FEC.</t>
             <t>Packets discarded from the playout or de-jitter buffer</t>
-<!--            <t>(v) Unfairness</t> -->
         </list></t>
+        
+        <t>[Editor's note: How to handle packet re-transmissions? loss before
+        retransmission, after retransmission?]</t>
         
         <t>[Open issue (1): Instead of defining fairness, there has been
         discussion on defining "unfairness". The criteria are:<vspace />
             1. Do not trigger the circuit breaker.<vspace />
-            2. Over 3 times or less than 1/3 times the throughput for a stream
-            compared to similar competing streams on a bottleneck. The
-            competing streams have similar RTTs.<vspace />
+            2. Over 3 times or less than 1/3 times the throughput for an RMCAT
+            media stream compared to identical RMCAT streams competing on a
+            bottleneck, for a case when the competing streams have similar
+            RTTs.<vspace />
             3. Over 3 times delay compared to RTT measurements performed
-            before starting the flow.<vspace />
+            before starting the RMCAT flow or for the case when competing 
+            with identical RMCAT streams having similar RTTs.<vspace />
             Here, rather than discussing the number '3'? Does the criteria 
             capture Unfairness adequately?]</t>
         
@@ -170,14 +174,12 @@
         all flows get an equal share). Remove this?]</t>
         
         <t>From the logs the statistical measures (min, max, mean, standard
-        deviation and variance) for the whole duration of the call can be
-        calculated for each metric.</t>
-        
-        
-        <t> Also the metrics (sending rate, receiver rate, goodput, latency)
-        can be visualized in graphs as variation over time, the measurements
-        in the plot are at 1 second intervals. Additionally, from the logs it
-        is possible to plot the histogram or CDF of packet delay.</t>
+        deviation and variance) for the whole duration or any specific part of
+        the session can be calculated. Also the metrics (sending rate,
+        receiver rate, goodput, latency) can be visualized in graphs as
+        variation over time, the measurements in the plot are at 1 second
+        intervals. Additionally, from the logs it is possible to plot the
+        histogram or CDF of packet delay.</t>
         
         <t>Section 2.1 of <xref target="RFC5166" /> discusses the tradeoff
         between throughput, delay and loss.</t>
@@ -252,9 +254,9 @@
         payload size
 ]]></artwork></figure>
 
-            <t>[Open issue (5): Should the retransmissions and FEC for
-            post-repair loss metric be logged in a separate file? the repair
-            streams have different payload type and/or SSRC.]</t>
+            <t>[Open issue (5): Should the retransmissions for post-repair
+            loss metric be logged in a separate file? the repair streams have
+            different payload type and/or SSRC.]</t>
         </section>
         </section>
         
@@ -279,8 +281,8 @@
             <section title="Stability">
             <t>The congestion control should be assessed for its stability
             when the path characteristics do not change over time. Changing
-            the media encoding rate too often or by too much may adversely
-            affect the users' quality of experience.</t>
+            the media encoding rate estimate too often or by too much may
+            adversely affect the application layer performance.</t>
             </section>
             
             <section title ="Media Traffic">
@@ -390,7 +392,11 @@
         
         <section title="Evaluation Parameters" anchor="cc-fw">
             <t>An evaluation scenario is created from a list of network, link
-            and flow characteristics.</t>
+            and flow characteristics. The parameters discussed in the
+            following subsections are meant to aid in creating evaluation
+            scenarios and do not describe an evaluation scenario. The scenario
+            discussed in <xref target="app-scenario-1" /> takes into account
+            all these parameters.</t>
             
             <section title="Bottleneck Traffic Flows" 
                 anchor="eval-scen-traffic">
@@ -444,8 +450,7 @@
             
             <section title="Access Links">
                 <t>The media senders and receivers are typically connected to 
-                the bottleneck link over high bandwidth, low latency 
-                links. Common access links are:
+                the bottleneck link, common access links are:
                 <list style="numbers">
                     <t>Ethernet (LAN)</t>
                     <t>Wireless LAN (WLAN) </t>
@@ -478,28 +483,38 @@
                 experiments should dimension the bottleneck link based on the
                 number of flows and the expected behavior. For example, if 5
                 media flows are expected to share the bottleneck link equally,
-                the bottleneck link is set to 5 times the media rate.</t>
+                the bottleneck link is set to 5 times the desired transmission
+                rate.</t>
                 
                 <t>If the experiment carries only media in one direction, then 
-                the upstream bottleneck link carries media packets while the 
-                downstream bottleneck carries the feedback packets. The 
-                bottleneck link parameters discussed in this section apply 
-                only to a single direction, hence the bottleneck link in the
-                reverse direction can choose the same or have different
-                parameters.</t>
+                the upstream (sender to receiver) bottleneck link carries
+                media packets while the downstream (receiver to sender)
+                bottleneck carries the feedback packets. The bottleneck link
+                parameters discussed in this section apply only to a single
+                direction, hence the bottleneck link in the reverse direction
+                can choose the same or have different parameters.</t>
                 
-                <t>The link latency corresponds to the propagation delay, the
-                experiments are expected to verify that the congestion control
-                is able to work in challenging situations, for example over
-                trans-continental and/or satellite links. The experiment 
-                should pick one of the following values:
+                <t>The link latency corresponds to the propagation delay of 
+                the link, i.e., the time it takes for a packet to traverse the
+                bottleneck link, it does not include queuing delay. In an
+                experiment with several links the experiment should describe
+                if the links add latency or not. It is possible for
+                experiments to have multiple hops with different link
+                latencies. Experiments are expected to verify that the
+                congestion control is able to work in challenging situations,
+                for example over trans-continental and/or satellite links. The
+                experiment should pick link latency values from the following:
                 
                 <list style="numbers">
-                    <t>Very low delay: 1ms</t>
-                    <t>Low delay:  50ms </t>
-                    <t>High delay: 150ms </t>
-                    <t>Extreme delay: 300ms</t>
+                    <t>Very low latency: 0-1ms</t>
+                    <t>Low latency:  50ms </t>
+                    <t>High latency: 150ms </t>
+                    <t>Extreme latency: 300ms</t>
                 </list></t>
+                
+                <t>[Editor's note: currently describes the latency for a 
+                single link, instead of end-to-end delay. Which is preferred?
+                or both?]</t>
                 
                 <t>Similarly, to model lossy links, the experiments can choose
                 one of the following loss rates, the fractional loss is the
@@ -526,12 +541,12 @@
                 </list> 
                 However, the size of the queue is typically measured in bytes
                 or packets and to convert the queue length measured in
-                seconds to 1) queue length in bytes: </t>
+                seconds to queue length in bytes: </t>
                 <t>QueueSize (in bytes) = QueueSize (in sec) x Throughput (in
                 bps)/8</t> 
-                <t>and 2) queue length in packets:</t>
+                <!-- <t>and 2) queue length in packets:</t>
                 <t>QueueSize (in pkts) = QueueSize (in bytes)/MTU,
-                MTU=1500</t>
+                MTU=1500</t> -->
                 
                 <t>[Open issue (11): Confirm the above values, do we need to
                 define parameters for other types of queues?]</t>
@@ -556,8 +571,6 @@
                         <t>4000 kbps</t>
                     </list></t>
                 
-                <t>The scenario described in <xref target="app-scenario-1" />
-                takes into account these network and flow considerations.</t>
             </section>
             
             <section title="Cross-traffic Parameters">
