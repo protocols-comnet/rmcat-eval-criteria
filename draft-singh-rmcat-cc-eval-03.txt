@@ -86,25 +86,25 @@ Table of Contents
    7.  Status of Proposals . . . . . . . . . . . . . . . . . . . . .  11
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .  11
    9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  11
-   10. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  12
-   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  12
-     11.1.  Normative References . . . . . . . . . . . . . . . . . .  12
-     11.2.  Informative References . . . . . . . . . . . . . . . . .  13
+   10. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  12
+   11. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  12
+   12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  12
+     12.1.  Normative References . . . . . . . . . . . . . . . . . .  12
+     12.2.  Informative References . . . . . . . . . . . . . . . . .  13
    Appendix A.  Proposal to evaluate          Self-fairness of RMCAT
                 congestion control algorithm . . . . . . . . . . . .  13
      A.1.  Evaluation Parameters . . . . . . . . . . . . . . . . . .  15
        A.1.1.  Media Traffic Generator . . . . . . . . . . . . . . .  15
        A.1.2.  Bottleneck Link Bandwidth . . . . . . . . . . . . . .  15
        A.1.3.  Bottleneck Link Queue Type and Length . . . . . . . .  15
-       A.1.4.  RMCAT flows and delay legs  . . . . . . . . . . . . .  15
+       A.1.4.  RMCAT flows and delay legs  . . . . . . . . . . . . .  16
        A.1.5.  Impairment Generator  . . . . . . . . . . . . . . . .  16
      A.2.  Proposed Passing Criteria for Experiment  . . . . . . . .  16
      A.3.  Extensability . . . . . . . . . . . . . . . . . . . . . .  17
-   Appendix B.  Contributors . . . . . . . . . . . . . . . . . . . .  17
-   Appendix C.  Change Log . . . . . . . . . . . . . . . . . . . . .  17
-     C.1.  Changes in draft-singh-rmcat-cc-eval-03 . . . . . . . . .  17
-     C.2.  Changes in draft-singh-rmcat-cc-eval-02 . . . . . . . . .  17
-     C.3.  Changes in draft-singh-rmcat-cc-eval-01 . . . . . . . . .  17
+   Appendix B.  Change Log . . . . . . . . . . . . . . . . . . . . .  17
+     B.1.  Changes in draft-singh-rmcat-cc-eval-03 . . . . . . . . .  17
+     B.2.  Changes in draft-singh-rmcat-cc-eval-02 . . . . . . . . .  17
+     B.3.  Changes in draft-singh-rmcat-cc-eval-01 . . . . . . . . .  18
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  18
 
 
@@ -618,7 +618,15 @@ Singh & Ott             Expires January 16, 2014               [Page 11]
 Internet-Draft  Evaluating Congestion Control for RMCAT        July 2013
 
 
-10.  Acknowledgements
+10.  Contributors
+
+   The content and concepts within this document are a product of the
+   discussion carried out in the Design Team.
+
+   Michael Ramalho provided the text for the scenario discussed in
+   Appendix A.
+
+11.  Acknowledgements
 
    Much of this document is derived from previous work on congestion
    control at the IETF.
@@ -631,9 +639,9 @@ Internet-Draft  Evaluating Congestion Control for RMCAT        July 2013
    draft.  Additionally, also thank the participants of the design team
    for their comments and discussion related to the evaluation criteria.
 
-11.  References
+12.  References
 
-11.1.  Normative References
+12.1.  Normative References
 
    [RFC3550]  Schulzrinne, H., Casner, S., Frederick, R., and V.
               Jacobson, "RTP: A Transport Protocol for Real-Time
@@ -657,14 +665,6 @@ Internet-Draft  Evaluating Congestion Control for RMCAT        July 2013
               and Consequences", RFC 5506, April 2009.
 
    [I-D.jesup-rmcat-reqs]
-              Jesup, R., "Congestion Control Requirements For RMCAT",
-              draft-jesup-rmcat-reqs-01 (work in progress), February
-              2013.
-
-   [I-D.ietf-avtcore-rtp-circuit-breakers]
-              Perkins, C. and V. Singh, "RTP Congestion Control: Circuit
-              Breakers for Unicast Sessions", draft-ietf-avtcore-rtp-
-              circuit-breakers-01 (work in progress), October 2012.
 
 
 
@@ -674,7 +674,16 @@ Singh & Ott             Expires January 16, 2014               [Page 12]
 Internet-Draft  Evaluating Congestion Control for RMCAT        July 2013
 
 
-11.2.  Informative References
+              Jesup, R., "Congestion Control Requirements For RMCAT",
+              draft-jesup-rmcat-reqs-01 (work in progress), February
+              2013.
+
+   [I-D.ietf-avtcore-rtp-circuit-breakers]
+              Perkins, C. and V. Singh, "RTP Congestion Control: Circuit
+              Breakers for Unicast Sessions", draft-ietf-avtcore-rtp-
+              circuit-breakers-01 (work in progress), October 2012.
+
+12.2.  Informative References
 
    [RFC5033]  Floyd, S. and M. Allman, "Specifying New Congestion
               Control Algorithms", BCP 133, RFC 5033, August 2007.
@@ -713,15 +722,6 @@ Appendix A.  Proposal to evaluate Self-fairness of RMCAT congestion
 
    Figure 2 shows the experiment setup and compared to the simple
    topology in Figure 1 it has a maximum of 20 flows.  Groups of 10
-   receivers are connected to the bottleneck link through two different
-   routers (Router C and D).  The rationale for adding these additional
-   routers is to create two delay legs, i.e., two groups of endpoints
-   with different network latencies and measure the performance of the
-   RMCAT congestion control algorithm.  If fewer than 10 sources are
-   initialized, all traffic flows experience the same delay because they
-   share the same delay leg.
-
-
 
 
 
@@ -729,6 +729,14 @@ Singh & Ott             Expires January 16, 2014               [Page 13]
 
 Internet-Draft  Evaluating Congestion Control for RMCAT        July 2013
 
+
+   receivers are connected to the bottleneck link through two different
+   routers (Router C and D).  The rationale for adding these additional
+   routers is to create two delay legs, i.e., two groups of endpoints
+   with different network latencies and measure the performance of the
+   RMCAT congestion control algorithm.  If fewer than 10 sources are
+   initialized, all traffic flows experience the same delay because they
+   share the same delay leg.
 
    Router A has a single forward direction bottleneck link (i.e., the
    bottleneck capacity and delay constraints applies only to the media
@@ -769,14 +777,6 @@ Internet-Draft  Evaluating Congestion Control for RMCAT        July 2013
    later experiments the loss impairments can be added to the media path
    as well.
 
-   The media sources are configured to send infinite amount of data,
-   i.e., the sources always have data to send and have no data limited
-   intervals.  Additionally, the media sources are always successful in
-   generating the media rate requested by the RMCAT congestion control
-   algorithm.  In this experiment, we avoid the potentially complicated
-   scenario of using media traffic generators that try to model the
-   behavior of media codecs (mainly the burstiness).
-
 
 
 
@@ -785,6 +785,14 @@ Singh & Ott             Expires January 16, 2014               [Page 14]
 
 Internet-Draft  Evaluating Congestion Control for RMCAT        July 2013
 
+
+   The media sources are configured to send infinite amount of data,
+   i.e., the sources always have data to send and have no data limited
+   intervals.  Additionally, the media sources are always successful in
+   generating the media rate requested by the RMCAT congestion control
+   algorithm.  In this experiment, we avoid the potentially complicated
+   scenario of using media traffic generators that try to model the
+   behavior of media codecs (mainly the burstiness).
 
 A.1.  Evaluation Parameters
 
@@ -827,20 +835,17 @@ A.1.3.  Bottleneck Link Queue Type and Length
    the bottleneck link rate (i.e., actual buffer lengths in bytes are
    dependent on bottleneck link bandwidth).
 
-A.1.4.  RMCAT flows and delay legs
-
-   Experiments run with 1, 3, 5, 10 and 20 RMCAT sources, they are
-   outlined as follows:
-
-
-
-
 
 
 Singh & Ott             Expires January 16, 2014               [Page 15]
 
 Internet-Draft  Evaluating Congestion Control for RMCAT        July 2013
 
+
+A.1.4.  RMCAT flows and delay legs
+
+   Experiments run with 1, 3, 5, 10 and 20 RMCAT sources, they are
+   outlined as follows:
 
    1.  Experiments with 1, 3, and 5 RMCAT flows, all RMCAT flows
        commence simultaneously.  A single delay leg is used and the link
@@ -884,12 +889,7 @@ A.2.  Proposed Passing Criteria for Experiment
    [Editor's note: there has been little or no discussion on the below
    criteria, however, they are listed for the sake of completeness
 
-   No unfairness is observed, i.e., at steady state each flow attains a
-   throughput between [ B/(3*N), (3*B)/N ], where B is the link
-   bandwidth and N is the number of flows.
 
-   No flow experiences packet loss when queue length is set to 500 ms or
-   greater
 
 
 
@@ -897,6 +897,13 @@ Singh & Ott             Expires January 16, 2014               [Page 16]
 
 Internet-Draft  Evaluating Congestion Control for RMCAT        July 2013
 
+
+   No unfairness is observed, i.e., at steady state each flow attains a
+   throughput between [ B/(3*N), (3*B)/N ], where B is the link
+   bandwidth and N is the number of flows.
+
+   No flow experiences packet loss when queue length is set to 500 ms or
+   greater
 
    All individual sources must be in their steady state within twenty
    LRTTs (where LRTT is defined as the RTT associated with the flow with
@@ -916,20 +923,12 @@ A.3.  Extensability
    experiments can apply the same forward path (carrying media packets)
    impairments to the reverse path.
 
-Appendix B.  Contributors
-
-   The content and concepts within this document are a product of the
-   discussion carried out in the Design Team.
-
-   Michael Ramalho provided the text for the scenario discussed in
-   Appendix A.
-
-Appendix C.  Change Log
+Appendix B.  Change Log
 
    Note to the RFC-Editor: please remove this section prior to
    publication as an RFC.
 
-C.1.  Changes in draft-singh-rmcat-cc-eval-03
+B.1.  Changes in draft-singh-rmcat-cc-eval-03
 
    o  Incorporate the discussion within the design team.
 
@@ -938,13 +937,14 @@ C.1.  Changes in draft-singh-rmcat-cc-eval-03
 
    o  Added Appendix with self-fairness experiment.
 
-C.2.  Changes in draft-singh-rmcat-cc-eval-02
+B.2.  Changes in draft-singh-rmcat-cc-eval-02
 
    o  Added scenario descriptions.
 
-C.3.  Changes in draft-singh-rmcat-cc-eval-01
 
-   o  Removed QoE metrics.
+
+
+
 
 
 
@@ -953,6 +953,10 @@ Singh & Ott             Expires January 16, 2014               [Page 17]
 
 Internet-Draft  Evaluating Congestion Control for RMCAT        July 2013
 
+
+B.3.  Changes in draft-singh-rmcat-cc-eval-01
+
+   o  Removed QoE metrics.
 
    o  Changed stability to steady-state.
 
@@ -984,10 +988,6 @@ Authors' Addresses
    Finland
 
    Email: jo@comnet.tkk.fi
-
-
-
-
 
 
 
