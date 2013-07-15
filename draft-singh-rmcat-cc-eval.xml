@@ -239,8 +239,23 @@
             </t>
             -->
             
+        <section title="RTP Log Format">
+            <t>The log file is tab or comma separated containing the following
+            details:</t>
+<figure><artwork><![CDATA[
+Send or receive timestamp (unix)
+RTP payload type
+SSRC
+RTP sequence no
+RTP timestamp
+marker bit
+payload size
+]]></artwork></figure>
 
-
+            <t>[Open issue (5): Should the retransmissions and FEC for
+            post-repair loss metric be logged in a separate file? the repair
+            streams have different payload type and/or SSRC.]</t>
+        </section>
         </section>
         
         <!--
