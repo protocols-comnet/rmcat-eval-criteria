@@ -111,81 +111,134 @@
             in BCP 14, <xref target="RFC2119" /> and indicate requirement
             levels for compliant implementations. </t> -->
             
-            <t> The terminology defined in <xref
-            target="RFC3550">RTP</xref>, <xref target="RFC3551">RTP Profile
-            for Audio and Video Conferences with Minimal Control</xref>,
-            <xref target="RFC3611">RTCP Extended Report (XR)</xref>, <xref
-            target="RFC4585">Extended RTP Profile for RTCP-based Feedback
-            (RTP/AVPF)</xref> and <xref target="RFC5506">Support for
-            Reduced-Size RTCP</xref> apply.</t>
+            <t> The terminology defined in <xref target="RFC3550">RTP</xref>,
+            <xref target="RFC3551">RTP Profile for Audio and Video Conferences
+            with Minimal Control</xref>, <xref target="RFC3611">RTCP Extended
+            Report (XR)</xref>, <xref target="RFC4585">Extended RTP Profile
+            for RTCP-based Feedback (RTP/AVPF)</xref> and <xref
+            target="RFC5506">Support for Reduced-Size RTCP</xref> apply.</t>
         </section>
 
-        <section title="Metrics" anchor="cc-metrics">
-            <t><xref target="RFC5166" /> describes the basic metrics for
-            congestion control. Metrics that are important to interactive
-            multimedia are:
-                <list style="symbols">
-                    <t>Throughput: (Sending Rate, Receiving Rate, Goodput)</t>
-                    <t>Minimizing oscillations in encoding rate (stability)</t>
-                    <t>Reactivity to transient events</t>
-                    <t>Packet loss and discard rate</t>
-                    <t>Users' quality of experience</t>
-                </list></t>
-            <t>[Editor's Note: measurement interval and statistical
-            measures (min, max, mean, median, standard deviation and 
-            variance) are yet to be specified.]</t>
+        <section title="Metrics" anchor="cc-metrics"> 
             
-            <t> Section 2.1 of <xref target="RFC5166" /> discusses the
-            tradeoff between throughput, delay and loss.</t>
+        <t><xref target="RFC5166" /> describes the basic metrics for
+        congestion control. Metrics that are important to interactive
+        multimedia are:
+        <list style="symbols"> 
+            <t>Throughput</t> 
+            <t>Minimizing oscillations in encoding rate (stability)</t>
+            <t>Delay</t> <t>Reactivity to transient events</t>
+            <t>Packet losses and discards.</t>
+            <t>Users' quality of experience</t> 
+        </list></t>
+        
+         <t>Each experiment logs every incoming and outgoing packet. The
+         logging can be done inside the application or at the endpoints using
+         pcap (packet capture, e.g., tcpdump, wireshark). The following
+         are measured based on the information in the logs:
+         <list style="numbers"> 
+            <t>Sending rate, Receiver rate, Goodput</t> 
+            <t>Packet latency</t>
+            <t>Packet loss</t>
+            <t>Post-repair loss: residual loss after retransmission or
+            FEC.</t>
+            <t>Packets discarded from the playout or de-jitter buffer</t>
+<!--            <t>(v) Unfairness</t> -->
+        </list></t>
+        
+        <t>[Open issue (1): Instead of defining fairness, there has been
+        discussion on defining "unfairness". The criteria are:<vspace />
+            1. Do not trigger the circuit breaker.<vspace />
+            2. Over 3 times or less than 1/3 times the throughput for a stream
+            compared to similar competing streams on a bottleneck. The
+            competing streams have similar RTTs.<vspace />
+            3. Over 3 times delay compared to RTT measurements performed
+            before starting the flow.<vspace />
+            Here, rather than discussing the number, do people agree with the
+            criteria?
+        ]</t>
+        
+        <t>[Open issue (2): Convergence time was discussed briefly in the
+        meetings as well. It is defined as: time it takes the congestion
+        control to reach a stable rate (at startup or after new RMCAT flows
+        are added). What is stable rate?]</t>
+        
+        <t>[Open issue (3): previous versions of the document had Bandwidth
+        Utilization, defined as ratio of sending rate to the available
+        bottleneck capacity. This makes sense when the RMCAT flow is by itself
+        or competing with similar flows (where the assumption would be that
+        all flows get an equal share). rate fairness may not always be the
+        case, so remove this?]</t>
+        
+        <t>From the logs the statistical measures (min, max, mean, standard
+        deviation and variance) for the whole duration of the call can be
+        calculated for each metric.</t>
+        
+        
+        <t> Also the metrics (sending rate, receiver rate, goodput, latency)
+        can be visualized in graphs as variation over time, the measurements
+        in the plot are at 1 second intervals. Additionally, from the logs it
+        should be possible to plot the histogram or CDF of delay.</t>
+        
+        <t>Section 2.1 of <xref target="RFC5166" /> discusses the tradeoff
+        between throughput, delay and loss.</t>
+        
+        <t>[Open issue (4): Application trade-off is yet to be defined. see
+        <xref target="I-D.jesup-rmcat-reqs">RMCAT requirements</xref>
+        document.]</t>
+        
+         <t> </t>
+        
+         <!-- <t> <list style="empty"> 
+         <t>(i) Bandwidth Utilization: is the
+        ratio of the encoding rate to the (available) end-to-end path
+        capacity. 
+        
+        <list style="symbols"> 
             
-            <t> <list style="empty">
-                <t>(i) Bandwidth Utilization: is the ratio of the encoding 
-                rate to the (available) end-to-end path capacity. 
-                <list style="symbols">
-                    <t>Under-utilization: is the period of time when the
-                    endpoint's encoding rate is lower than the end-to-end
-                    capacity, i.e., the bandwidth utilization is less than
-                    1.</t>
-                    
-                    <t>Overuse: is the period of time when the endpoint's
-                    encoding rate is higher than the end-to-end capacity,
-                    i.e., the bandwidth utilization is greater than 1.</t>
-                    
-                    <t>Steady-state: is the period of time when the
-                    endpoint's encoding rate is relatively stable, i.e.,
-                    the bandwidth utilization is constant.</t>
-                </list></t>
-                <t></t>
-                
-                <t>(ii) Packet Loss and Discard Rate.</t>
-                <t></t>
-                
-                <t>(iii) Fair Share. </t>
-                <t></t>
-                
-                <t>[Editor's Note: This metric should match the ones defined
-                in the <xref target="I-D.jesup-rtp-congestion-reqs">RMCAT
-                requirements</xref> document.]</t>
-                <t></t>
-                
-                <t>(iv) Quality: There are many different types of quality
-                metrics for audio and video. Audio quality is often
-                expressed by a MOS ("Mean Opinion Score") and can be
-                calculated using an objective algorithm (E-model/R-model). 
-                Section 4.7 of <xref target="RFC3611" /> can also be used 
-                for VoIP metrics. Similarly, there exist several metrics to measure
-                video quality, for example Peak Signal to Noise Ratio
-                (PSNR). </t>
+            <t>Under-utilization: is the period of time when the endpoint's
+            encoding rate is lower than the end-to-end capacity, i.e., the
+            bandwidth utilization is less than 1.</t>
+            
+             <t>Overuse: is the period of time when the endpoint's encoding
+             rate is higher than the end-to-end capacity, i.e., the bandwidth
+             utilization is greater than 1.</t>
+             
+             <t>Steady-state: is the period of time when the endpoint's
+             encoding rate is relatively stable, i.e., the bandwidth
+             utilization is constant.</t>
+             
+        </list></t> 
+        
+        <t></t>
+        
+        <t>(ii) Packet Loss and Discard Rate.</t> <t></t>
+        
+        <t>(iii) Fair Share. </t> <t></t>
+        
+        <t>[Editor's Note: This metric should match the ones defined in the
+        <xref target="I-D.jesup-rmcat-reqs">RMCAT requirements</xref>
+        document.]</t> 
+        <t></t>
+        
+        <t>(iv) Quality: There are many different types of quality metrics for
+        audio and video. Audio quality is often expressed by a MOS ("Mean
+        Opinion Score") and can be calculated using an objective algorithm
+        (E-model/R-model). Section 4.7 of <xref target="RFC3611" /> can also
+        be used for VoIP metrics. Similarly, there exist several metrics to
+        measure video quality, for example Peak Signal to Noise Ratio (PSNR).
+        </t>
 
-                <t>[Editor's Note: Should the algorithm compare average
-                PSNR of test video sequences or what other video quality
-                metric can be used? If Quality is used as a metric, it should
-                not be the only metric used to compare rate-control schemes.
-                Also, algorithms using different codecs cannot be compared].
-                </t>
+        <t>[Editor's Note: Should the algorithm compare average PSNR of test
+        video sequences or what other video quality metric can be used? If
+        Quality is used as a metric, it should not be the only metric used to
+        compare rate-control schemes. Also, algorithms using different codecs
+        cannot be compared]. </t>
 
             </list>
             </t>
+            -->
+            
 
 
         </section>
