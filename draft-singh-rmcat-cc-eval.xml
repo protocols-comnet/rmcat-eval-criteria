@@ -285,38 +285,57 @@ payload size
             
             <section title ="Media Traffic">
             <t>The congestion control algorithm should be assessed with
-            different types of media behavior, i.e., the media should
-            contain idle and data-limited periods. For example, periods of
-            silence for audio or varying amount of motion for video.</t>
+            different types of media behavior, i.e., the media should contain
+            idle and data-limited periods. For example, periods of silence for
+            audio or varying amount of motion for video. However, the
+            evaluation can be done in two stages. In the first stage, media
+            stream can generate traffic at the rate calculated by the 
+            congestion controller. In the second stage, real codecs or models
+            of video codecs should be used to mimic real-world cases.</t>
+            </section>
+            
+            <section title="Start-up Behaviour">
+            <t>The congestion control algorithm should be assessed with 
+            different start-rates. The main reason is to observe the behavior
+            of the congestion control in different evaluation scenarios, such 
+            as when competing with varying amount of cross-traffic or how 
+            quickly does the congestion control algorithm achieve a stable 
+            sending rate.</t>
+            
+            <t>[Editor's note: requires a robust definition for unfriendliness 
+            and convergence time.]</t>
             </section>
             
             <section title="Diverse Environments">
             <t>The congestion control algorithm should be assessed in
             heterogeneous environments, containing both wired and wireless
-            paths. Examples of wireless access technologies are: 802.11x,
-            GPRS, HSPA, or LTE. One of the main challenges of the
-            wireless environments is the inability to distinguish
-            congestion induced loss from transmission (bit-error) loss.
-            Congestion control algorithms may incorrectly identify
-            transmission loss as congestion loss and reduce the media
-            encoding rate too much, which may cause oscillatory behavior
-            and deteriorate the users' quality of experience. Furthermore,
-            packet loss may induce additional delay in networks with
-            wireless paths due to link-layer retransmissions.</t>
+            paths. Examples of wireless access technologies are: 802.11, GPRS,
+            HSPA, or LTE. One of the main challenges of the wireless
+            environments for the congestion control algorithm is to
+            distinguish between congestion induced loss and transmission
+            (bit-error corruption) loss. Congestion control algorithms may
+            incorrectly identify transmission loss as congestion loss and
+            reduce the media encoding rate by too much, which may cause
+            oscillatory behavior and deteriorate the users' quality of
+            experience. Furthermore, packet loss may induce additional delay
+            in networks with wireless paths due to link-layer
+            retransmissions.</t>
             </section>
             
             <section title="Varying Path Characteristics">
             <t>The congestion control algorithm should be evaluated for a
             range of path characteristics such as, different end-to-end
             capacity and latency, varying amount of cross traffic on a
-            bottle-neck link and a router's queue length. The main
-            motivation for the previous and current criteria is to
-            determine under which circumstances will the proposed
-            congestion control algorithm break down and also determine the
-            operational range of the algorithm.</t>
+            bottle-neck link and a router's queue length. In an experiment, if
+            the media only flows in a single direction, the feedback path
+            should also be tested with varying amounts of impairments.</t>
             
-            <t>[Editor's Note: Different types of queueing mechanisms?
-            Random Early Detection or only DropTail?].</t>
+            <t>The main motivation for the previous and current criteria is to
+            identify situations in which the proposed congestion control is
+            less performant.</t>
+            
+            <t>[Open issue (6): Different types of queueing mechanisms? Random
+            Early Detection or only DropTail?].</t>
             </section>
             
             <section title="Reacting to Transient Events or Interruptions">
@@ -328,27 +347,28 @@ payload size
             end-to-end capacity may vary due to changes in resource
             reservation.</t>
             </section>
-
+            
             <section title="Fairness With Similar Cross-Traffic">
             <t>The congestion control algorithm should be evaluated when
-            competing with other RTP flows using the same congestion
-            control algorithm. The proposal should highlight the bottleneck
-            capacity share of each RTP flow.</t>
+            competing with other RTP flows using the same or another candidate
+            congestion control algorithm. The proposal should highlight the
+            bottleneck capacity share of each RTP flow.</t>
+            
+            <t>[Editor's note: If we define Unfriendliness then that criteria
+            should be applied here.]</t>
             </section>
             
             <section title="Impact on Cross-Traffic">
-            <t>[Editor's Note: There was discussion about removing this
-            guideline, however, no decision was made
-            <xref target="I-D.jesup-rtp-congestion-reqs"/>.]</t>
-
+            
             <t>The congestion control algorithm should be evaluated when
             competing with standard TCP. Short TCP flows may be considered
             as transient events and the RTP flow may give way to the short
             TCP flow to complete quickly. However, long-lived TCP flows may
-            starve out the RTP flow depending on router queue length. In
-            the latter case the proposed congestion control for RTP should
-            be as aggressive as <xref target="RFC5681">standard
-            TCP</xref>.</t>
+            starve out the RTP flow depending on router queue length. </t>
+
+            <!-- In the latter case the proposed congestion control for RTP
+             should be as aggressive as <xref target="RFC5681">standard
+            TCP</xref>.</t> -->
             
             <t>The proposal should also measure the impact on varied number
             of cross-traffic sources, i.e., few and many competing flows,
@@ -537,16 +557,21 @@ payload size
           Luca De Cicco, 
           Wesley Eddy, 
           Lars Eggert,
+          Kevin Gross,
           Vinayak Hegde,
           Stefan Holmer, 
           Randell Jesup, 
           Piers O'Hanlon, 
           Colin Perkins,
+          Michael Ramalho,
+          Zaheduzzaman Sarker,
           Timothy B. Terriberry,
           Michael Welzl, and
-          Sarker Zaheduzzaman
-          for providing valuable feedback on earlier versions of this
-          draft.</t>
+          Mo Zanaty
+          for providing valuable feedback on earlier versions of this draft.
+          Additionally, also thank the participants of the design team for
+          their comments and discussion related to the evaluation
+          criteria.</t>
         </section>
     </middle>
     <back>
