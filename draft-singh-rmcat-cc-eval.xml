@@ -9,8 +9,8 @@
 <!ENTITY rfc5166 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5166.xml">
 <!ENTITY rfc5033 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5033.xml">
 <!ENTITY rfc5681 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5681.xml">
-<!ENTITY I-D.jesup-rtp-congestion-reqs PUBLIC "" 
-"http://xml.resource.org/public/rfc/bibxml3/reference.I-D.jesup-rtp-congestion-reqs.xml">
+<!ENTITY I-D.jesup-rmcat-reqs PUBLIC "" 
+"http://xml.resource.org/public/rfc/bibxml3/reference.I-D.jesup-rmcat-reqs.xml">
 <!ENTITY I-D.ietf-avtcore-rtp-circuit-breakers PUBLIC "" 
 "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-avtcore-rtp-circuit-breakers.xml">
 <!ENTITY I-D.ietf-ledbat-congestion PUBLIC "" 
@@ -82,7 +82,7 @@
             new congestion control algorithms for interactive
             point-to-point real time media. The requirements for the
             congestion control algorithm are outlined in <xref
-            target="I-D.jesup-rtp-congestion-reqs" />). This document
+            target="I-D.jesup-rmcat-reqs" />). This document
             builds upon previous work at the IETF: <xref
             target="RFC5033">Specifying New Congestion Control
             Algorithms</xref> and <xref target="RFC5166">Metrics for the
@@ -491,7 +491,7 @@
         &rfc4585;
         &rfc5506;
         <!--RMCAT related -->
-        &I-D.jesup-rtp-congestion-reqs;
+        &I-D.jesup-rmcat-reqs;
         &I-D.ietf-avtcore-rtp-circuit-breakers;
         </references>
         
