@@ -19,7 +19,8 @@ all: $(DRAFTS)
 	@echo "generate $< -> $@"
 	@echo xml2rfc $< -f $@ --text
 	@xml2rfc $< -f $@ --text
-	#@egrep -ns --colour "\\bmust|required|shall|should|recommended|may|optional\\b" $< || true
+
+    # @egrep -ns --colour "\\bmust|required|shall|should|recommended|may|optional\\b" $< || true
 
 %.html: %.xml
 	@echo "generate $< -> $@"
