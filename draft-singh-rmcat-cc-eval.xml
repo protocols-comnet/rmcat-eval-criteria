@@ -122,7 +122,7 @@
         <section title="Metrics" anchor="cc-metrics"> 
             
         <t><xref target="RFC5166" /> describes the basic metrics for
-        congestion control. Metrics that are important to interactive
+        congestion control. Metrics that are of interest for interactive
         multimedia are:
         <list style="symbols"> 
             <t>Throughput.</t> 
@@ -143,11 +143,12 @@
             <t>Sending rate, Receiver rate, Goodput</t> 
             <t>Packet delay</t>
             <t>Packet loss</t>
+            <t>If using, retransmission or FEC: residual loss</t>
             <t>Packets discarded from the playout or de-jitter buffer</t>
         </list></t>
         
-        <t>[Editor's note: How to handle packet re-transmissions? loss before
-        retransmission, after retransmission?]</t>
+        <!-- <t>[Editor's note: How to handle packet re-transmissions? loss before
+        retransmission, after retransmission?]</t> -->
         
         <t>[Open issue (1): Instead of defining fairness, there has been
         discussion on defining "unfairness". The criteria are:<vspace />
@@ -162,16 +163,19 @@
             Here, rather than discussing the number '3'? Does the criteria 
             capture Unfairness adequately?]</t>
         
+        <t>Convergence time: the time taken to reach a stable rate at startup,
+        after the available link capacity changes, or when new flows get added
+        to the bottleneck link.</t>
+        
         <t>[Open issue (2): Convergence time was discussed briefly in the
         design meetings. It is defined as: the time it takes the congestion
         control to reach a stable rate (at startup or after new RMCAT flows
         are added). What is a stable rate?]</t>
         
-        <t>[Open issue (3): previous versions of the document had Bandwidth
-        Utilization, defined as ratio of sending rate to the available
-        bottleneck capacity. This is useful when the RMCAT flow is by itself
-        or competing with similar flows (where the assumption would be that
-        all flows get an equal share). Remove this?]</t>
+        <t>Bandwidth Utilization, defined as ratio of the instantaneous
+        sending rate to the instantaneous bottleneck capacity. This metric is
+        useful when an RMCAT flow is by itself or competing with similar
+        cross-traffic.</t>
         
         <t>From the logs the statistical measures (min, max, mean, standard
         deviation and variance) for the whole duration or any specific part of
@@ -184,10 +188,6 @@
         <t>Section 2.1 of <xref target="RFC5166" /> discusses the tradeoff
         between throughput, delay and loss.</t>
         
-        <t>[Open issue (4): Application trade-off is yet to be defined. see
-        <xref target="I-D.jesup-rmcat-reqs">RMCAT requirements</xref>
-        document. Perhaps each experiment should define the application's 
-        expectation or trade-off.]</t>
         
          <t> </t>
         
@@ -846,6 +846,13 @@
         </reference>
 
         </references>
+        
+        <section anchor="misc"  title="Application Trade-off">
+          <t>Application trade-off is yet to be defined. see <xref
+          target="I-D.jesup-rmcat-reqs">RMCAT requirements</xref> document.
+          Perhaps each experiment should define the application's expectation
+          or trade-off.</t>
+        </section>
         
         <section anchor="app-scenario-1" title="Proposal to evaluate 
         Self-fairness of RMCAT congestion control algorithm">
