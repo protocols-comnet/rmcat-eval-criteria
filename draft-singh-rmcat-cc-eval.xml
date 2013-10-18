@@ -22,7 +22,7 @@
 <?rfc toc="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc symrefs="yes" ?>
-<rfc ipr="trust200902" docName="draft-singh-rmcat-cc-eval-03.txt" category="info">
+<rfc ipr="trust200902" docName="draft-singh-rmcat-cc-eval-04" category="info">
     <!-- What is the category field value-->
     <front>
         <title abbrev="Evaluating Congestion Control for RMCAT"> 
@@ -132,6 +132,8 @@
             <t>Reactivity to transient events.</t>
             <t>Packet losses and discards.</t>
             <!-- <t>Users' quality of experience</t>  -->
+            <t>Section 2.1 of <xref target="RFC5166" /> discusses the tradeoff
+            between throughput, delay and loss.</t>
         </list></t>
         
          <t>Each experiment logs every incoming and outgoing packet (the RTP
@@ -150,8 +152,8 @@
         <!-- <t>[Editor's note: How to handle packet re-transmissions? loss before
         retransmission, after retransmission?]</t> -->
         
-        <t>[Open issue (1): Instead of defining fairness, there has been
-        discussion on defining "unfairness". The criteria are:<vspace />
+        <t>[Open issue (1): The "unfairness" test is (measured at 1s
+        intervals):<vspace />
             1. Do not trigger the circuit breaker.<vspace />
             2. Over 3 times or less than 1/3 times the throughput for an RMCAT
             media stream compared to identical RMCAT streams competing on a
@@ -160,18 +162,18 @@
             3. Over 3 times delay compared to RTT measurements performed
             before starting the RMCAT flow or for the case when competing 
             with identical RMCAT streams having similar RTTs.<vspace />
-            Here, rather than discussing the number '3'? Does the criteria 
-            capture Unfairness adequately?]</t>
+          ]</t>
         
         <t>Convergence time: the time taken to reach a stable rate at startup,
         after the available link capacity changes, or when new flows get added
         to the bottleneck link.</t>
         
+        <!--         
         <t>[Open issue (2): Convergence time was discussed briefly in the
         design meetings. It is defined as: the time it takes the congestion
         control to reach a stable rate (at startup or after new RMCAT flows
         are added). What is a stable rate?]</t>
-        
+                 -->
         <t>Bandwidth Utilization, defined as ratio of the instantaneous
         sending rate to the instantaneous bottleneck capacity. This metric is
         useful when an RMCAT flow is by itself or competing with similar
@@ -184,9 +186,6 @@
         variation over time, the measurements in the plot are at 1 second
         intervals. Additionally, from the logs it is possible to plot the
         histogram or CDF of packet delay.</t>
-        
-        <t>Section 2.1 of <xref target="RFC5166" /> discusses the tradeoff
-        between throughput, delay and loss.</t>
         
         
          <t> </t>
@@ -254,9 +253,14 @@
         payload size
 ]]></artwork></figure>
 
-            <t>[Open issue (5): Should the retransmissions for post-repair
-            loss metric be logged in a separate file? the repair streams have
-            different payload type and/or SSRC.]</t>
+          <t>If the congestion control implements, retransmissions or FEC, the
+          evaluation should report both packet loss (before applying
+          error-resilience) and residual packet loss (after applying
+          error-resilience).</t>
+            
+            <!-- <t>The retransmissions for post-repair loss metric be logged in a
+            separate file, as the repair streams have different payload type
+            and/or SSRC.</t> -->
         </section>
         </section>
         
@@ -328,16 +332,18 @@
             <t>The congestion control algorithm should be evaluated for a
             range of path characteristics such as, different end-to-end
             capacity and latency, varying amount of cross traffic on a
-            bottle-neck link and a router's queue length. In an experiment, if
-            the media only flows in a single direction, the feedback path
-            should also be tested with varying amounts of impairments.</t>
+            bottleneck link and a router's queue length. For the moment, only
+            DropTail queues are used. However, if new Active Queue Management
+            (AQM) schemes become available, the performance of the congestion
+            control algorithm should be again evaluated.</t>
+            
+            <t>In an experiment, if the media only flows in a single
+            direction, the feedback path should also be tested with varying
+            amounts of impairments.</t>
             
             <t>The main motivation for the previous and current criteria is to
             identify situations in which the proposed congestion control is
             less performant.</t>
-            
-            <t>[Open issue (6): Different types of queueing mechanisms? Random
-            Early Detection or only DropTail?].</t>
             </section>
             
             <section title="Reacting to Transient Events or Interruptions">
@@ -385,14 +391,14 @@
             
         </section>
         
-        <section title="Minimum Requirements for Evaluation">
+        <!-- <section title="Minimum Requirements for Evaluation">
             <t>[Editor's Note: If needed, a minimum evaluation criteria can
             be based on the above guidelines]</t>
-        </section>
+        </section> -->
         
         <section title="Evaluation Parameters" anchor="cc-fw">
             <t>An evaluation scenario is created from a list of network, link
-            and flow characteristics. The parameters discussed in the
+            and flow characteristics. The example parameters discussed in the
             following subsections are meant to aid in creating evaluation
             scenarios and do not describe an evaluation scenario. The scenario
             discussed in <xref target="app-scenario-1" /> takes into account
@@ -444,7 +450,7 @@
 ]]></artwork>
 </figure>
 
-            <t>[Open Issue (7): Discuss more complex topologies]</t>
+            <t>[Open Issue: Discuss more complex topologies]</t>
 
             </section>
             
@@ -456,8 +462,8 @@
                     <t>Wireless LAN (WLAN) </t>
                     <t>3G/LTE</t>
                 </list>
-                [Open issue (8): need to describe parameters or traces to
-                model WLAN and 3G/LTE.]
+                [Open issue: point to a reference containing parameters or
+                traces to model WLAN and 3G/LTE.]
                 </t>
                 
                 <t>A real-world network typically consists of a mixture of
@@ -471,7 +477,7 @@
                 
             </section>
             
-            <section title="Bottleneck Link Parameters">
+            <section title="Example Bottleneck Link Parameters">
 
                 <!-- The performance of the congestion control is measured in
                 terms of unfairness (occupancy of the bottleneck link
@@ -512,9 +518,9 @@
                     <t>Extreme latency: 300ms</t>
                 </list></t>
                 
-                <t>[Editor's note: currently describes the latency for a 
+                <!-- <t>[Editor's note: currently describes the latency for a 
                 single link, instead of end-to-end delay. Which is preferred?
-                or both?]</t>
+                or both?]</t> -->
                 
                 <t>Similarly, to model lossy links, the experiments can choose
                 one of the following loss rates, the fractional loss is the
@@ -526,12 +532,12 @@
                     <t>10%</t>
                     <t>20%</t>
                 </list>
-                [Open issue (10): how is the loss generated? using
-                traces, Gilbert-Elliot model, randomly (uncorrelated)
-                loss.]</t>
+                These fractional losses can be generated using traces,
+                Gilbert-Elliot model, randomly (uncorrelated) loss.</t>
             </section>
             
-            <section title="Router Queue Parameters" anchor="scen-queue">                
+            <section title="DropTail Router Queue Parameters"
+            anchor="scen-queue">
                 <t>The router queue length is measured as the time taken to
                 drain the FIFO queue, they are:
                     <list style="numbers">
@@ -548,8 +554,8 @@
                 <t>QueueSize (in pkts) = QueueSize (in bytes)/MTU,
                 MTU=1500</t> -->
                 
-                <t>[Open issue (11): Confirm the above values, do we need to
-                define parameters for other types of queues?]</t>
+                <!-- <t>[Open issue (11): Confirm the above values, do we need to
+                                define parameters for other types of queues?]</t> -->
             </section>
             
             
@@ -574,10 +580,11 @@
             </section>
             
             <section title="Cross-traffic Parameters">
-                <t>[Open issue(12): TCP cross-traffic parameters are still
-                TBD, mainly the bursty TCP. Long-lived TCP flows will download
-                data throughout the session and are expected to have infinite
-                amount of data to send or receive.]</t>
+                <t>Long-lived TCP flows will download data throughout the
+                session and are expected to have infinite amount of data to
+                send or receive.]</t>
+                <t>[Open issue: short-lived/bursty TCP cross-traffic
+                parameters are still TBD.</t>
             </section>
         </section>
         <!--
@@ -852,7 +859,15 @@
           target="I-D.jesup-rmcat-reqs">RMCAT requirements</xref> document.
           Perhaps each experiment should define the application's expectation
           or trade-off.</t>
+          <section anchor="misc-2"  title="Measuring Quality">
+            <t>No quality metric is defined for performance evaluation. Thus,
+            is an open issue. Finally, a congestion control algorithm should
+            be able to show that it is useful for interactive video.
+            </t>
+          </section>
         </section>
+        
+
         
         <section anchor="app-scenario-1" title="Proposal to evaluate 
         Self-fairness of RMCAT congestion control algorithm">
@@ -923,7 +938,7 @@
             In later experiments the loss impairments can be added to the
             media path as well. </t>
             
-            <!--
+            
             <t> The media sources are configured to send infinite amount of
             data, i.e., the sources always have data to send and have no data
             limited intervals. Additionally, the media sources are always 
@@ -932,7 +947,7 @@
             potentially complicated scenario of using media traffic generators 
             that try to model the behavior of media codecs (mainly the 
             burstiness). </t>
-            -->
+
 
 
 
@@ -1063,12 +1078,29 @@
         <section anchor="App-cl" title="Change Log"> 
         <t>Note to the RFC-Editor: please remove this section prior to
         publication as an RFC.</t>
+            <section title="Changes in draft-singh-rmcat-cc-eval-04">
+            <t><list style="symbols">
+                <t>Incorporate feedback from IETF 87, Berlin.</t>
+                <t>Clarified metrics: convergence time, bandwidth
+                utilization.</t>
+                <t>Changed fairness criteria to fairness test.</t>
+                <t>Added measuring pre- and post-repair loss.</t>
+                <t>Added open issue of measuring video quality to
+                appendix.</t>
+                <t>clarified use of DropTail and AQM.</t>
+                <t>Removed section on "Minimum Requirements for Evaluation"</t>
+
+            </list></t> 
+            </section>
             <section title="Changes in draft-singh-rmcat-cc-eval-03">
             <t><list style="symbols">
                 <t>Incorporate the discussion within the design team.</t>
                 <t>Added a section on evaluation parameters, it describes the 
                 flow and network characteristics.</t>
                 <t>Added Appendix with self-fairness experiment.</t>
+                <t>Changed bottleneck parameters from a proposal to an example
+                set.</t>
+                <t></t>
             </list></t> 
             </section>
 
