@@ -870,10 +870,11 @@
           Perhaps each experiment should define the application's expectation
           or trade-off.</t>
           <section anchor="misc-2"  title="Measuring Quality">
-            <t>No quality metric is defined for performance evaluation. Thus,
-            is an open issue. Finally, a congestion control algorithm should
-            be able to show that it is useful for interactive video.
-            </t>
+            <t>No quality metric is defined for performance evaluation, it is
+            currently an open issue. However, there is consensus that
+            congestion control algorithm should be able to show that it is
+            useful for interactive video by performing analysis using a real
+            codec and video sequences. </t>
           </section>
         </section>
         
