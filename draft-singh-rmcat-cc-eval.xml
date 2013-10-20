@@ -136,11 +136,12 @@
             between throughput, delay and loss.</t>
         </list></t>
         
-         <t>Each experiment logs every incoming and outgoing packet (the RTP
-         logging format is described in <xref target="rtp-logging" />). The
-         logging can be done inside the application or at the endpoints using
-         pcap (packet capture, e.g., tcpdump, wireshark). The following are
-         calculated based on the information in the packet logs:
+         <t>Each experiment is expected to log every incoming and outgoing
+         packet (the RTP logging format is described in <xref
+         target="rtp-logging" />). The logging can be done inside the
+         application or at the endpoints using pcap (packet capture, e.g.,
+         tcpdump, wireshark). The following are calculated based on the
+         information in the packet logs:
          <list style="numbers"> 
             <t>Sending rate, Receiver rate, Goodput</t> 
             <t>Packet delay</t>
