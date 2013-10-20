@@ -401,10 +401,10 @@
             
         </section>
         
-        <!-- <section title="Minimum Requirements for Evaluation">
+        <section title="Minimum Requirements for Evaluation">
             <t>[Editor's Note: If needed, a minimum evaluation criteria can
-            be based on the above guidelines]</t>
-        </section> -->
+            be based on the above guidelines or defined tests/scenarios.]</t>
+        </section>
         
         <section title="Evaluation Parameters" anchor="cc-fw">
             <t>An evaluation scenario is created from a list of network, link
@@ -1098,7 +1098,7 @@
                 <t>Added open issue of measuring video quality to
                 appendix.</t>
                 <t>clarified use of DropTail and AQM.</t>
-                <t>Removed section on "Minimum Requirements for Evaluation"</t>
+                <t>Updated text in "Minimum Requirements for Evaluation"</t>
 
             </list></t> 
             </section>
