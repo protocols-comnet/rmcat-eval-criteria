@@ -165,6 +165,8 @@
             with identical RMCAT streams having similar RTTs.<vspace />
           ]</t>
         
+        <t>[Open issue (2): Possibly using Jain-fairness index.]</t>
+       
         <t>Convergence time: the time taken to reach a stable rate at startup,
         after the available link capacity changes, or when new flows get added
         to the bottleneck link.</t>
