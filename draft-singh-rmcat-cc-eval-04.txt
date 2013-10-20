@@ -63,49 +63,49 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
    2.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   3
    3.  Metrics . . . . . . . . . . . . . . . . . . . . . . . . . . .   3
-     3.1.  RTP Log Format  . . . . . . . . . . . . . . . . . . . . .   4
+     3.1.  RTP Log Format  . . . . . . . . . . . . . . . . . . . . .   5
    4.  Guidelines  . . . . . . . . . . . . . . . . . . . . . . . . .   5
      4.1.  Avoiding Congestion Collapse  . . . . . . . . . . . . . .   5
      4.2.  Stability . . . . . . . . . . . . . . . . . . . . . . . .   5
-     4.3.  Media Traffic . . . . . . . . . . . . . . . . . . . . . .   5
+     4.3.  Media Traffic . . . . . . . . . . . . . . . . . . . . . .   6
      4.4.  Start-up Behaviour  . . . . . . . . . . . . . . . . . . .   6
      4.5.  Diverse Environments  . . . . . . . . . . . . . . . . . .   6
-     4.6.  Varying Path Characteristics  . . . . . . . . . . . . . .   6
+     4.6.  Varying Path Characteristics  . . . . . . . . . . . . . .   7
      4.7.  Reacting to Transient Events or Interruptions . . . . . .   7
      4.8.  Fairness With Similar Cross-Traffic . . . . . . . . . . .   7
      4.9.  Impact on Cross-Traffic . . . . . . . . . . . . . . . . .   7
-     4.10. Extensions to RTP/RTCP  . . . . . . . . . . . . . . . . .   7
-   5.  Evaluation Parameters . . . . . . . . . . . . . . . . . . . .   7
-     5.1.  Bottleneck Traffic Flows  . . . . . . . . . . . . . . . .   7
-     5.2.  Access Links  . . . . . . . . . . . . . . . . . . . . . .   8
-     5.3.  Example Bottleneck Link Parameters  . . . . . . . . . . .   9
-     5.4.  DropTail Router Queue Parameters  . . . . . . . . . . . .  10
-     5.5.  Media Flow Parameters . . . . . . . . . . . . . . . . . .  10
-     5.6.  Cross-traffic Parameters  . . . . . . . . . . . . . . . .  11
-   6.  Status of Proposals . . . . . . . . . . . . . . . . . . . . .  11
-   7.  Security Considerations . . . . . . . . . . . . . . . . . . .  11
-   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  11
-   9.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  12
-   10. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  12
-   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  12
-     11.1.  Normative References . . . . . . . . . . . . . . . . . .  12
-     11.2.  Informative References . . . . . . . . . . . . . . . . .  13
-   Appendix A.  Application Trade-off  . . . . . . . . . . . . . . .  13
-     A.1.  Measuring Quality . . . . . . . . . . . . . . . . . . . .  13
+     4.10. Extensions to RTP/RTCP  . . . . . . . . . . . . . . . . .   8
+   5.  Minimum Requirements for Evaluation . . . . . . . . . . . . .   8
+   6.  Evaluation Parameters . . . . . . . . . . . . . . . . . . . .   8
+     6.1.  Bottleneck Traffic Flows  . . . . . . . . . . . . . . . .   8
+     6.2.  Access Links  . . . . . . . . . . . . . . . . . . . . . .   9
+     6.3.  Example Bottleneck Link Parameters  . . . . . . . . . . .   9
+     6.4.  DropTail Router Queue Parameters  . . . . . . . . . . . .  10
+     6.5.  Media Flow Parameters . . . . . . . . . . . . . . . . . .  11
+     6.6.  Cross-traffic Parameters  . . . . . . . . . . . . . . . .  11
+   7.  Status of Proposals . . . . . . . . . . . . . . . . . . . . .  11
+   8.  Security Considerations . . . . . . . . . . . . . . . . . . .  12
+   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  12
+   10. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  12
+   11. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  12
+   12. References  . . . . . . . . . . . . . . . . . . . . . . . . .  12
+     12.1.  Normative References . . . . . . . . . . . . . . . . . .  12
+     12.2.  Informative References . . . . . . . . . . . . . . . . .  13
+   Appendix A.  Application Trade-off  . . . . . . . . . . . . . . .  14
+     A.1.  Measuring Quality . . . . . . . . . . . . . . . . . . . .  14
    Appendix B.  Proposal to evaluate          Self-fairness of RMCAT
-                congestion control algorithm . . . . . . . . . . . .  13
+                congestion control algorithm . . . . . . . . . . . .  14
      B.1.  Evaluation Parameters . . . . . . . . . . . . . . . . . .  15
        B.1.1.  Media Traffic Generator . . . . . . . . . . . . . . .  15
-       B.1.2.  Bottleneck Link Bandwidth . . . . . . . . . . . . . .  15
+       B.1.2.  Bottleneck Link Bandwidth . . . . . . . . . . . . . .  16
        B.1.3.  Bottleneck Link Queue Type and Length . . . . . . . .  16
        B.1.4.  RMCAT flows and delay legs  . . . . . . . . . . . . .  16
        B.1.5.  Impairment Generator  . . . . . . . . . . . . . . . .  17
      B.2.  Proposed Passing Criteria . . . . . . . . . . . . . . . .  17
      B.3.  Extensibility of the Experiment . . . . . . . . . . . . .  17
-   Appendix C.  Change Log . . . . . . . . . . . . . . . . . . . . .  17
-     C.1.  Changes in draft-singh-rmcat-cc-eval-04 . . . . . . . . .  17
+   Appendix C.  Change Log . . . . . . . . . . . . . . . . . . . . .  18
+     C.1.  Changes in draft-singh-rmcat-cc-eval-04 . . . . . . . . .  18
      C.2.  Changes in draft-singh-rmcat-cc-eval-03 . . . . . . . . .  18
-     C.3.  Changes in draft-singh-rmcat-cc-eval-02 . . . . . . . . .  18
 
 
 
@@ -114,8 +114,9 @@ Singh & Ott              Expires April 23, 2014                 [Page 2]
 Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
 
+     C.3.  Changes in draft-singh-rmcat-cc-eval-02 . . . . . . . . .  18
      C.4.  Changes in draft-singh-rmcat-cc-eval-01 . . . . . . . . .  18
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  18
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  19
 
 1.  Introduction
 
@@ -161,7 +162,6 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
    o  Reactivity to transient events.
 
-   o  Packet losses and discards.
 
 
 
@@ -170,14 +170,16 @@ Singh & Ott              Expires April 23, 2014                 [Page 3]
 Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
 
+   o  Packet losses and discards.
+
    o  Section 2.1 of [RFC5166] discusses the tradeoff between
       throughput, delay and loss.
 
-   Each experiment logs every incoming and outgoing packet (the RTP
-   logging format is described in Section 3.1).  The logging can be done
-   inside the application or at the endpoints using pcap (packet
-   capture, e.g., tcpdump, wireshark).  The following are calculated
-   based on the information in the packet logs:
+   Each experiment is expected to log every incoming and outgoing packet
+   (the RTP logging format is described in Section 3.1).  The logging
+   can be done inside the application or at the endpoints using pcap
+   (packet capture, e.g., tcpdump, wireshark).  The following are
+   calculated based on the information in the packet logs:
 
    1.  Sending rate, Receiver rate, Goodput
 
@@ -199,6 +201,8 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
    RMCAT streams having similar RTTs.
    ]
 
+   [Open issue (2): Possibly using Jain-fairness index.]
+
    Convergence time: the time taken to reach a stable rate at startup,
    after the available link capacity changes, or when new flows get
    added to the bottleneck link.
@@ -207,6 +211,20 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
    rate to the instantaneous bottleneck capacity.  This metric is useful
    when an RMCAT flow is by itself or competing with similar cross-
    traffic.
+
+
+
+
+
+
+
+
+
+
+Singh & Ott              Expires April 23, 2014                 [Page 4]
+
+Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
+
 
    From the logs the statistical measures (min, max, mean, standard
    deviation and variance) for the whole duration or any specific part
@@ -217,14 +235,6 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
    histogram or CDF of packet delay.
 
 3.1.  RTP Log Format
-
-
-
-
-Singh & Ott              Expires April 23, 2014                 [Page 4]
-
-Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
-
 
    The log file is tab or comma separated containing the following
    details:
@@ -263,6 +273,15 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
 4.2.  Stability
 
+
+
+
+
+Singh & Ott              Expires April 23, 2014                 [Page 5]
+
+Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
+
+
    The congestion control should be assessed for its stability when the
    path characteristics do not change over time.  Changing the media
    encoding rate estimate too often or by too much may adversely affect
@@ -274,13 +293,6 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
    types of media behavior, i.e., the media should contain idle and
    data-limited periods.  For example, periods of silence for audio,
    varying amount of motion for video, or bursty nature of I-frames.
-
-
-
-Singh & Ott              Expires April 23, 2014                 [Page 5]
-
-Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
-
 
    The evaluation may be done in two stages.  In the first stage, the
    endpoint generates traffic at the rate calculated by the congestion
@@ -313,6 +325,19 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
    experience.  Furthermore, packet loss may induce additional delay in
    networks with wireless paths due to link-layer retransmissions.
 
+
+
+
+
+
+
+
+
+Singh & Ott              Expires April 23, 2014                 [Page 6]
+
+Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
+
+
 4.6.  Varying Path Characteristics
 
    The congestion control algorithm should be evaluated for a range of
@@ -330,13 +355,6 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
    The main motivation for the previous and current criteria is to
    identify situations in which the proposed congestion control is less
    performant.
-
-
-
-Singh & Ott              Expires April 23, 2014                 [Page 6]
-
-Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
-
 
 4.7.  Reacting to Transient Events or Interruptions
 
@@ -369,13 +387,25 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
    cross-traffic sources, i.e., few and many competing flows, or mixing
    various amounts of TCP and similar cross-traffic.
 
+
+
+Singh & Ott              Expires April 23, 2014                 [Page 7]
+
+Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
+
+
 4.10.  Extensions to RTP/RTCP
 
    The congestion control algorithm should indicate if any protocol
    extensions are required to implement it and should carefully describe
    the impact of the extension.
 
-5.  Evaluation Parameters
+5.  Minimum Requirements for Evaluation
+
+   [Editor's Note: If needed, a minimum evaluation criteria can be based
+   on the above guidelines or defined tests/scenarios.]
+
+6.  Evaluation Parameters
 
    An evaluation scenario is created from a list of network, link and
    flow characteristics.  The example parameters discussed in the
@@ -383,16 +413,7 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
    scenarios and do not describe an evaluation scenario.  The scenario
    discussed in Appendix B takes into account all these parameters.
 
-5.1.  Bottleneck Traffic Flows
-
-
-
-
-
-Singh & Ott              Expires April 23, 2014                 [Page 7]
-
-Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
-
+6.1.  Bottleneck Traffic Flows
 
    The network scenario describes the types of flows sharing the common
    bottleneck with a single RMCAT flow, they are:
@@ -421,6 +442,14 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
    +---+  Access                                            Access +---+
    |S1 |======= \                                         / =======|R1 |
    +---+   link \\                                       //  link  +---+
+
+
+
+Singh & Ott              Expires April 23, 2014                 [Page 8]
+
+Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
+
+
                  \\                                     //
    +---+       +-----+         Bottleneck            +-----+       +---+
    |S2 |=======|  A  |------------------------------>|  B  |=======|R2 |
@@ -436,19 +465,12 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
    [Open Issue: Discuss more complex topologies]
 
-5.2.  Access Links
+6.2.  Access Links
 
    The media senders and receivers are typically connected to the
    bottleneck link, common access links are:
 
    1.  Ethernet (LAN)
-
-
-
-Singh & Ott              Expires April 23, 2014                 [Page 8]
-
-Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
-
 
    2.  Wireless LAN (WLAN)
 
@@ -465,7 +487,7 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
    account.  In the simplest case the access link may not be the
    bottleneck link but an intermediate node.
 
-5.3.  Example Bottleneck Link Parameters
+6.3.  Example Bottleneck Link Parameters
 
    The bottleneck link carries multiple flows, these flows may be other
    RMCAT flows or other types of cross-traffic.  The experiments should
@@ -476,6 +498,14 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
    If the experiment carries only media in one direction, then the
    upstream (sender to receiver) bottleneck link carries media packets
+
+
+
+Singh & Ott              Expires April 23, 2014                 [Page 9]
+
+Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
+
+
    while the downstream (receiver to sender) bottleneck carries the
    feedback packets.  The bottleneck link parameters discussed in this
    section apply only to a single direction, hence the bottleneck link
@@ -498,14 +528,6 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
    3.  High latency: 150ms
 
-
-
-
-Singh & Ott              Expires April 23, 2014                 [Page 9]
-
-Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
-
-
    4.  Extreme latency: 300ms
 
    Similarly, to model lossy links, the experiments can choose one of
@@ -525,12 +547,20 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
    These fractional losses can be generated using traces, Gilbert-Elliot
    model, randomly (uncorrelated) loss.
 
-5.4.  DropTail Router Queue Parameters
+6.4.  DropTail Router Queue Parameters
 
    The router queue length is measured as the time taken to drain the
    FIFO queue, they are:
 
    1.  QoS-aware (or short): 70ms
+
+
+
+
+Singh & Ott              Expires April 23, 2014                [Page 10]
+
+Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
+
 
    2.  Nominal: 500ms
 
@@ -542,7 +572,7 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
    QueueSize (in bytes) = QueueSize (in sec) x Throughput (in bps)/8
 
-5.5.  Media Flow Parameters
+6.5.  Media Flow Parameters
 
    The media sources can be modeled in two ways.  In the first, the
    sources always have data to send, i.e., have no data limited
@@ -554,14 +584,6 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
    At the beginning of the session, the media sources are configured to
    start at a given start rate, they are:
 
-
-
-
-Singh & Ott              Expires April 23, 2014                [Page 10]
-
-Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
-
-
    1.  200 kbps
 
    2.  800 kbps
@@ -570,7 +592,7 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
    4.  4000 kbps
 
-5.6.  Cross-traffic Parameters
+6.6.  Cross-traffic Parameters
 
    Long-lived TCP flows will download data throughout the session and
    are expected to have infinite amount of data to send or receive.]
@@ -578,7 +600,7 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
    [Open issue: short-lived/bursty TCP cross-traffic parameters are
    still TBD.
 
-6.  Status of Proposals
+7.  Status of Proposals
 
    Congestion control algorithms are expected to be published as
    "Experimental" documents until they are shown to be safe to deploy.
@@ -589,6 +611,13 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
    safe to deploy.  It is possible that an algorithm is not recommended
    for certain environments or perform sub-optimally for the user.
 
+
+
+Singh & Ott              Expires April 23, 2014                [Page 11]
+
+Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
+
+
    [Editor's Note: Should there be a distinction between "Informational"
    and "Experimental" drafts for congestion control algorithms in RMCAT.
    [RFC5033] describes Informational proposals as algorithms that are
@@ -597,28 +626,15 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
    deemed safe in some environments but require a more thorough
    evaluation (from the community).]
 
-7.  Security Considerations
+8.  Security Considerations
 
    Security issues have not been discussed in this memo.
 
-8.  IANA Considerations
+9.  IANA Considerations
 
    There are no IANA impacts in this memo.
 
-
-
-
-
-
-
-
-
-Singh & Ott              Expires April 23, 2014                [Page 11]
-
-Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
-
-
-9.  Contributors
+10.  Contributors
 
    The content and concepts within this document are a product of the
    discussion carried out in the Design Team.
@@ -626,7 +642,7 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
    Michael Ramalho provided the text for the scenario discussed in
    Appendix B.
 
-10.  Acknowledgements
+11.  Acknowledgements
 
    Much of this document is derived from previous work on congestion
    control at the IETF.
@@ -639,9 +655,9 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
    draft.  Additionally, also thank the participants of the design team
    for their comments and discussion related to the evaluation criteria.
 
-11.  References
+12.  References
 
-11.1.  Normative References
+12.1.  Normative References
 
    [RFC3550]  Schulzrinne, H., Casner, S., Frederick, R., and V.
               Jacobson, "RTP: A Transport Protocol for Real-Time
@@ -650,6 +666,13 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
    [RFC3551]  Schulzrinne, H. and S. Casner, "RTP Profile for Audio and
               Video Conferences with Minimal Control", STD 65, RFC 3551,
               July 2003.
+
+
+
+Singh & Ott              Expires April 23, 2014                [Page 12]
+
+Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
+
 
    [RFC3611]  Friedman, T., Caceres, R., and A. Clark, "RTP Control
               Protocol Extended Reports (RTCP XR)", RFC 3611, November
@@ -665,15 +688,6 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
               and Consequences", RFC 5506, April 2009.
 
    [I-D.jesup-rmcat-reqs]
-
-
-
-
-Singh & Ott              Expires April 23, 2014                [Page 12]
-
-Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
-
-
               Jesup, R., "Congestion Control Requirements For RMCAT",
               draft-jesup-rmcat-reqs-01 (work in progress), February
               2013.
@@ -683,7 +697,7 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
               Breakers for Unicast Sessions", draft-ietf-avtcore-rtp-
               circuit-breakers-01 (work in progress), October 2012.
 
-11.2.  Informative References
+12.2.  Informative References
 
    [RFC5033]  Floyd, S. and M. Allman, "Specifying New Congestion
               Control Algorithms", BCP 133, RFC 5033, August 2007.
@@ -707,20 +721,6 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
               Common TCP Evaluation Suite", Proc. PFLDnet. 2008, August
               2008.
 
-Appendix A.  Application Trade-off
-
-   Application trade-off is yet to be defined.  see RMCAT requirements
-   [I-D.jesup-rmcat-reqs] document.  Perhaps each experiment should
-   define the application's expectation or trade-off.
-
-A.1.  Measuring Quality
-
-   No quality metric is defined for performance evaluation.  Thus, is an
-   open issue.  Finally, a congestion control algorithm should be able
-   to show that it is useful for interactive video.
-
-Appendix B.  Proposal to evaluate Self-fairness of RMCAT congestion
-             control algorithm
 
 
 
@@ -729,6 +729,23 @@ Singh & Ott              Expires April 23, 2014                [Page 13]
 
 Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
+
+Appendix A.  Application Trade-off
+
+   Application trade-off is yet to be defined.  see RMCAT requirements
+   [I-D.jesup-rmcat-reqs] document.  Perhaps each experiment should
+   define the application's expectation or trade-off.
+
+A.1.  Measuring Quality
+
+   No quality metric is defined for performance evaluation, it is
+   currently an open issue.  However, there is consensus that congestion
+   control algorithm should be able to show that it is useful for
+   interactive video by performing analysis using a real codec and video
+   sequences.
+
+Appendix B.  Proposal to evaluate Self-fairness of RMCAT congestion
+             control algorithm
 
    The goal of the experiment discussed in this section is to initially
    take out as many unknowns from the scenario.  Later experiments can
@@ -761,6 +778,14 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
    experiments, it is possible to add similar capacity and delay
    constraints on the return path.
 
+
+
+
+Singh & Ott              Expires April 23, 2014                [Page 14]
+
+Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
+
+
                                                                    +---+
                                                              / === |R1 |
    +---+                                           +-----+  //     +---+
@@ -778,14 +803,6 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
    +---+                                            +-----+\\      (...)
                                                             \\
                                                              \\    +---+
-
-
-
-Singh & Ott              Expires April 23, 2014                [Page 14]
-
-Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
-
-
                                                               \ ===|R20|
                                                                    +---+
 
@@ -817,6 +834,14 @@ B.1.1.  Media Traffic Generator
 
    2.  For low media rate source: when generating data at a rate less
        than a maximum length MTU every 100 ms would allow (e.g., 120
+
+
+
+Singh & Ott              Expires April 23, 2014                [Page 15]
+
+Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
+
+
        kbps = 1500 bytes/packet * 10 packets/sec * 8 bits/byte), the
        RMCAT source must modulate the packet size (RTP payload size) of
        RTP packets that are sent every 100 ms to attain the desired
@@ -834,14 +859,6 @@ B.1.2.  Bottleneck Link Bandwidth
 
    The bottleneck link capacity is dimensioned such that each RMCAT flow
    in an ideal situation with perfectly equal capacity sharing for all
-
-
-
-Singh & Ott              Expires April 23, 2014                [Page 15]
-
-Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
-
-
    the flows on the bottleneck obtains the following throughputs: 200
    kbps, 800 kbps, 1.3 Mbps and 4 Mbps.
    For example, experiments with five RMCAT flows with an 800 kbps/flow
@@ -851,7 +868,7 @@ B.1.3.  Bottleneck Link Queue Type and Length
 
    The bottleneck link queue (Router A) is a simple FIFO queue having a
    buffer length corresponding to 70 ms, 500 ms or 2000 ms (defined in
-   Section 5.4) of delay at the bottleneck link rate (i.e., actual
+   Section 6.4) of delay at the bottleneck link rate (i.e., actual
    buffer lengths in bytes are dependent on bottleneck link bandwidth).
 
 B.1.4.  RMCAT flows and delay legs
@@ -873,6 +890,14 @@ B.1.4.  RMCAT flows and delay legs
 
        1.  Random starts within interval [0 ms, 500 ms].
 
+
+
+
+Singh & Ott              Expires April 23, 2014                [Page 16]
+
+Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
+
+
        2.  One "early-coming" flow (i.e., the 1st flow starting and
            achieving steady-state before the next N-1 simultaneously
            begin).
@@ -888,15 +913,6 @@ B.1.4.  RMCAT flows and delay legs
    to?]
 
    [Open issue (A.2): Start rate for the media flows]
-
-
-
-
-
-Singh & Ott              Expires April 23, 2014                [Page 16]
-
-Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
-
 
 B.1.5.  Impairment Generator
 
@@ -925,11 +941,19 @@ B.3.  Extensibility of the Experiment
 
    The above scenario describes only RMCAT sources competing for
    capacity on the bottleneck link, however, future experiments can use
-   different types of cross-traffic (as described in Section 5.1).
+   different types of cross-traffic (as described in Section 6.1).
 
    Currently, the forward path (carrying media packets) is characterized
    to add delay and a fixed bottleneck link capacity, in the future
    packet losses and capacity changes can be applied to mimic a wireless
+
+
+
+Singh & Ott              Expires April 23, 2014                [Page 17]
+
+Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
+
+
    link layer (for e.g., WiFi, 3G, LTE).  Additionally, only losses are
    applied to the reverse path (carrying feedback packets), later
    experiments can apply the same forward path (carrying media packets)
@@ -946,14 +970,6 @@ C.1.  Changes in draft-singh-rmcat-cc-eval-04
 
    o  Clarified metrics: convergence time, bandwidth utilization.
 
-
-
-
-Singh & Ott              Expires April 23, 2014                [Page 17]
-
-Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
-
-
    o  Changed fairness criteria to fairness test.
 
    o  Added measuring pre- and post-repair loss.
@@ -962,7 +978,7 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
    o  clarified use of DropTail and AQM.
 
-   o  Removed section on "Minimum Requirements for Evaluation"
+   o  Updated text in "Minimum Requirements for Evaluation"
 
 C.2.  Changes in draft-singh-rmcat-cc-eval-03
 
@@ -987,28 +1003,19 @@ C.4.  Changes in draft-singh-rmcat-cc-eval-01
 
    o  Added measuring impact against few and many flows.
 
-   o  Added guideline for idle and data-limited periods.
-
-   o  Added reference to TCP evaluation suite in example evaluation
-      scenarios.
-
-Authors' Addresses
-
-
-
-
-
-
-
-
-
-
 
 
 Singh & Ott              Expires April 23, 2014                [Page 18]
 
 Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
+
+   o  Added guideline for idle and data-limited periods.
+
+   o  Added reference to TCP evaluation suite in example evaluation
+      scenarios.
+
+Authors' Addresses
 
    Varun Singh
    Aalto University
@@ -1029,13 +1036,6 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
    Finland
 
    Email: jo@comnet.tkk.fi
-
-
-
-
-
-
-
 
 
 
