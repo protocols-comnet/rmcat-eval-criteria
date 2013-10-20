@@ -392,7 +392,7 @@
 <link href="#rfc.appendix.B.1.4" rel="Chapter" title="B.1.4 RMCAT flows and delay legs"/>
 <link href="#rfc.appendix.B.1.5" rel="Chapter" title="B.1.5 Impairment Generator"/>
 <link href="#rfc.appendix.B.2" rel="Chapter" title="B.2 Proposed Passing Criteria"/>
-<link href="#rfc.appendix.B.3" rel="Chapter" title="B.3 Extensability of the Experiment"/>
+<link href="#rfc.appendix.B.3" rel="Chapter" title="B.3 Extensibility of the Experiment"/>
 <link href="#rfc.appendix.C" rel="Chapter" title="C Change Log"/>
 <link href="#rfc.appendix.C.1" rel="Chapter" title="C.1 Changes in draft-singh-rmcat-cc-eval-04"/>
 <link href="#rfc.appendix.C.2" rel="Chapter" title="C.2 Changes in draft-singh-rmcat-cc-eval-03"/>
@@ -406,7 +406,7 @@
 
   <meta name="dct.creator" content="Singh, V. and J. Ott" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-singh-rmcat-cc-eval-04" />
-  <meta name="dct.issued" scheme="ISO8601" content="2013-10-18" />
+  <meta name="dct.issued" scheme="ISO8601" content="2013-10-20" />
   <meta name="dct.abstract" content="The Real-time Transport Protocol (RTP) is used to transmit media in telephony and video conferencing applications. This document describes the guidelines to evaluate new congestion control algorithms for interactive point-to-point real-time media." />
   <meta name="description" content="The Real-time Transport Protocol (RTP) is used to transmit media in telephony and video conferencing applications. This document describes the guidelines to evaluate new congestion control algorithms for interactive point-to-point real-time media." />
 
@@ -430,8 +430,8 @@
   <td class="right">Aalto University</td>
 </tr>
 <tr>
-  <td class="left">Expires: April 21, 2014</td>
-  <td class="right">October 18, 2013</td>
+  <td class="left">Expires: April 23, 2014</td>
+  <td class="right">October 20, 2013</td>
 </tr>
 
     	
@@ -451,7 +451,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on April 21, 2014.</p>
+<p>This Internet-Draft will expire on April 23, 2014.</p>
 <h1 id="rfc.copyrightnotice">
   <a href="#rfc.copyrightnotice">Copyright Notice</a>
 </h1>
@@ -503,7 +503,7 @@
 <li>B.1.4.   <a href="#rfc.appendix.B.1.4">RMCAT flows and delay legs</a></li>
 <li>B.1.5.   <a href="#rfc.appendix.B.1.5">Impairment Generator</a></li>
 <li>B.2.   <a href="#rfc.appendix.B.2">Proposed Passing Criteria</a></li>
-<li>B.3.   <a href="#rfc.appendix.B.3">Extensability of the Experiment</a></li>
+<li>B.3.   <a href="#rfc.appendix.B.3">Extensibility of the Experiment</a></li>
 <li>Appendix C.   <a href="#rfc.appendix.C">Change Log</a></li>
 <li>C.1.   <a href="#rfc.appendix.C.1">Changes in draft-singh-rmcat-cc-eval-04</a></li>
 <li>C.2.   <a href="#rfc.appendix.C.2">Changes in draft-singh-rmcat-cc-eval-03</a></li>
@@ -561,11 +561,13 @@
 <h1 id="rfc.section.4"><a href="#rfc.section.4">4.</a> <a href="#cc-guidelines" id="cc-guidelines">Guidelines</a></h1>
 <p id="rfc.section.4.p.1">A congestion control algorithm should be tested in simulation or a testbed environment, and the experiments should be repeated multiple times to infer statistical significance.  The following guidelines are considered for evaluation:</p>
 <h1 id="rfc.section.4.1"><a href="#rfc.section.4.1">4.1.</a> Avoiding Congestion Collapse</h1>
-<p id="rfc.section.4.1.p.1">Does the congestion control propose any changes to (or diverge from) the circuit breaker conditions defined in <a href="#I-D.ietf-avtcore-rtp-circuit-breakers">[I-D.ietf-avtcore-rtp-circuit-breakers]</a>.</p>
+<p id="rfc.section.4.1.p.1">The congestion control algorithm is expected to take an action, such as reducing the sending rate, when it detects congestion.  Typically, it should intervene before the circuit breaker <a href="#I-D.ietf-avtcore-rtp-circuit-breakers">[I-D.ietf-avtcore-rtp-circuit-breakers]</a> is engaged. </p>
+<p id="rfc.section.4.1.p.2">Does the congestion control propose any changes to (or diverge from) the circuit breaker conditions defined in <a href="#I-D.ietf-avtcore-rtp-circuit-breakers">[I-D.ietf-avtcore-rtp-circuit-breakers]</a>.</p>
 <h1 id="rfc.section.4.2"><a href="#rfc.section.4.2">4.2.</a> Stability</h1>
 <p id="rfc.section.4.2.p.1">The congestion control should be assessed for its stability when the path characteristics do not change over time. Changing the media encoding rate estimate too often or by too much may adversely affect the application layer performance.</p>
 <h1 id="rfc.section.4.3"><a href="#rfc.section.4.3">4.3.</a> Media Traffic</h1>
-<p id="rfc.section.4.3.p.1">The congestion control algorithm should be assessed with different types of media behavior, i.e., the media should contain idle and data-limited periods. For example, periods of silence for audio or varying amount of motion for video. However, the evaluation can be done in two stages. In the first stage, media stream can generate traffic at the rate calculated by the congestion controller. In the second stage, real codecs or models of video codecs should be used to mimic real-world cases.</p>
+<p id="rfc.section.4.3.p.1">The congestion control algorithm should be assessed with different types of media behavior, i.e., the media should contain idle and data-limited periods. For example, periods of silence for audio, varying amount of motion for video, or bursty nature of I-frames. </p>
+<p id="rfc.section.4.3.p.2">The evaluation may be done in two stages. In the first stage, the endpoint generates traffic at the rate calculated by the congestion controller. In the second stage, real codecs or models of video codecs are used to mimic application-limited data periods and varying video frame sizes.</p>
 <h1 id="rfc.section.4.4"><a href="#rfc.section.4.4">4.4.</a> Start-up Behaviour</h1>
 <p id="rfc.section.4.4.p.1">The congestion control algorithm should be assessed with different start-rates. The main reason is to observe the behavior of the congestion control in different evaluation scenarios, such as when competing with varying amount of cross-traffic or how quickly does the congestion control algorithm achieve a stable sending rate.</p>
 <p id="rfc.section.4.4.p.2">[Editor's note: requires a robust definition for unfriendliness and convergence time.]</p>
@@ -841,7 +843,7 @@
 <p id="rfc.section.B.2.p.2">No unfairness is observed, i.e., at steady state each flow attains a throughput between [ B/(3*N), (3*B)/N ], where B is the link bandwidth and N is the number of flows.</p>
 <p id="rfc.section.B.2.p.3">No flow experiences packet loss when queue length is set to 500 ms or greater.</p>
 <p id="rfc.section.B.2.p.4">All individual sources must be in their steady state within twenty LRTTs (where LRTT is defined as the RTT associated with the flow with the Largest RTT in the experiment). ]</p>
-<h1 id="rfc.appendix.B.3"><a href="#rfc.appendix.B.3">B.3.</a> Extensability of the Experiment</h1>
+<h1 id="rfc.appendix.B.3"><a href="#rfc.appendix.B.3">B.3.</a> Extensibility of the Experiment</h1>
 <p id="rfc.section.B.3.p.1">The above scenario describes only RMCAT sources competing for capacity on the bottleneck link, however, future experiments can use different types of cross-traffic (as described in <a href="#eval-scen-traffic">Section 5.1</a>).</p>
 <p id="rfc.section.B.3.p.2">Currently, the forward path (carrying media packets) is characterized to add delay and a fixed bottleneck link capacity, in the future packet losses and capacity changes can be applied to mimic a wireless link layer (for e.g., WiFi, 3G, LTE).  Additionally, only losses are applied to the reverse path (carrying feedback packets), later experiments can apply the same forward path (carrying media packets) impairments to the reverse path.</p>
 <h1 id="rfc.appendix.C"><a href="#rfc.appendix.C">Appendix C.</a> <a href="#App-cl" id="App-cl">Change Log</a></h1>

@@ -5,7 +5,7 @@
 RMCAT WG                                                        V. Singh
 Internet-Draft                                                    J. Ott
 Intended status: Informational                          Aalto University
-Expires: April 21, 2014                                 October 18, 2013
+Expires: April 23, 2014                                 October 20, 2013
 
 
      Evaluating Congestion Control for Interactive Real-time Media
@@ -33,7 +33,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 21, 2014.
+   This Internet-Draft will expire on April 23, 2014.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Singh & Ott              Expires April 21, 2014                 [Page 1]
+Singh & Ott              Expires April 23, 2014                 [Page 1]
 
 Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
@@ -101,7 +101,7 @@ Table of Contents
        B.1.4.  RMCAT flows and delay legs  . . . . . . . . . . . . .  16
        B.1.5.  Impairment Generator  . . . . . . . . . . . . . . . .  17
      B.2.  Proposed Passing Criteria . . . . . . . . . . . . . . . .  17
-     B.3.  Extensability of the Experiment . . . . . . . . . . . . .  17
+     B.3.  Extensibility of the Experiment . . . . . . . . . . . . .  17
    Appendix C.  Change Log . . . . . . . . . . . . . . . . . . . . .  17
      C.1.  Changes in draft-singh-rmcat-cc-eval-04 . . . . . . . . .  17
      C.2.  Changes in draft-singh-rmcat-cc-eval-03 . . . . . . . . .  18
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Singh & Ott              Expires April 21, 2014                 [Page 2]
+Singh & Ott              Expires April 23, 2014                 [Page 2]
 
 Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
@@ -165,7 +165,7 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
 
 
-Singh & Ott              Expires April 21, 2014                 [Page 3]
+Singh & Ott              Expires April 23, 2014                 [Page 3]
 
 Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
@@ -221,7 +221,7 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
 
 
-Singh & Ott              Expires April 21, 2014                 [Page 4]
+Singh & Ott              Expires April 23, 2014                 [Page 4]
 
 Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
@@ -252,6 +252,11 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
 4.1.  Avoiding Congestion Collapse
 
+   The congestion control algorithm is expected to take an action, such
+   as reducing the sending rate, when it detects congestion.  Typically,
+   it should intervene before the circuit breaker
+   [I-D.ietf-avtcore-rtp-circuit-breakers] is engaged.
+
    Does the congestion control propose any changes to (or diverge from)
    the circuit breaker conditions defined in
    [I-D.ietf-avtcore-rtp-circuit-breakers].
@@ -267,20 +272,21 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
    The congestion control algorithm should be assessed with different
    types of media behavior, i.e., the media should contain idle and
-   data-limited periods.  For example, periods of silence for audio or
-   varying amount of motion for video.  However, the evaluation can be
-   done in two stages.  In the first stage, media stream can generate
-   traffic at the rate calculated by the congestion controller.  In the
-   second stage, real codecs or models of video codecs should be used to
-   mimic real-world cases.
+   data-limited periods.  For example, periods of silence for audio,
+   varying amount of motion for video, or bursty nature of I-frames.
 
 
 
-
-Singh & Ott              Expires April 21, 2014                 [Page 5]
+Singh & Ott              Expires April 23, 2014                 [Page 5]
 
 Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
+
+   The evaluation may be done in two stages.  In the first stage, the
+   endpoint generates traffic at the rate calculated by the congestion
+   controller.  In the second stage, real codecs or models of video
+   codecs are used to mimic application-limited data periods and varying
+   video frame sizes.
 
 4.4.  Start-up Behaviour
 
@@ -327,13 +333,7 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
 
 
-
-
-
-
-
-
-Singh & Ott              Expires April 21, 2014                 [Page 6]
+Singh & Ott              Expires April 23, 2014                 [Page 6]
 
 Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
@@ -389,7 +389,7 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
 
 
-Singh & Ott              Expires April 21, 2014                 [Page 7]
+Singh & Ott              Expires April 23, 2014                 [Page 7]
 
 Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
@@ -445,7 +445,7 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
 
 
-Singh & Ott              Expires April 21, 2014                 [Page 8]
+Singh & Ott              Expires April 23, 2014                 [Page 8]
 
 Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
@@ -501,7 +501,7 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
 
 
-Singh & Ott              Expires April 21, 2014                 [Page 9]
+Singh & Ott              Expires April 23, 2014                 [Page 9]
 
 Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
@@ -557,7 +557,7 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
 
 
-Singh & Ott              Expires April 21, 2014                [Page 10]
+Singh & Ott              Expires April 23, 2014                [Page 10]
 
 Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
@@ -613,7 +613,7 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
 
 
-Singh & Ott              Expires April 21, 2014                [Page 11]
+Singh & Ott              Expires April 23, 2014                [Page 11]
 
 Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
@@ -669,7 +669,7 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
 
 
-Singh & Ott              Expires April 21, 2014                [Page 12]
+Singh & Ott              Expires April 23, 2014                [Page 12]
 
 Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
@@ -725,7 +725,7 @@ Appendix B.  Proposal to evaluate Self-fairness of RMCAT congestion
 
 
 
-Singh & Ott              Expires April 21, 2014                [Page 13]
+Singh & Ott              Expires April 23, 2014                [Page 13]
 
 Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
@@ -781,7 +781,7 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
 
 
-Singh & Ott              Expires April 21, 2014                [Page 14]
+Singh & Ott              Expires April 23, 2014                [Page 14]
 
 Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
@@ -837,7 +837,7 @@ B.1.2.  Bottleneck Link Bandwidth
 
 
 
-Singh & Ott              Expires April 21, 2014                [Page 15]
+Singh & Ott              Expires April 23, 2014                [Page 15]
 
 Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
@@ -893,7 +893,7 @@ B.1.4.  RMCAT flows and delay legs
 
 
 
-Singh & Ott              Expires April 21, 2014                [Page 16]
+Singh & Ott              Expires April 23, 2014                [Page 16]
 
 Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
@@ -921,7 +921,7 @@ B.2.  Proposed Passing Criteria
    LRTTs (where LRTT is defined as the RTT associated with the flow with
    the Largest RTT in the experiment).  ]
 
-B.3.  Extensability of the Experiment
+B.3.  Extensibility of the Experiment
 
    The above scenario describes only RMCAT sources competing for
    capacity on the bottleneck link, however, future experiments can use
@@ -949,7 +949,7 @@ C.1.  Changes in draft-singh-rmcat-cc-eval-04
 
 
 
-Singh & Ott              Expires April 21, 2014                [Page 17]
+Singh & Ott              Expires April 23, 2014                [Page 17]
 
 Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
@@ -1005,7 +1005,7 @@ Authors' Addresses
 
 
 
-Singh & Ott              Expires April 21, 2014                [Page 18]
+Singh & Ott              Expires April 23, 2014                [Page 18]
 
 Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
@@ -1060,4 +1060,4 @@ Internet-Draft  Evaluating Congestion Control for RMCAT     October 2013
 
 
 
-Singh & Ott              Expires April 21, 2014                [Page 19]
+Singh & Ott              Expires April 23, 2014                [Page 19]

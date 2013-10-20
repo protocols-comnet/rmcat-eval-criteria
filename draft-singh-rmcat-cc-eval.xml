@@ -277,10 +277,14 @@
             The following guidelines are considered for evaluation:</t>
             
             <section title="Avoiding Congestion Collapse">
-            <t>Does the congestion control propose any changes to (or
-            diverge from) the circuit breaker conditions defined in <xref
-            target="I-D.ietf-avtcore-rtp-circuit-breakers" />.</t>
-            </section>
+            <t>The congestion control algorithm is expected to take an action,
+            such as reducing the sending rate, when it detects congestion.
+            Typically, it should intervene before the circuit breaker <xref
+            target="I-D.ietf-avtcore-rtp-circuit-breakers" /> is engaged. </t>
+            
+            <t>Does the congestion control propose any changes to (or diverge
+            from) the circuit breaker conditions defined in <xref
+            target="I-D.ietf-avtcore-rtp-circuit-breakers" />.</t> </section>
             
             <section title="Stability">
             <t>The congestion control should be assessed for its stability
@@ -293,11 +297,14 @@
             <t>The congestion control algorithm should be assessed with
             different types of media behavior, i.e., the media should contain
             idle and data-limited periods. For example, periods of silence for
-            audio or varying amount of motion for video. However, the
-            evaluation can be done in two stages. In the first stage, media
-            stream can generate traffic at the rate calculated by the 
+            audio, varying amount of motion for video, or bursty nature of
+            I-frames. </t>
+            
+            <t>The evaluation may be done in two stages. In the first stage,
+            the endpoint generates traffic at the rate calculated by the
             congestion controller. In the second stage, real codecs or models
-            of video codecs should be used to mimic real-world cases.</t>
+            of video codecs are used to mimic application-limited data periods
+            and varying video frame sizes.</t>
             </section>
             
             <section title="Start-up Behaviour">
@@ -1056,7 +1063,7 @@
             flow with the Largest RTT in the experiment). ]</t>
         </section>
         
-        <section title="Extensability of the Experiment">
+        <section title="Extensibility of the Experiment">
             <t>The above scenario describes only RMCAT sources competing for 
             capacity on the bottleneck link, however, future experiments can 
             use different types of cross-traffic (as described in <xref 
