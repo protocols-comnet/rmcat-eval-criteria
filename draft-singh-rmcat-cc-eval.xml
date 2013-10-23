@@ -592,7 +592,7 @@
             <section title="Cross-traffic Parameters">
                 <t>Long-lived TCP flows will download data throughout the
                 session and are expected to have infinite amount of data to
-                send or receive.]</t>
+                send or receive.</t>
                 <t>[Open issue: short-lived/bursty TCP cross-traffic
                 parameters are still TBD.</t>
             </section>
