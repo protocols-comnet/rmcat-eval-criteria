@@ -9,8 +9,8 @@
 <!ENTITY rfc5166 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5166.xml">
 <!ENTITY rfc5033 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5033.xml">
 <!ENTITY rfc5681 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5681.xml">
-<!ENTITY I-D.jesup-rmcat-reqs PUBLIC "" 
-"http://xml.resource.org/public/rfc/bibxml3/reference.I-D.jesup-rmcat-reqs.xml">
+<!ENTITY I-D.ietf-rmcat-cc-requirements PUBLIC "" 
+"http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-rmcat-cc-requirements.xml">
 <!ENTITY I-D.ietf-avtcore-rtp-circuit-breakers PUBLIC "" 
 "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-avtcore-rtp-circuit-breakers.xml">
 <!ENTITY I-D.ietf-ledbat-congestion PUBLIC "" 
@@ -82,7 +82,7 @@
             new congestion control algorithms for interactive
             point-to-point real time media. The requirements for the
             congestion control algorithm are outlined in <xref
-            target="I-D.jesup-rmcat-reqs" />). This document
+            target="I-D.ietf-rmcat-cc-requirements" />). This document
             builds upon previous work at the IETF: <xref
             target="RFC5033">Specifying New Congestion Control
             Algorithms</xref> and <xref target="RFC5166">Metrics for the
@@ -221,7 +221,7 @@
         <t>(iii) Fair Share. </t> <t></t>
         
         <t>[Editor's Note: This metric should match the ones defined in the
-        <xref target="I-D.jesup-rmcat-reqs">RMCAT requirements</xref>
+        <xref target="I-D.ietf-rmcat-cc-requirements">RMCAT requirements</xref>
         document.]</t> 
         <t></t>
         
@@ -802,7 +802,7 @@
         &rfc4585;
         &rfc5506;
         <!--RMCAT related -->
-        &I-D.jesup-rmcat-reqs;
+        &I-D.ietf-rmcat-cc-requirements;
         &I-D.ietf-avtcore-rtp-circuit-breakers;
         </references>
         
@@ -866,9 +866,9 @@
         
         <section anchor="misc"  title="Application Trade-off">
           <t>Application trade-off is yet to be defined. see <xref
-          target="I-D.jesup-rmcat-reqs">RMCAT requirements</xref> document.
-          Perhaps each experiment should define the application's expectation
-          or trade-off.</t>
+          target="I-D.ietf-rmcat-cc-requirements">RMCAT requirements</xref>
+          document. Perhaps each experiment should define the application's
+          expectation or trade-off.</t>
           <section anchor="misc-2"  title="Measuring Quality">
             <t>No quality metric is defined for performance evaluation, it is
             currently an open issue. However, there is consensus that
@@ -1089,6 +1089,11 @@
         <section anchor="App-cl" title="Change Log"> 
         <t>Note to the RFC-Editor: please remove this section prior to
         publication as an RFC.</t>
+        <section title="Changes in draft-singh-rmcat-cc-eval-05">
+        <t><list style="symbols">
+			<t>Updated references.</t>
+        </list></t> 
+        </section>
             <section title="Changes in draft-singh-rmcat-cc-eval-04">
             <t><list style="symbols">
                 <t>Incorporate feedback from IETF 87, Berlin.</t>
