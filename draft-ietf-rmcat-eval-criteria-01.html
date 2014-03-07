@@ -566,7 +566,6 @@
 <p id="rfc.section.4.3.p.2">The evaluation may be done in two stages. In the first stage, the endpoint generates traffic at the rate calculated by the congestion controller. In the second stage, real codecs or models of video codecs are used to mimic application-limited data periods and varying video frame sizes.</p>
 <h1 id="rfc.section.4.4"><a href="#rfc.section.4.4">4.4.</a> Start-up Behaviour</h1>
 <p id="rfc.section.4.4.p.1">The congestion control algorithm should be assessed with different start-rates. The main reason is to observe the behavior of the congestion control in different evaluation scenarios, such as when competing with varying amount of cross-traffic or how quickly does the congestion control algorithm achieve a stable sending rate.</p>
-<p id="rfc.section.4.4.p.2">[Editor's note: requires a robust definition for unfriendliness and convergence time.]</p>
 <h1 id="rfc.section.4.5"><a href="#rfc.section.4.5">4.5.</a> Diverse Environments</h1>
 <p id="rfc.section.4.5.p.1">The congestion control algorithm should be assessed in heterogeneous environments, containing both wired and wireless paths. Examples of wireless access technologies are: 802.11, GPRS, HSPA, or LTE. One of the main challenges of the wireless environments for the congestion control algorithm is to distinguish between congestion induced loss and transmission (bit-error corruption) loss. Congestion control algorithms may incorrectly identify transmission loss as congestion loss and reduce the media encoding rate by too much, which may cause oscillatory behavior and deteriorate the users' quality of experience. Furthermore, packet loss may induce additional delay in networks with wireless paths due to link-layer retransmissions.</p>
 <h1 id="rfc.section.4.6"><a href="#rfc.section.4.6">4.6.</a> Varying Path Characteristics</h1>
@@ -577,7 +576,6 @@
 <p id="rfc.section.4.7.p.1">The congestion control algorithm should be able to handle changes in end-to-end capacity and latency. Latency may change due to route updates, link failures, handovers etc. In mobile environment the end-to-end capacity may vary due to the interference, fading, handovers, etc. In wired networks the end-to-end capacity may vary due to changes in resource reservation.</p>
 <h1 id="rfc.section.4.8"><a href="#rfc.section.4.8">4.8.</a> Fairness With Similar Cross-Traffic</h1>
 <p id="rfc.section.4.8.p.1">The congestion control algorithm should be evaluated when competing with other RTP flows using the same or another candidate congestion control algorithm. The proposal should highlight the bottleneck capacity share of each RTP flow.</p>
-<p id="rfc.section.4.8.p.2">[Editor's note: If we define Unfriendliness then that criteria should be applied here.]</p>
 <h1 id="rfc.section.4.9"><a href="#rfc.section.4.9">4.9.</a> Impact on Cross-Traffic</h1>
 <p id="rfc.section.4.9.p.1">The congestion control algorithm should be evaluated when competing with standard TCP. Short TCP flows may be considered as transient events and the RTP flow may give way to the short TCP flow to complete quickly. However, long-lived TCP flows may starve out the RTP flow depending on router queue length. </p>
 <p id="rfc.section.4.9.p.2">The proposal should also measure the impact on varied number of cross-traffic sources, i.e., few and many competing flows, or mixing various amounts of TCP and similar cross-traffic.</p>
@@ -594,7 +592,7 @@
 <p id="rfc.section.8.p.1">There are no IANA impacts in this memo.</p>
 <h1 id="rfc.section.9"><a href="#rfc.section.9">9.</a> <a href="#contrib" id="contrib">Contributors</a></h1>
 <p id="rfc.section.9.p.1">The content and concepts within this document are a product of the discussion carried out in the Design Team.</p>
-<p id="rfc.section.9.p.2">Michael Ramalho provided the text for a specific scenario, which is now moved to <a href="#I-D.sarker-rmcat-eval-test">[I-D.sarker-rmcat-eval-test]</a>.</p>
+<p id="rfc.section.9.p.2">Michael Ramalho provided the text for a specific scenario, which is now covered in <a href="#I-D.sarker-rmcat-eval-test">[I-D.sarker-rmcat-eval-test]</a>.</p>
 <h1 id="rfc.section.10"><a href="#rfc.section.10">10.</a> Acknowledgements</h1>
 <p id="rfc.section.10.p.1">Much of this document is derived from previous work on congestion control at the IETF.</p>
 <p id="rfc.section.10.p.2">The authors would like to thank Harald Alvestrand, Luca De Cicco, Wesley Eddy, Lars Eggert, Kevin Gross, Vinayak Hegde, Stefan Holmer, Randell Jesup, Piers O'Hanlon, Colin Perkins, Michael Ramalho, Zaheduzzaman Sarker, Timothy B. Terriberry, Michael Welzl, and Mo Zanaty for providing valuable feedback on earlier versions of this draft.  Additionally, also thank the participants of the design team for their comments and discussion related to the evaluation criteria.</p>

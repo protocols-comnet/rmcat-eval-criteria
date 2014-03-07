@@ -285,9 +285,6 @@ Internet-Draft   Evaluating Congestion Control for RMCAT      March 2014
    competing with varying amount of cross-traffic or how quickly does
    the congestion control algorithm achieve a stable sending rate.
 
-   [Editor's note: requires a robust definition for unfriendliness and
-   convergence time.]
-
 4.5.  Diverse Environments
 
    The congestion control algorithm should be assessed in heterogeneous
@@ -333,6 +330,9 @@ Internet-Draft   Evaluating Congestion Control for RMCAT      March 2014
 
 
 
+
+
+
 Singh & Ott             Expires September 8, 2014               [Page 6]
 
 Internet-Draft   Evaluating Congestion Control for RMCAT      March 2014
@@ -344,9 +344,6 @@ Internet-Draft   Evaluating Congestion Control for RMCAT      March 2014
    with other RTP flows using the same or another candidate congestion
    control algorithm.  The proposal should highlight the bottleneck
    capacity share of each RTP flow.
-
-   [Editor's note: If we define Unfriendliness then that criteria should
-   be applied here.]
 
 4.9.  Impact on Cross-Traffic
 
@@ -386,6 +383,9 @@ Internet-Draft   Evaluating Congestion Control for RMCAT      March 2014
    and "Experimental" drafts for congestion control algorithms in RMCAT.
    [RFC5033] describes Informational proposals as algorithms that are
    not safe for deployment but are proposals to experiment with in
+   simulation/testbeds.  While Experimental algorithms are ones that are
+   deemed safe in some environments but require a more thorough
+   evaluation (from the community).]
 
 
 
@@ -393,10 +393,6 @@ Singh & Ott             Expires September 8, 2014               [Page 7]
 
 Internet-Draft   Evaluating Congestion Control for RMCAT      March 2014
 
-
-   simulation/testbeds.  While Experimental algorithms are ones that are
-   deemed safe in some environments but require a more thorough
-   evaluation (from the community).]
 
 7.  Security Considerations
 
@@ -412,7 +408,7 @@ Internet-Draft   Evaluating Congestion Control for RMCAT      March 2014
    discussion carried out in the Design Team.
 
    Michael Ramalho provided the text for a specific scenario, which is
-   now moved to [I-D.sarker-rmcat-eval-test].
+   now covered in [I-D.sarker-rmcat-eval-test].
 
 10.  Acknowledgements
 
@@ -442,6 +438,10 @@ Internet-Draft   Evaluating Congestion Control for RMCAT      March 2014
    [RFC3611]  Friedman, T., Caceres, R., and A. Clark, "RTP Control
               Protocol Extended Reports (RTCP XR)", RFC 3611, November
               2003.
+
+
+
+
 
 
 
