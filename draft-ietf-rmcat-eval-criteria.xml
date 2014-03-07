@@ -17,6 +17,8 @@
 "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-ledbat-congestion.xml">
 <!ENTITY I-D.ietf-xrblock-rtcp-xr-qoe PUBLIC "" 
 "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-xrblock-rtcp-xr-qoe.xml">
+<!ENTITY I-D.sarker-rmcat-eval-test PUBLIC "" 
+"http://xml.resource.org/public/rfc/bibxml3/reference.I-D.sarker-rmcat-eval-test.xml">
 ]>
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 <?rfc toc="yes" ?>
@@ -406,197 +408,6 @@
             be based on the above guidelines or defined tests/scenarios.]</t>
         </section>
         
-        <section title="Evaluation Parameters" anchor="cc-fw">
-            <t>An evaluation scenario is created from a list of network, link
-            and flow characteristics. The example parameters discussed in the
-            following subsections are meant to aid in creating evaluation
-            scenarios and do not describe an evaluation scenario. The scenario
-            discussed in <xref target="app-scenario-1" /> takes into account
-            all these parameters.</t>
-            
-            <section title="Bottleneck Traffic Flows" 
-                anchor="eval-scen-traffic">
-                <t>The network scenario describes the types of flows sharing
-                the common bottleneck with a single RMCAT flow, they are:
-                    <list style="numbers">
-                    <t>A single RMCAT flow by itself.</t>
-                    <t>Competing with similar RMCAT flows. These competing
-                    flows may use the same algorithm or another candidate
-                    RMCAT algorithm.</t>
-                    <t>Compete with long-lived TCP.</t>
-                    <t>Compete with bursty TCP.</t>
-                    <t>Compete with LEDBAT flows.</t>
-                    <t>Compete with unresponsive interactive media flows 
-                    (i.e., not only CBR).</t>
-                </list></t>
-
-                <t><xref target="fig-eval-topo" /> shows an example evaluation
-                topology, where S1..Sn are traffic sources, these sources are 
-                either RMCAT or a mixture of traffic flows listed above.
-                R1..Rn are the corresponding receivers. A and B are routers
-                that can be configured to introduce impairments. Access links 
-                are in between the sender/receiver and the router, while the
-                bottleneck link is between the Routers A and B.</t>
-                
-                <!--><t>Variant to this simple topology can be created by 
-                introducing additional bottleneck links between a subset of 
-                receivers and router B.</t>-->
-                
-<figure anchor="fig-eval-topo" title="Simple Topology">
-<artwork><![CDATA[
-+---+  Access                                            Access +---+   
-|S1 |======= \                                         / =======|R1 |   
-+---+   link \\                                       //  link  +---+   
-              \\                                     //                 
-+---+       +-----+         Bottleneck            +-----+       +---+   
-|S2 |=======|  A  |------------------------------>|  B  |=======|R2 |   
-+---+       |     |<------------------------------|     |       +---+   
-            +-----+           Link                +-----+               
-(...)         //                                     \\         (...)   
-             //                                       \\                
-+---+       //                                         \\       +---+   
-|Sn |====== /                                           \ ======|Rn |   
-+---+                                                           +---+   
-]]></artwork>
-</figure>
-
-            <t>[Open Issue: Discuss more complex topologies]</t>
-
-            </section>
-            
-            <section title="Access Links">
-                <t>The media senders and receivers are typically connected to 
-                the bottleneck link, common access links are:
-                <list style="numbers">
-                    <t>Ethernet (LAN)</t>
-                    <t>Wireless LAN (WLAN) </t>
-                    <t>3G/LTE</t>
-                </list>
-                [Open issue: point to a reference containing parameters or
-                traces to model WLAN and 3G/LTE.]
-                </t>
-                
-                <t>A real-world network typically consists of a mixture of
-                links, the most important aspect is to identify the location
-                of the bottleneck link. The bottleneck link can move from one
-                node to another depending on the amount of cross-traffic or
-                due to the varying link capacity. The design of the
-                experiments should take this into account. In the simplest
-                case the access link may not be the bottleneck link but an
-                intermediate node.</t>
-                
-            </section>
-            
-            <section title="Example Bottleneck Link Parameters">
-
-                <!-- The performance of the congestion control is measured in
-                terms of unfairness (occupancy of the bottleneck link
-                capacity), variation in end-to-end delay due to queuing
-                (self-inflicted delay), etc. -->
-
-                <t>The bottleneck link carries multiple flows, these flows may
-                be other RMCAT flows or other types of cross-traffic. The
-                experiments should dimension the bottleneck link based on the
-                number of flows and the expected behavior. For example, if 5
-                media flows are expected to share the bottleneck link equally,
-                the bottleneck link is set to 5 times the desired transmission
-                rate.</t>
-                
-                <t>If the experiment carries only media in one direction, then 
-                the upstream (sender to receiver) bottleneck link carries
-                media packets while the downstream (receiver to sender)
-                bottleneck carries the feedback packets. The bottleneck link
-                parameters discussed in this section apply only to a single
-                direction, hence the bottleneck link in the reverse direction
-                can choose the same or have different parameters.</t>
-                
-                <t>The link latency corresponds to the propagation delay of 
-                the link, i.e., the time it takes for a packet to traverse the
-                bottleneck link, it does not include queuing delay. In an
-                experiment with several links the experiment should describe
-                if the links add latency or not. It is possible for
-                experiments to have multiple hops with different link
-                latencies. Experiments are expected to verify that the
-                congestion control is able to work in challenging situations,
-                for example over trans-continental and/or satellite links. The
-                experiment should pick link latency values from the following:
-                
-                <list style="numbers">
-                    <t>Very low latency: 0-1ms</t>
-                    <t>Low latency:  50ms </t>
-                    <t>High latency: 150ms </t>
-                    <t>Extreme latency: 300ms</t>
-                </list></t>
-                
-                <!-- <t>[Editor's note: currently describes the latency for a 
-                single link, instead of end-to-end delay. Which is preferred?
-                or both?]</t> -->
-                
-                <t>Similarly, to model lossy links, the experiments can choose
-                one of the following loss rates, the fractional loss is the
-                ratio of packets lost and packets sent.
-                    <list style="numbers">
-                    <t>no loss: 0%</t>
-                    <t>1% </t>
-                    <t>5% </t>
-                    <t>10%</t>
-                    <t>20%</t>
-                </list>
-                These fractional losses can be generated using traces,
-                Gilbert-Elliot model, randomly (uncorrelated) loss.</t>
-            </section>
-            
-            <section title="DropTail Router Queue Parameters"
-            anchor="scen-queue">
-                <t>The router queue length is measured as the time taken to
-                drain the FIFO queue, they are:
-                    <list style="numbers">
-                    <t>QoS-aware (or short): 70ms</t>
-                    <t>Nominal: 500ms </t>
-                    <t>Buffer-bloated: 2000ms</t>
-                </list> 
-                However, the size of the queue is typically measured in bytes
-                or packets and to convert the queue length measured in
-                seconds to queue length in bytes: </t>
-                <t>QueueSize (in bytes) = QueueSize (in sec) x Throughput (in
-                bps)/8</t> 
-                <!-- <t>and 2) queue length in packets:</t>
-                <t>QueueSize (in pkts) = QueueSize (in bytes)/MTU,
-                MTU=1500</t> -->
-                
-                <!-- <t>[Open issue (11): Confirm the above values, do we need to
-                                define parameters for other types of queues?]</t> -->
-            </section>
-            
-            
-            <section title="Media Flow Parameters">
-                <t>The media sources can be modeled in two ways. In the first,
-                the sources always have data to send, i.e., have no data
-                limited intervals and are able to generate the media rate
-                requested by the RMCAT congestion control algorithm. In the
-                second, the traffic generator models the behavior of a media
-                codec, mainly the burstiness (time-varying data produced by
-                a video GOP).</t>
-                
-                <t>At the beginning of the session, the media sources are
-                configured to start at a given start rate, they are:
-                    <list style="numbers">
-                        <t>200 kbps</t> 
-                        <t>800 kbps</t> 
-                        <t>1300 kbps</t>
-                        <t>4000 kbps</t>
-                    </list></t>
-                
-            </section>
-            
-            <section title="Cross-traffic Parameters">
-                <t>Long-lived TCP flows will download data throughout the
-                session and are expected to have infinite amount of data to
-                send or receive.</t>
-                <t>[Open issue: short-lived/bursty TCP cross-traffic
-                parameters are still TBD.</t>
-            </section>
-        </section>
         <!--
         <section title="Example Evaluation Scenarios" anchor="cc-scenario">
             <t>In the scenarios listed below, all RTP flows are
@@ -763,8 +574,9 @@
         <section anchor="contrib" title="Contributors">
             <t>The content and concepts within this document are a product of 
             the discussion carried out in the Design Team.</t>
-            <t>Michael Ramalho provided the text for the scenario discussed in
-            <xref target="app-scenario-1" />.</t>
+
+            <t>Michael Ramalho provided the text for a specific scenario,
+            which is now moved to <xref target="I-D.sarker-rmcat-eval-test" />.</t>
         </section>
         
         <section title="Acknowledgements">
@@ -794,73 +606,72 @@
     </middle>
     <back>
         <references title="Normative References"> 
-        <!--&rfc2119;-->
-        <!-- RTP related -->
-        &rfc3550;
-        &rfc3551;
-        &rfc3611;
-        &rfc4585;
-        &rfc5506;
-        <!--RMCAT related -->
-        &I-D.ietf-rmcat-cc-requirements;
-        &I-D.ietf-avtcore-rtp-circuit-breakers;
-        </references>
-        
-        <references title="Informative References"> 
-        &rfc5033; <!-- CC Evaluation -->
-        &rfc5166; <!-- CC Metrics -->
-        &rfc5681; <!-- Standard TCP -->
-        
-        <!--
-        &I-D.ietf-xrblock-rtcp-xr-qoe;
-        <?rfc include="reference.3GPP.R1.081955"?>
-        -->
-        
-        <reference anchor="SA4-EVAL">
-            <front>
-                <title>LTE Link Level Throughput Data for SA4 Evaluation Framework</title>
-                <author initials="3GPP" surname="R1-081955" fullname="3GPP R1-081955">
-                    <organization />
-                </author>
-                <date month="5" year="2008" />
-                <abstract>
-                <t>In R1-081720, 3GPP SA4 has requested RAN1 and RAN2 for link
-                level throughput traces to be used in an evaluation framework
-                they are developing for dynamic video rate adaptation.
-                </t></abstract>
-            </front>
-            <seriesInfo name="3GPP" value="R1-081955" />
-            <format type='ZIP' octets='3459875' target='http://www.3gpp.net/ftp/tsg_ran/WG1_RL1/TSGR1_53/Docs/R1-081955.zip' />
-        </reference>
+            <!--&rfc2119;-->
+            <!-- RTP related -->
+            &rfc3550;
+            &rfc3551;
+            &rfc3611;
+            &rfc4585;
+            &rfc5506;
+            <!--RMCAT related -->
+            &I-D.ietf-rmcat-cc-requirements;
+            &I-D.ietf-avtcore-rtp-circuit-breakers;
+            </references>
+            
+            <references title="Informative References"> 
+            &rfc5033; <!-- CC Evaluation -->
+            &rfc5166; <!-- CC Metrics -->
+            &rfc5681; <!-- Standard TCP -->
+            &I-D.sarker-rmcat-eval-test;
+            <!--
+            &I-D.ietf-xrblock-rtcp-xr-qoe;
+            <?rfc include="reference.3GPP.R1.081955"?>
+            -->
+            <reference anchor="SA4-EVAL">
+                <front>
+                    <title>LTE Link Level Throughput Data for SA4 Evaluation Framework</title>
+                    <author initials="3GPP" surname="R1-081955" fullname="3GPP R1-081955">
+                        <organization />
+                    </author>
+                    <date month="5" year="2008" />
+                    <abstract>
+                    <t>In R1-081720, 3GPP SA4 has requested RAN1 and RAN2 for link
+                    level throughput traces to be used in an evaluation framework
+                    they are developing for dynamic video rate adaptation.
+                    </t></abstract>
+                </front>
+                <seriesInfo name="3GPP" value="R1-081955" />
+                <format type='ZIP' octets='3459875' target='http://www.3gpp.net/ftp/tsg_ran/WG1_RL1/TSGR1_53/Docs/R1-081955.zip' />
+            </reference>
    
-        <reference anchor="SA4-LR">
-            <front>
-                <title>Error Patterns for MBMS Streaming over UTRAN and GERAN</title>
-                <author initials="3GPP" surname="S4-050560" fullname="3GPP S4-050560">
-                    <organization />
-                </author>
-                <date month="5" year="2008" />
-            </front>
-            <seriesInfo name="3GPP" value="S4-050560" />
-            <format type='ZIP' octets='335322' target='http://www.3gpp.org/FTP/tsg_sa/WG4_CODEC/TSGS4_36/Docs/S4-050560.zip' />
-        </reference>
+            <reference anchor="SA4-LR">
+                <front>
+                    <title>Error Patterns for MBMS Streaming over UTRAN and GERAN</title>
+                    <author initials="3GPP" surname="S4-050560" fullname="3GPP S4-050560">
+                        <organization />
+                    </author>
+                    <date month="5" year="2008" />
+                </front>
+                <seriesInfo name="3GPP" value="S4-050560" />
+                <format type='ZIP' octets='335322' target='http://www.3gpp.org/FTP/tsg_sa/WG4_CODEC/TSGS4_36/Docs/S4-050560.zip' />
+            </reference>
 
-        <reference anchor="TCP-eval-suite">
-          <front>
-            <title>Towards a Common TCP Evaluation Suite</title>
-            <author initials="A." surname="Lachlan"   fullname="Andrew Lachlan"/>
-            <author initials="C." surname="Marcondes" fullname="Cesar Marcondes"/>
-            <author initials="S." surname="Floyd"  fullname="Sally Floyd"/>
-            <author initials="L." surname="Dunn"  fullname="Lawrence Dunn"/>
-            <author initials="R." surname="Guillier"  fullname="Romeric Guillier"/>
-            <author initials="W." surname="Gang"  fullname="Wang Gang"/>
-            <author initials="L." surname="Eggert"  fullname="Lars Eggert"/>
-            <author initials="S." surname="Ha"  fullname="Sangtae Ha"/>            
-            <author initials="I." surname="Rhee"  fullname="Injong Rhee"/>
-            <date month="August" year="2008"/>
-          </front>
-          <seriesInfo name="Proc. PFLDnet." value="2008"/>
-        </reference>
+            <reference anchor="TCP-eval-suite">
+              <front>
+                <title>Towards a Common TCP Evaluation Suite</title>
+                <author initials="A." surname="Lachlan"   fullname="Andrew Lachlan"/>
+                <author initials="C." surname="Marcondes" fullname="Cesar Marcondes"/>
+                <author initials="S." surname="Floyd"  fullname="Sally Floyd"/>
+                <author initials="L." surname="Dunn"  fullname="Lawrence Dunn"/>
+                <author initials="R." surname="Guillier"  fullname="Romeric Guillier"/>
+                <author initials="W." surname="Gang"  fullname="Wang Gang"/>
+                <author initials="L." surname="Eggert"  fullname="Lars Eggert"/>
+                <author initials="S." surname="Ha"  fullname="Sangtae Ha"/>            
+                <author initials="I." surname="Rhee"  fullname="Injong Rhee"/>
+                <date month="August" year="2008"/>
+              </front>
+              <seriesInfo name="Proc. PFLDnet." value="2008"/>
+            </reference>
 
         </references>
         
