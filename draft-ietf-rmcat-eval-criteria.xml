@@ -643,6 +643,7 @@
                 <seriesInfo name="3GPP" value="R1-081955" />
                 <format type='ZIP' octets='3459875' target='http://www.3gpp.net/ftp/tsg_ran/WG1_RL1/TSGR1_53/Docs/R1-081955.zip' />
             </reference>
+            
    
             <reference anchor="SA4-LR">
                 <front>

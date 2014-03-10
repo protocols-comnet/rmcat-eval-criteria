@@ -415,7 +415,7 @@
 
   <meta name="dct.creator" content="Singh, V. and J. Ott" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-rmcat-eval-criteria-01" />
-  <meta name="dct.issued" scheme="ISO8601" content="2014-3-7" />
+  <meta name="dct.issued" scheme="ISO8601" content="2014-3-10" />
   <meta name="dct.abstract" content="The Real-time Transport Protocol (RTP) is used to transmit media in telephony and video conferencing applications. This document describes the guidelines to evaluate new congestion control algorithms for interactive point-to-point real-time media." />
   <meta name="description" content="The Real-time Transport Protocol (RTP) is used to transmit media in telephony and video conferencing applications. This document describes the guidelines to evaluate new congestion control algorithms for interactive point-to-point real-time media." />
 
@@ -439,8 +439,8 @@
   <td class="right">Aalto University</td>
 </tr>
 <tr>
-  <td class="left">Expires: September 8, 2014</td>
-  <td class="right">March 7, 2014</td>
+  <td class="left">Expires: September 11, 2014</td>
+  <td class="right">March 10, 2014</td>
 </tr>
 
     	
@@ -460,7 +460,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on September 8, 2014.</p>
+<p>This Internet-Draft will expire on September 11, 2014.</p>
 <h1 id="rfc.copyrightnotice">
   <a href="#rfc.copyrightnotice">Copyright Notice</a>
 </h1>
@@ -536,7 +536,7 @@
   <li>If using, retransmission or FEC: residual loss</li>
   <li>Packets discarded from the playout or de-jitter buffer</li>
 </ol>
-<p id="rfc.section.3.p.3">[Open issue (1): The "unfairness" test is (measured at 1s intervals):<br/> 1. Do not trigger the circuit breaker.<br/> 2. Over 3 times or less than 1/3 times the throughput for an RMCAT media stream compared to identical RMCAT streams competing on a bottleneck, for a case when the competing streams have similar RTTs.<br/> 3. Over 3 times delay compared to RTT measurements performed before starting the RMCAT flow or for the case when competing with identical RMCAT streams having similar RTTs.<br/> ]</p>
+<p id="rfc.section.3.p.3">[Open issue (1): The "unfairness" test is (measured at 1s intervals):<br/> 1. Does not trigger the circuit breaker.<br/> 2. Over 3 times or less than 1/3 times the throughput for an RMCAT media stream compared to identical RMCAT streams competing on a bottleneck, for a case when the competing streams have similar RTTs.<br/> 3. Over 3 times delay compared to RTT measurements performed before starting the RMCAT flow or for the case when competing with identical RMCAT streams having similar RTTs.<br/> ]</p>
 <p id="rfc.section.3.p.4">[Open issue (2): Possibly using Jain-fairness index.]</p>
 <p id="rfc.section.3.p.5">Convergence time: the time taken to reach a stable rate at startup, after the available link capacity changes, or when new flows get added to the bottleneck link.</p>
 <p id="rfc.section.3.p.6">Bandwidth Utilization, defined as ratio of the instantaneous sending rate to the instantaneous bottleneck capacity. This metric is useful when an RMCAT flow is by itself or competing with similar cross-traffic.</p>
@@ -565,9 +565,9 @@
 <p id="rfc.section.4.3.p.1">The congestion control algorithm should be assessed with different types of media behavior, i.e., the media should contain idle and data-limited periods. For example, periods of silence for audio, varying amount of motion for video, or bursty nature of I-frames. </p>
 <p id="rfc.section.4.3.p.2">The evaluation may be done in two stages. In the first stage, the endpoint generates traffic at the rate calculated by the congestion controller. In the second stage, real codecs or models of video codecs are used to mimic application-limited data periods and varying video frame sizes.</p>
 <h1 id="rfc.section.4.4"><a href="#rfc.section.4.4">4.4.</a> Start-up Behaviour</h1>
-<p id="rfc.section.4.4.p.1">The congestion control algorithm should be assessed with different start-rates. The main reason is to observe the behavior of the congestion control in different evaluation scenarios, such as when competing with varying amount of cross-traffic or how quickly does the congestion control algorithm achieve a stable sending rate.</p>
+<p id="rfc.section.4.4.p.1">The congestion control algorithm should be assessed with different start-rates. The main reason is to observe the behavior of the congestion control in different test scenarios, such as when competing with varying amount of cross-traffic or how quickly does the congestion control algorithm achieve a stable sending rate.</p>
 <h1 id="rfc.section.4.5"><a href="#rfc.section.4.5">4.5.</a> Diverse Environments</h1>
-<p id="rfc.section.4.5.p.1">The congestion control algorithm should be assessed in heterogeneous environments, containing both wired and wireless paths. Examples of wireless access technologies are: 802.11, GPRS, HSPA, or LTE. One of the main challenges of the wireless environments for the congestion control algorithm is to distinguish between congestion induced loss and transmission (bit-error corruption) loss. Congestion control algorithms may incorrectly identify transmission loss as congestion loss and reduce the media encoding rate by too much, which may cause oscillatory behavior and deteriorate the users' quality of experience. Furthermore, packet loss may induce additional delay in networks with wireless paths due to link-layer retransmissions.</p>
+<p id="rfc.section.4.5.p.1">The congestion control algorithm should be assessed in heterogeneous environments, containing both wired and wireless paths. Examples of wireless access technologies are: 802.11, GPRS, HSPA, or LTE. One of the main challenges of the wireless environments for the congestion control algorithm is to distinguish between congestion induced loss and transmission (bit-error) loss. Congestion control algorithms may incorrectly identify transmission loss as congestion loss and reduce the media encoding rate by too much, which may cause oscillatory behavior and deteriorate the users' quality of experience. Furthermore, packet loss may induce additional delay in networks with wireless paths due to link-layer retransmissions.</p>
 <h1 id="rfc.section.4.6"><a href="#rfc.section.4.6">4.6.</a> Varying Path Characteristics</h1>
 <p id="rfc.section.4.6.p.1">The congestion control algorithm should be evaluated for a range of path characteristics such as, different end-to-end capacity and latency, varying amount of cross traffic on a bottleneck link and a router's queue length. For the moment, only DropTail queues are used. However, if new Active Queue Management (AQM) schemes become available, the performance of the congestion control algorithm should be again evaluated.</p>
 <p id="rfc.section.4.6.p.2">In an experiment, if the media only flows in a single direction, the feedback path should also be tested with varying amounts of impairments.</p>
