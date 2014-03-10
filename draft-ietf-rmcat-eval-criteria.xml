@@ -157,7 +157,7 @@
         
         <t>[Open issue (1): The "unfairness" test is (measured at 1s
         intervals):<vspace />
-            1. Do not trigger the circuit breaker.<vspace />
+            1. Does not trigger the circuit breaker.<vspace />
             2. Over 3 times or less than 1/3 times the throughput for an RMCAT
             media stream compared to identical RMCAT streams competing on a
             bottleneck, for a case when the competing streams have similar
@@ -315,13 +315,13 @@
             <section title="Start-up Behaviour">
             <t>The congestion control algorithm should be assessed with 
             different start-rates. The main reason is to observe the behavior
-            of the congestion control in different evaluation scenarios, such 
+            of the congestion control in different test scenarios, such 
             as when competing with varying amount of cross-traffic or how 
             quickly does the congestion control algorithm achieve a stable 
             sending rate.</t>
             
-            <t>[Editor's note: requires a robust definition for unfriendliness 
-            and convergence time.]</t>
+            <!-- <t>[Editor's note: requires a robust definition for unfriendliness 
+            and convergence time.]</t> -->
             </section>
             
             <section title="Diverse Environments">
@@ -331,7 +331,7 @@
             HSPA, or LTE. One of the main challenges of the wireless
             environments for the congestion control algorithm is to
             distinguish between congestion induced loss and transmission
-            (bit-error corruption) loss. Congestion control algorithms may
+            (bit-error) loss. Congestion control algorithms may
             incorrectly identify transmission loss as congestion loss and
             reduce the media encoding rate by too much, which may cause
             oscillatory behavior and deteriorate the users' quality of
@@ -374,8 +374,8 @@
             congestion control algorithm. The proposal should highlight the
             bottleneck capacity share of each RTP flow.</t>
             
-            <t>[Editor's note: If we define Unfriendliness then that criteria
-            should be applied here.]</t>
+            <!-- <t>[Editor's note: If we define Unfriendliness then that criteria
+            should be applied here.]</t> -->
             </section>
             
             <section title="Impact on Cross-Traffic">
@@ -576,7 +576,7 @@
             the discussion carried out in the Design Team.</t>
 
             <t>Michael Ramalho provided the text for a specific scenario,
-            which is now moved to <xref target="I-D.sarker-rmcat-eval-test" />.</t>
+            which is now covered in <xref target="I-D.sarker-rmcat-eval-test" />.</t>
         </section>
         
         <section title="Acknowledgements">
