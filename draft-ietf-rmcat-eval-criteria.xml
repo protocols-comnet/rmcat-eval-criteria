@@ -154,9 +154,10 @@
         
         <!-- <t>[Editor's note: How to handle packet re-transmissions? loss before
         retransmission, after retransmission?]</t> -->
-        
-        <t>[Open issue (1): The "unfairness" test is (measured at 1s
-        intervals):<vspace />
+        <t>Fairness or Unfairness: Experiments testing the performance
+        of an RMCAT proposal against any cross-traffic must define its
+        expected criteria for fairness. The "unfairness" test guideline 
+        (measured at 1s intervals) is:<vspace />
             1. Does not trigger the circuit breaker.<vspace />
             2. Over 3 times or less than 1/3 times the throughput for an RMCAT
             media stream compared to identical RMCAT streams competing on a
@@ -165,11 +166,12 @@
             3. Over 3 times delay compared to RTT measurements performed
             before starting the RMCAT flow or for the case when competing 
             with identical RMCAT streams having similar RTTs.<vspace />
-          ]</t>
+        For example, see the test scenarios described in 
+        <xref target="I-D.sarker-rmcat-eval-test" />.</t>
         
-        <t>[Open issue (2): Possibly using Jain-fairness index.]</t>
+        <t>[Open issue (1): Possibly using Jain-fairness index.]</t>
        
-        <t>Convergence time: the time taken to reach a stable rate at startup,
+        <t>Convergence time: The time taken to reach a stable rate at startup,
         after the available link capacity changes, or when new flows get added
         to the bottleneck link.</t>
         
@@ -404,8 +406,10 @@
         </section>
         
         <section title="Minimum Requirements for Evaluation">
-            <t>[Editor's Note: If needed, a minimum evaluation criteria can
-            be based on the above guidelines or defined tests/scenarios.]</t>
+            <t>The minimal requirements for RMCAT proposals is to produce or 
+                present results for the test scenarios described in Section 5 
+                of <xref target="I-D.sarker-rmcat-eval-test" /> 
+                (Basic Test Cases).</t>
         </section>
         
         <!--
@@ -693,12 +697,19 @@
         <section anchor="App-cl" title="Change Log"> 
         <t>Note to the RFC-Editor: please remove this section prior to
         publication as an RFC.</t>
+            <section title="Changes in draft-ietf-rmcat-eval-criteria-02">
+            <t><list style="symbols">
+                <t>Incorporated fairness test as working test.</t>
+                <t>Updated text on mimimum evaluation requirements.</t>
+            </list></t> 
+            </section>
             <section title="Changes in draft-ietf-rmcat-eval-criteria-01">
             <t><list style="symbols">
                 <t>Removed Appendix B.</t>
                 <t>Removed Section on Evaluation Parameters.</t>
             </list></t> 
-            </section><section title="Changes in draft-ietf-rmcat-eval-criteria-00">
+            </section>
+            <section title="Changes in draft-ietf-rmcat-eval-criteria-00">
             <t><list style="symbols">
                 <t>Updated references.</t>
                 <t>Resubmitted as WG draft.</t>
