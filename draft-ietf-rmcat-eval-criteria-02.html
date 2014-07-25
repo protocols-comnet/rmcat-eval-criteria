@@ -415,8 +415,8 @@
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
   <meta name="dct.creator" content="Singh, V. and J. Ott" />
-  <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-rmcat-eval-criteria-01" />
-  <meta name="dct.issued" scheme="ISO8601" content="2014-6-11" />
+  <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-rmcat-eval-criteria-02" />
+  <meta name="dct.issued" scheme="ISO8601" content="2014-7-25" />
   <meta name="dct.abstract" content="The Real-time Transport Protocol (RTP) is used to transmit media in telephony and video conferencing applications. This document describes the guidelines to evaluate new congestion control algorithms for interactive point-to-point real-time media." />
   <meta name="description" content="The Real-time Transport Protocol (RTP) is used to transmit media in telephony and video conferencing applications. This document describes the guidelines to evaluate new congestion control algorithms for interactive point-to-point real-time media." />
 
@@ -440,8 +440,8 @@
   <td class="right">Aalto University</td>
 </tr>
 <tr>
-  <td class="left">Expires: December 13, 2014</td>
-  <td class="right">June 11, 2014</td>
+  <td class="left">Expires: January 26, 2015</td>
+  <td class="right">July 25, 2014</td>
 </tr>
 
     	
@@ -449,7 +449,7 @@
   </table>
 
   <p class="title">Evaluating Congestion Control for Interactive Real-time Media <br />
-  <span class="filename">draft-ietf-rmcat-eval-criteria-01</span></p>
+  <span class="filename">draft-ietf-rmcat-eval-criteria-02</span></p>
   
   <h1 id="rfc.abstract">
   <a href="#rfc.abstract">Abstract</a>
@@ -461,7 +461,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on December 13, 2014.</p>
+<p>This Internet-Draft will expire on January 26, 2015.</p>
 <h1 id="rfc.copyrightnotice">
   <a href="#rfc.copyrightnotice">Copyright Notice</a>
 </h1>
@@ -537,12 +537,12 @@
   <li>Packet loss</li>
   <li>If using, retransmission or FEC: residual loss</li>
   <li>Packets discarded from the playout or de-jitter buffer</li>
+  <li>Fairness or Unfairness: Experiments testing the performance of an RMCAT proposal against any cross-traffic must define its expected criteria for fairness. The "unfairness" test guideline (measured at 1s intervals) is:<br/> 1. Does not trigger the circuit breaker.<br/> 2. No RMCAT stream achieves more than 3 times the average throughput of the RMCAT stream with the lowest average throughput, for a case when the competing streams have similar RTTs.<br/> 3. RTT should not grow by a factor of 3 for the existing flows when a new flow is added.  <br/> For example, see the test scenarios described in <a href="#I-D.sarker-rmcat-eval-test">[I-D.sarker-rmcat-eval-test]</a>.</li>
+  <li>Convergence time: The time taken to reach a stable rate at startup, after the available link capacity changes, or when new flows get added to the bottleneck link.</li>
+  <li>Bandwidth Utilization, defined as ratio of the instantaneous sending rate to the instantaneous bottleneck capacity. This metric is useful when an RMCAT flow is by itself or competing with similar cross-traffic.</li>
 </ol>
-<p id="rfc.section.3.p.3">Fairness or Unfairness: Experiments testing the performance of an RMCAT proposal against any cross-traffic must define its expected criteria for fairness. The "unfairness" test guideline (measured at 1s intervals) is:<br/> 1. Does not trigger the circuit breaker.<br/> 2. Over 3 times or less than 1/3 times the throughput for an RMCAT media stream compared to identical RMCAT streams competing on a bottleneck, for a case when the competing streams have similar RTTs.<br/> 3. Over 3 times delay compared to RTT measurements performed before starting the RMCAT flow or for the case when competing with identical RMCAT streams having similar RTTs.<br/> For example, see the test scenarios described in <a href="#I-D.sarker-rmcat-eval-test">[I-D.sarker-rmcat-eval-test]</a>.</p>
-<p id="rfc.section.3.p.4">[Open issue (1): Possibly using Jain-fairness index.]</p>
-<p id="rfc.section.3.p.5">Convergence time: The time taken to reach a stable rate at startup, after the available link capacity changes, or when new flows get added to the bottleneck link.</p>
-<p id="rfc.section.3.p.6">Bandwidth Utilization, defined as ratio of the instantaneous sending rate to the instantaneous bottleneck capacity. This metric is useful when an RMCAT flow is by itself or competing with similar cross-traffic.</p>
-<p id="rfc.section.3.p.7">From the logs the statistical measures (min, max, mean, standard deviation and variance) for the whole duration or any specific part of the session can be calculated. Also the metrics (sending rate, receiver rate, goodput, latency) can be visualized in graphs as variation over time, the measurements in the plot are at 1 second intervals. Additionally, from the logs it is possible to plot the histogram or CDF of packet delay.</p>
+<p id="rfc.section.3.p.3">From the logs the statistical measures (min, max, mean, standard deviation and variance) for the whole duration or any specific part of the session can be calculated. Also the metrics (sending rate, receiver rate, goodput, latency) can be visualized in graphs as variation over time, the measurements in the plot are at 1 second intervals. Additionally, from the logs it is possible to plot the histogram or CDF of packet delay.</p>
+<p id="rfc.section.3.p.4">[Open issue (1): Using Jain-fairness index (JFI) for measuring self-fairness between RTP flows? measured at what intervals? visualized as a CDF or a timeseries? Additionally: Use JFI for comparing fairness between RTP and long TCP flows? ]</p>
 <p/>
 <h1 id="rfc.section.3.1"><a href="#rfc.section.3.1">3.1.</a> <a href="#rtp-logging" id="rtp-logging">RTP Log Format</a></h1>
 <p id="rfc.section.3.1.p.1">The log file is tab or comma separated containing the following details:</p>
@@ -597,7 +597,7 @@
 <p id="rfc.section.9.p.2">Michael Ramalho provided the text for a specific scenario, which is now covered in <a href="#I-D.sarker-rmcat-eval-test">[I-D.sarker-rmcat-eval-test]</a>.</p>
 <h1 id="rfc.section.10"><a href="#rfc.section.10">10.</a> Acknowledgements</h1>
 <p id="rfc.section.10.p.1">Much of this document is derived from previous work on congestion control at the IETF.</p>
-<p id="rfc.section.10.p.2">The authors would like to thank Harald Alvestrand, Luca De Cicco, Wesley Eddy, Lars Eggert, Kevin Gross, Vinayak Hegde, Stefan Holmer, Randell Jesup, Piers O'Hanlon, Colin Perkins, Michael Ramalho, Zaheduzzaman Sarker, Timothy B. Terriberry, Michael Welzl, and Mo Zanaty for providing valuable feedback on earlier versions of this draft.  Additionally, also thank the participants of the design team for their comments and discussion related to the evaluation criteria.</p>
+<p id="rfc.section.10.p.2">The authors would like to thank Harald Alvestrand, Anna Brunstrom, Luca De Cicco, Wesley Eddy, Lars Eggert, Kevin Gross, Vinayak Hegde, Stefan Holmer, Randell Jesup, Karen Nielsen, Piers O'Hanlon, Colin Perkins, Michael Ramalho, Zaheduzzaman Sarker, Timothy B. Terriberry, Michael Welzl, and Mo Zanaty for providing valuable feedback on earlier versions of this draft.  Additionally, also thank the participants of the design team for their comments and discussion related to the evaluation criteria.</p>
 <h1 id="rfc.references"><a href="#rfc.references">11.</a> References</h1>
 <h1 id="rfc.references.1"><a href="#rfc.references.1">11.1.</a> Normative References</h1>
 <table>
@@ -703,7 +703,7 @@
 <p/>
 
 <ul>
-  <li>Incorporated fairness test as working test.</li>
+  <li>Incorporated fairness test as a working test.</li>
   <li>Updated text on mimimum evaluation requirements.</li>
 </ul>
 <h1 id="rfc.appendix.B.2"><a href="#rfc.appendix.B.2">B.2.</a> Changes in draft-ietf-rmcat-eval-criteria-01</h1>

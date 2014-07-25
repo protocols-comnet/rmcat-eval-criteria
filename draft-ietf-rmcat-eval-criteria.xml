@@ -24,7 +24,7 @@
 <?rfc toc="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc symrefs="yes" ?>
-<rfc ipr="trust200902" docName="draft-ietf-rmcat-eval-criteria-01" category="info">
+<rfc ipr="trust200902" docName="draft-ietf-rmcat-eval-criteria-02" category="info">
     <!-- What is the category field value-->
     <front>
         <title abbrev="Evaluating Congestion Control for RMCAT"> 
@@ -150,41 +150,38 @@
             <t>Packet loss</t>
             <t>If using, retransmission or FEC: residual loss</t>
             <t>Packets discarded from the playout or de-jitter buffer</t>
-        </list></t>
         
         <!-- <t>[Editor's note: How to handle packet re-transmissions? loss before
         retransmission, after retransmission?]</t> -->
-        <t>Fairness or Unfairness: Experiments testing the performance
-        of an RMCAT proposal against any cross-traffic must define its
-        expected criteria for fairness. The "unfairness" test guideline 
-        (measured at 1s intervals) is:<vspace />
-            1. Does not trigger the circuit breaker.<vspace />
-            2. Over 3 times or less than 1/3 times the throughput for an RMCAT
-            media stream compared to identical RMCAT streams competing on a
-            bottleneck, for a case when the competing streams have similar
-            RTTs.<vspace />
-            3. Over 3 times delay compared to RTT measurements performed
-            before starting the RMCAT flow or for the case when competing 
-            with identical RMCAT streams having similar RTTs.<vspace />
-        For example, see the test scenarios described in 
-        <xref target="I-D.sarker-rmcat-eval-test" />.</t>
-        
-        <t>[Open issue (1): Possibly using Jain-fairness index.]</t>
-       
-        <t>Convergence time: The time taken to reach a stable rate at startup,
-        after the available link capacity changes, or when new flows get added
-        to the bottleneck link.</t>
-        
+            <t>Fairness or Unfairness: Experiments testing the performance
+            of an RMCAT proposal against any cross-traffic must define its
+            expected criteria for fairness. The "unfairness" test guideline 
+            (measured at 1s intervals) is:<vspace />
+                1. Does not trigger the circuit breaker.<vspace />
+                2. No RMCAT stream achieves more than 3 times the average throughput 
+                of the RMCAT stream with the lowest average throughput, for a case 
+                when the competing streams have similar RTTs.<vspace />
+                3. RTT should not grow by a factor of 3 for the existing flows when a 
+                new flow is added.
+                <vspace />
+            For example, see the test scenarios described in 
+            <xref target="I-D.sarker-rmcat-eval-test" />.</t>
+            
+            <t>Convergence time: The time taken to reach a stable rate at startup,
+            after the available link capacity changes, or when new flows get added
+            to the bottleneck link.</t>
+            
         <!--         
         <t>[Open issue (2): Convergence time was discussed briefly in the
         design meetings. It is defined as: the time it takes the congestion
         control to reach a stable rate (at startup or after new RMCAT flows
         are added). What is a stable rate?]</t>
                  -->
-        <t>Bandwidth Utilization, defined as ratio of the instantaneous
-        sending rate to the instantaneous bottleneck capacity. This metric is
-        useful when an RMCAT flow is by itself or competing with similar
-        cross-traffic.</t>
+            <t>Bandwidth Utilization, defined as ratio of the instantaneous
+            sending rate to the instantaneous bottleneck capacity. This metric is
+            useful when an RMCAT flow is by itself or competing with similar
+            cross-traffic.</t>
+        </list></t>
         
         <t>From the logs the statistical measures (min, max, mean, standard
         deviation and variance) for the whole duration or any specific part of
@@ -193,6 +190,13 @@
         variation over time, the measurements in the plot are at 1 second
         intervals. Additionally, from the logs it is possible to plot the
         histogram or CDF of packet delay.</t>
+
+        <t>[Open issue (1): Using Jain-fairness index (JFI) for measuring 
+            self-fairness between RTP flows? measured at what intervals? 
+            visualized as a CDF or a timeseries? Additionally: Use JFI 
+            for comparing fairness between RTP and long TCP flows?
+           ]</t>
+           
         
         
          <t> </t>
@@ -588,6 +592,7 @@
           congestion control at the IETF.</t>
           <t> The authors would like to thank 
           Harald Alvestrand, 
+          Anna Brunstrom,
           Luca De Cicco, 
           Wesley Eddy, 
           Lars Eggert,
@@ -595,6 +600,7 @@
           Vinayak Hegde,
           Stefan Holmer, 
           Randell Jesup, 
+          Karen Nielsen, 
           Piers O'Hanlon, 
           Colin Perkins,
           Michael Ramalho,
@@ -699,7 +705,7 @@
         publication as an RFC.</t>
             <section title="Changes in draft-ietf-rmcat-eval-criteria-02">
             <t><list style="symbols">
-                <t>Incorporated fairness test as working test.</t>
+                <t>Incorporated fairness test as a working test.</t>
                 <t>Updated text on mimimum evaluation requirements.</t>
             </list></t> 
             </section>
