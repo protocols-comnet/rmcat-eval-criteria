@@ -9,29 +9,31 @@
 <!ENTITY rfc5166 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5166.xml">
 <!ENTITY rfc5033 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5033.xml">
 <!ENTITY rfc5681 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5681.xml">
-<!ENTITY I-D.ietf-rmcat-cc-requirements PUBLIC "" 
+<!ENTITY I-D.ietf-rmcat-cc-requirements PUBLIC ""
 "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-rmcat-cc-requirements.xml">
-<!ENTITY I-D.ietf-avtcore-rtp-circuit-breakers PUBLIC "" 
+<!ENTITY I-D.ietf-avtcore-rtp-circuit-breakers PUBLIC ""
 "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-avtcore-rtp-circuit-breakers.xml">
-<!ENTITY I-D.ietf-ledbat-congestion PUBLIC "" 
+<!ENTITY I-D.ietf-ledbat-congestion PUBLIC ""
 "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-ledbat-congestion.xml">
-<!ENTITY I-D.ietf-xrblock-rtcp-xr-qoe PUBLIC "" 
+<!ENTITY I-D.ietf-xrblock-rtcp-xr-qoe PUBLIC ""
 "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-xrblock-rtcp-xr-qoe.xml">
-<!ENTITY I-D.sarker-rmcat-eval-test PUBLIC "" 
+<!ENTITY I-D.sarker-rmcat-eval-test PUBLIC ""
 "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.sarker-rmcat-eval-test.xml">
+<!ENTITY I-D.zhu-rmcat-video-traffic-source PUBLIC ""
+"http://xml.resource.org/public/rfc/bibxml3/reference.I-D.zhu-rmcat-video-traffic-source.xml">
 ]>
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 <?rfc toc="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc symrefs="yes" ?>
-<rfc ipr="trust200902" docName="draft-ietf-rmcat-eval-criteria-02" category="info">
+<rfc ipr="trust200902" docName="draft-ietf-rmcat-eval-criteria-03" category="info">
     <!-- What is the category field value-->
     <front>
-        <title abbrev="Evaluating Congestion Control for RMCAT"> 
+        <title abbrev="Evaluating Congestion Control for RMCAT">
             Evaluating Congestion Control for Interactive Real-time Media
             <!--Evaluation Criteria for RTP Congestion Avoidance Techniques -->
         </title>
-        
+
         <author fullname="Varun Singh" initials="V" surname="Singh">
             <organization>Aalto University</organization>
             <address>
@@ -47,7 +49,7 @@
                 <uri>http://www.netlab.tkk.fi/~varun/</uri>
             </address>
         </author>
-        
+
         <author initials="J." surname="Ott" fullname="Joerg Ott">
             <organization>Aalto University</organization>
             <address>
@@ -62,8 +64,8 @@
                 <email>jo@comnet.tkk.fi</email>
             </address>
         </author>
-        
-        <date year="2014"/>
+
+        <date year="2015"/>
         <area>TSV</area>
         <workgroup>RMCAT WG</workgroup>
         <keyword>RTP</keyword>
@@ -79,7 +81,7 @@
     </front>
     <middle>
         <section title="Introduction">
-            
+
             <t>This memo describes the guidelines to help with evaluating
             new congestion control algorithms for interactive
             point-to-point real time media. The requirements for the
@@ -89,30 +91,30 @@
             target="RFC5033">Specifying New Congestion Control
             Algorithms</xref> and <xref target="RFC5166">Metrics for the
             Evaluation of Congestion Control Algorithms</xref>.</t>
-            
+
             <t>The guidelines proposed in the document are intended to help
             prevent a congestion collapse, promote fair capacity usage and
             optimize the media flow's throughput. Furthermore, the proposed
             algorithms are expected to operate within the envelope of the
             circuit breakers defined in <xref
             target="I-D.ietf-avtcore-rtp-circuit-breakers" />.</t>
-            
+
             <t>This document only provides broad-level criteria for
             evaluating a new congestion control algorithm and the working
             group should expect a thorough scientific study to make its
             decision. The results of the evaluation are not expected to be
             included within the internet-draft but should be cited in the
             document.</t>
-            
+
         </section>
-        
+
         <section title="Terminology" anchor="sec-terminology">
             <!--<t> The key words "MUST", "MUST NOT", "REQUIRED", "SHALL",
             "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and
             "OPTIONAL" in this document are to be interpreted as described
             in BCP 14, <xref target="RFC2119" /> and indicate requirement
             levels for compliant implementations. </t> -->
-            
+
             <t> The terminology defined in <xref target="RFC3550">RTP</xref>,
             <xref target="RFC3551">RTP Profile for Audio and Video Conferences
             with Minimal Control</xref>, <xref target="RFC3611">RTCP Extended
@@ -121,57 +123,65 @@
             target="RFC5506">Support for Reduced-Size RTCP</xref> apply.</t>
         </section>
 
-        <section title="Metrics" anchor="cc-metrics"> 
-            
-        <t><xref target="RFC5166" /> describes the basic metrics for
+        <section title="Metrics" anchor="cc-metrics">
+
+        <!-- <t><xref target="RFC5166" /> describes the basic metrics for
         congestion control. Metrics that are of interest for interactive
         multimedia are:
-        <list style="symbols"> 
-            <t>Throughput.</t> 
+        <list style="symbols">
+            <t>Throughput.</t>
             <t>Minimizing oscillations in the transmission rate (stability)
             when the end-to-end capacity varies slowly.</t>
-            <t>Delay.</t> 
+            <t>Delay.</t>
             <t>Reactivity to transient events.</t>
             <t>Packet losses and discards.</t>
-            <!-- <t>Users' quality of experience</t>  -->
+            <t>Users' quality of experience</t>
             <t>Section 2.1 of <xref target="RFC5166" /> discusses the tradeoff
             between throughput, delay and loss.</t>
-        </list></t>
-        
+        </list></t> -->
+
          <t>Each experiment is expected to log every incoming and outgoing
          packet (the RTP logging format is described in <xref
          target="rtp-logging" />). The logging can be done inside the
-         application or at the endpoints using pcap (packet capture, e.g.,
+         application or at the endpoints using PCAP (packet capture, e.g.,
          tcpdump, wireshark). The following are calculated based on the
          information in the packet logs:
-         <list style="numbers"> 
-            <t>Sending rate, Receiver rate, Goodput</t> 
+         <list style="numbers">
+            <t>Sending rate, Receiver rate, Goodput (measured at 200ms intervals)</t>
+            <t>Packets sent, Packets received</t>
+            <t>Bytes sent, bytes received</t>
             <t>Packet delay</t>
-            <t>Packet loss</t>
-            <t>If using, retransmission or FEC: residual loss</t>
-            <t>Packets discarded from the playout or de-jitter buffer</t>
-        
+            <t>Packets lost, Packets discarded (from the playout or de-jitter buffer)</t>
+            <t>If using, retransmission or FEC: post-repair loss</t>
+
+
         <!-- <t>[Editor's note: How to handle packet re-transmissions? loss before
         retransmission, after retransmission?]</t> -->
             <t>Fairness or Unfairness: Experiments testing the performance
             of an RMCAT proposal against any cross-traffic must define its
-            expected criteria for fairness. The "unfairness" test guideline 
+            expected criteria for fairness. The "unfairness" test guideline
             (measured at 1s intervals) is:<vspace />
                 1. Does not trigger the circuit breaker.<vspace />
-                2. No RMCAT stream achieves more than 3 times the average throughput 
-                of the RMCAT stream with the lowest average throughput, for a case 
+                2. No RMCAT stream achieves more than 3 times the average throughput
+                of the RMCAT stream with the lowest average throughput, for a case
                 when the competing streams have similar RTTs.<vspace />
-                3. RTT should not grow by a factor of 3 for the existing flows when a 
+                3. RTT should not grow by a factor of 3 for the existing flows when a
                 new flow is added.
                 <vspace />
-            For example, see the test scenarios described in 
+            For example, see the test scenarios described in
             <xref target="I-D.sarker-rmcat-eval-test" />.</t>
-            
+
             <t>Convergence time: The time taken to reach a stable rate at startup,
             after the available link capacity changes, or when new flows get added
             to the bottleneck link.</t>
-            
-        <!--         
+
+            <t>Instability or oscillation in the sending rate: The frequency or
+            number of instances when the sending rate oscillates between an
+            high watermark level and a low watermark level, or vice-versa in
+            a defined time window. For example, the watermarks can be set at 4x
+            interval: 500 Kbps, 2 Mbps, and a time window of 500ms.</t>
+
+        <!--
         <t>[Open issue (2): Convergence time was discussed briefly in the
         design meetings. It is defined as: the time it takes the congestion
         control to reach a stable rate (at startup or after new RMCAT flows
@@ -179,10 +189,10 @@
                  -->
             <t>Bandwidth Utilization, defined as ratio of the instantaneous
             sending rate to the instantaneous bottleneck capacity. This metric is
-            useful when an RMCAT flow is by itself or competing with similar
+            useful only when an RMCAT flow is by itself or competing with similar
             cross-traffic.</t>
         </list></t>
-        
+
         <t>From the logs the statistical measures (min, max, mean, standard
         deviation and variance) for the whole duration or any specific part of
         the session can be calculated. Also the metrics (sending rate,
@@ -191,48 +201,48 @@
         intervals. Additionally, from the logs it is possible to plot the
         histogram or CDF of packet delay.</t>
 
-        <t>[Open issue (1): Using Jain-fairness index (JFI) for measuring 
-            self-fairness between RTP flows? measured at what intervals? 
-            visualized as a CDF or a timeseries? Additionally: Use JFI 
+        <t>[Open issue (1): Using Jain-fairness index (JFI) for measuring
+            self-fairness between RTP flows? measured at what intervals?
+            visualized as a CDF or a timeseries? Additionally: Use JFI
             for comparing fairness between RTP and long TCP flows?
            ]</t>
-           
-        
-        
+
+
+
          <t> </t>
-        
-         <!-- <t> <list style="empty"> 
+
+         <!-- <t> <list style="empty">
          <t>(i) Bandwidth Utilization: is the
         ratio of the encoding rate to the (available) end-to-end path
-        capacity. 
-        
-        <list style="symbols"> 
-            
+        capacity.
+
+        <list style="symbols">
+
             <t>Under-utilization: is the period of time when the endpoint's
             encoding rate is lower than the end-to-end capacity, i.e., the
             bandwidth utilization is less than 1.</t>
-            
+
              <t>Overuse: is the period of time when the endpoint's encoding
              rate is higher than the end-to-end capacity, i.e., the bandwidth
              utilization is greater than 1.</t>
-             
+
              <t>Steady-state: is the period of time when the endpoint's
              encoding rate is relatively stable, i.e., the bandwidth
              utilization is constant.</t>
-             
-        </list></t> 
-        
+
+        </list></t>
+
         <t></t>
-        
+
         <t>(ii) Packet Loss and Discard Rate.</t> <t></t>
-        
+
         <t>(iii) Fair Share. </t> <t></t>
-        
+
         <t>[Editor's Note: This metric should match the ones defined in the
         <xref target="I-D.ietf-rmcat-cc-requirements">RMCAT requirements</xref>
-        document.]</t> 
+        document.]</t>
         <t></t>
-        
+
         <t>(iv) Quality: There are many different types of quality metrics for
         audio and video. Audio quality is often expressed by a MOS ("Mean
         Opinion Score") and can be calculated using an objective algorithm
@@ -250,7 +260,7 @@
             </list>
             </t>
             -->
-            
+
         <section title="RTP Log Format" anchor="rtp-logging">
             <t>The log file is tab or comma separated containing the following
             details:</t>
@@ -268,68 +278,68 @@
           evaluation should report both packet loss (before applying
           error-resilience) and residual packet loss (after applying
           error-resilience).</t>
-            
+
             <!-- <t>The retransmissions for post-repair loss metric be logged in a
             separate file, as the repair streams have different payload type
             and/or SSRC.</t> -->
         </section>
         </section>
-        
+
         <!--
         <section title="Congestion control requirements" anchor="cc-require">
             <t> </t>
         </section>
         -->
-        
+
         <section title="Guidelines" anchor="cc-guidelines">
             <t>A congestion control algorithm should be tested in
             simulation or a testbed environment, and the experiments should
             be repeated multiple times to infer statistical significance.
             The following guidelines are considered for evaluation:</t>
-            
+
             <section title="Avoiding Congestion Collapse">
             <t>The congestion control algorithm is expected to take an action,
             such as reducing the sending rate, when it detects congestion.
             Typically, it should intervene before the circuit breaker <xref
             target="I-D.ietf-avtcore-rtp-circuit-breakers" /> is engaged. </t>
-            
+
             <t>Does the congestion control propose any changes to (or diverge
             from) the circuit breaker conditions defined in <xref
             target="I-D.ietf-avtcore-rtp-circuit-breakers" />.</t> </section>
-            
+
             <section title="Stability">
             <t>The congestion control should be assessed for its stability
             when the path characteristics do not change over time. Changing
             the media encoding rate estimate too often or by too much may
             adversely affect the application layer performance.</t>
             </section>
-            
+
             <section title ="Media Traffic">
             <t>The congestion control algorithm should be assessed with
             different types of media behavior, i.e., the media should contain
             idle and data-limited periods. For example, periods of silence for
             audio, varying amount of motion for video, or bursty nature of
             I-frames. </t>
-            
+
             <t>The evaluation may be done in two stages. In the first stage,
             the endpoint generates traffic at the rate calculated by the
             congestion controller. In the second stage, real codecs or models
             of video codecs are used to mimic application-limited data periods
             and varying video frame sizes.</t>
             </section>
-            
+
             <section title="Start-up Behaviour">
-            <t>The congestion control algorithm should be assessed with 
+            <t>The congestion control algorithm should be assessed with
             different start-rates. The main reason is to observe the behavior
-            of the congestion control in different test scenarios, such 
-            as when competing with varying amount of cross-traffic or how 
-            quickly does the congestion control algorithm achieve a stable 
+            of the congestion control in different test scenarios, such
+            as when competing with varying amount of cross-traffic or how
+            quickly does the congestion control algorithm achieve a stable
             sending rate.</t>
-            
-            <!-- <t>[Editor's note: requires a robust definition for unfriendliness 
+
+            <!-- <t>[Editor's note: requires a robust definition for unfriendliness
             and convergence time.]</t> -->
             </section>
-            
+
             <section title="Diverse Environments">
             <t>The congestion control algorithm should be assessed in
             heterogeneous environments, containing both wired and wireless
@@ -345,7 +355,7 @@
             in networks with wireless paths due to link-layer
             retransmissions.</t>
             </section>
-            
+
             <section title="Varying Path Characteristics">
             <t>The congestion control algorithm should be evaluated for a
             range of path characteristics such as, different end-to-end
@@ -354,16 +364,16 @@
             DropTail queues are used. However, if new Active Queue Management
             (AQM) schemes become available, the performance of the congestion
             control algorithm should be again evaluated.</t>
-            
+
             <t>In an experiment, if the media only flows in a single
             direction, the feedback path should also be tested with varying
             amounts of impairments.</t>
-            
+
             <t>The main motivation for the previous and current criteria is to
             identify situations in which the proposed congestion control is
             less performant.</t>
             </section>
-            
+
             <section title="Reacting to Transient Events or Interruptions">
             <t>The congestion control algorithm should be able to handle
             changes in end-to-end capacity and latency. Latency may change
@@ -373,19 +383,19 @@
             end-to-end capacity may vary due to changes in resource
             reservation.</t>
             </section>
-            
+
             <section title="Fairness With Similar Cross-Traffic">
             <t>The congestion control algorithm should be evaluated when
             competing with other RTP flows using the same or another candidate
             congestion control algorithm. The proposal should highlight the
             bottleneck capacity share of each RTP flow.</t>
-            
+
             <!-- <t>[Editor's note: If we define Unfriendliness then that criteria
             should be applied here.]</t> -->
             </section>
-            
+
             <section title="Impact on Cross-Traffic">
-            
+
             <t>The congestion control algorithm should be evaluated when
             competing with standard TCP. Short TCP flows may be considered
             as transient events and the RTP flow may give way to the short
@@ -395,160 +405,253 @@
             <!-- In the latter case the proposed congestion control for RTP
              should be as aggressive as <xref target="RFC5681">standard
             TCP</xref>.</t> -->
-            
+
             <t>The proposal should also measure the impact on varied number
             of cross-traffic sources, i.e., few and many competing flows,
             or mixing various amounts of TCP and similar cross-traffic.</t>
             </section>
-            
+
             <section title="Extensions to RTP/RTCP">
             <t>The congestion control algorithm should indicate if any
             protocol extensions are required to implement it and should
             carefully describe the impact of the extension.</t>
             </section>
-            
+
         </section>
-        
+
         <section title="Minimum Requirements for Evaluation">
-            <t>The minimal requirements for RMCAT proposals is to produce or 
-                present results for the test scenarios described in Section 5 
-                of <xref target="I-D.sarker-rmcat-eval-test" /> 
+            <t>The minimal requirements for RMCAT proposals is to produce or
+                present results for the test scenarios described in Section 5
+                of <xref target="I-D.sarker-rmcat-eval-test" />
                 (Basic Test Cases).</t>
         </section>
-        
-        <!--
-        <section title="Example Evaluation Scenarios" anchor="cc-scenario">
-            <t>In the scenarios listed below, all RTP flows are
-            bi-directional and point-to-point.</t>
-
-            <t>Unless specified, the following parameters are used in each scenario:</t>
-            <t><list style="symbols">
-                <t>Video Start Rate: 128 kbps</t>
-                <t>Maximum end-to-end delay: 300ms, packets arriving 
-                after this are discarded</t>
-                <t>Video Frame rate: 15 </t>
-                <t>Audio packetization interval: 20ms </t>
-                <t>MTU: 1450 bytes</t>
-                <t>[Editor's Note: the numbers in this section are TBD]</t>
-            </list></t>
-
-            <t>Topology:<list style="symbols">
-                <t>Dumbbell, the endpoint is connected to the bottleneck
-                link via an access links. The bottleneck may be shared by multiple 
-                endpoints.</t>
-                <t>Parking lot: there are three bottleneck links arranged horizontally,
-                these links are connected by access links. In this case, flows may share
-                different bottleneck links.</t>
-            </list></t>
-
-            <t>[Editor's note: Should the queue-size be specified as well?].</t>
 
 
-            <section title="[S1] RTP flow on a fixed link">
-            <t>This scenario evaluates the ramp-up to the bottleneck capacity and 
-            the stability of the proposed congestion control algorithm.</t>
+    <section anchor="add-params" title="List of Network Parameters">
 
-            <t>This scenario uses the dumbbell topology and both the access link 
-            can be ADSL (500kbps uplink, 256 downlink, 2ms one-way delay) 
-            or WLAN (54Mbps, 2ms one-way delay, 2-5% packet loss rate and 
-            link layer re-transmissions).  
-            </t>
+      <t>The implementors initially are encouraged to choose evaluation settings
+      from the following values:</t>
 
-            <t>
-            The bottleneck link can have one  of the following capacities: 
-            500kbps, 1Mbps, 5Mbps and link delay: 10ms, 50ms, 120ms.
-            </t>
+      <section anchor="scen-delay" title="One-way Propagation Delay">
+        <!-- -->
 
-            <t>Each congestion control algorithm should plot the variation of the 
-            sending rate against time, also plot the instances of packets losses.
-            Additionally, measure the time taken for the sending rate to reach 
-            the end-to-end capacity (average and standard deviation over 
-            10 simulation runs).
-            </t>
-            </section>
+        <t>Experiments are expected to verify that the congestion control is
+        able to work in challenging situations, for example over
+        trans-continental and/or satellite links. Typical values are: <list
+            style="numbers">
+            <t>Very low latency: 0-1ms</t>
 
-            <section title="[S2] RTP flow on a variable capacity link">
-            
-            <t>This scenario evaluates the reactivity of the proposed congestion 
-            control algorithm to transient network events due to interference and
-            handovers in mobile environments.</t>
+            <t>Low latency: 50ms</t>
 
-            <t>This scenario uses the dumbbell topology, and both end-points use
-            3G/LTE access. 
-            Sample 3G/LTE (uplink and downlink) bandwidth traces are 
-            available at  <xref target="SA4-EVAL"/>, loss patterns at 
-            <xref target="SA4-LR"/> and the link delay: 30ms, 80ms. 
-            The bottleneck link can have one  of the following capacities: 
-            500kbps, 5Mbps and link delay: 20ms.</t>
+            <t>High latency: 150ms</t>
 
-            <t>Each congestion control algorithm should plot the variation of the 
-            sending rate, 3G link capacity against time, also plot the 
-            instances of packets losses.
-            </t>
-            </section>
+            <t>Extreme latency: 300ms</t>
+          </list></t>
+      </section>
 
-            <section title="[S3] Fairness to RTP flows running the same congestion
-            control algorithm (self-fairness)">
-            
-            <t>This scenario shows if the proposed
-            algorithm can share the bottleneck link equitably, irrespective
-            of number of flows.</t>
+      <section anchor="scen-loss" title="End-to-end Loss">
+        <t>To model lossy links, the experiments can choose one of the
+        following loss rates, the fractional loss is the ratio of packets lost
+        and packets sent. <list style="numbers">
+            <t>no loss: 0%</t>
 
-            <t>In this scenario there is more than one endpoint connected
-            to the bottleneck link. 
-            <list style="none">
-                <t>(a) All the access links have the same link characteristics and
-                start at the same time (see [S1]). The bottleneck link can have one of
-                the following link capacity: 500kbpsm 5Mbpps and link delay 20ms.</t>
+            <t>1%</t>
 
-                <t>(b) The access links have different link characteristics [See S1]
-                    but start at the same time.</t>
+            <t>5%</t>
 
-                <t>(c) An RTP flow is added at 10s intervals (upto 5 flows), 
-                   the late arriving flows have increasing access link 
-                   delay (0, 5, 10, 20, 50ms). 
-                   The bottleneck link can have one  of the following capacities:  
-                   1Mbps, 10Mbps and link delay: 10ms, 50ms, 120ms. </t>
-            </list></t>
+            <t>10%</t>
 
-            <t>[Parking lot topology simulation: TBD]</t>
-            
-            </section>
+            <t>20%</t>
+          </list></t>
+      </section>
 
-            <section title="[S4 and S5] Competing with short and long TCP flows">
-            <t>[Editor's Note: Remove these scenarios?]</t>
-            
-            <t>[S4] Competing with long-lived TCP flows: In this scenario
-            the proposed algorithm is expected to be TCP-friendly, i.e., it
-            should neither starve out the competing TCP flows (causing a
-            congestion collapse) nor should it be starved out by TCP.</t>
-            <t></t>
-            
-            <t>[S5] Competing with short TCP flows: Depending on the level
-            of statistical multiplexing on the bottleneck link, the
-            proposed algorithm may behave differently. If there are a few
-            short TCP flows then the proposed algorithm may observe these
-            flows as transient events and let them complete quickly.
-            Alternatively, if there are many short flows then the proposed
-            algorithm may have to compete with the flows as if they were
-            long lived TCP flows.</t> 
-            <t><xref target="TCP-eval-suite"/> contains examples of TCP traffic
-            load and scenario settings.</t>
-            
-            <t>[Editor's Note: definition of many and
-            few short TCP flows may depend on the bottleneck link
-            capacity.]</t>
-            <t></t>
-            <t>[Editor's Note: clarify if media packets are generated using
-            a traffic generator.]</t>
-            </section>
+      <section anchor="scen-queue" title="DropTail Router Queue Length">
+        <t>The router queue length is measured as the time taken to drain the
+        FIFO queue. It has been noted in various discussions that the queue
+        length in the current deployed Internet varies significantly. While
+        the core backbone network has very short queue length, the home
+        gateways usually have larger queue length. Those various queue lengths
+        can be categorized in the following way: <list style="numbers">
+            <t>QoS-aware (or short): 70ms</t>
 
-            
+            <t>Nominal: 300-500ms</t>
+
+            <t>Buffer-bloated: 1000-2000ms</t>
+          </list> Here the size of the queue is measured in bytes or packets
+        and to convert the queue length measured in seconds to queue length in
+        bytes:</t>
+
+        <t>QueueSize (in bytes) = QueueSize (in sec) x Throughput (in
+        bps)/8</t>
+
+        <!-- <t>and 2) queue length in packets:</t>
+        <t>QueueSize (in pkts) = QueueSize (in bytes)/MTU,
+        MTU=1500</t> -->
+
+        <!-- <t>[Open issue (11): Confirm the above values, do we need to
+                        define parameters for other types of queues?]</t> -->
+      </section>
+
+      <section title="Loss generation model">
+        <t>[Editor's note : Describes the model for generating packet losses,
+        for example, losses can be generated using traces, or using the
+        Gilbert-Elliot model, or randomly (uncorrelated loss).]</t>
+      </section>
+
+      <section anchor="JM" title="Jitter models">
+        <t>This section defines jitter model for the purposes of this
+        document. When jitter is to be applied to both the RMCAT flow and any
+        competing flow (such as a TCP competing flow), the competing flow will
+        use the jitter definition below that does not allow for re-ordering of
+        packets on the competing flow (see NR-RBPDV definition below).</t>
+
+        <t>Jitter is an overloaded term in communications. Its meaning is
+        typically associated with the variation of a metric (e.g., delay) with
+        respect to some reference metric (e.g., average delay or minimum
+        delay). For example, RFC 3550 jitter is a smoothed estimate of jitter
+        which is particularly meaningful if the underlying packet delay
+        variation was caused by a Gaussian random process.</t>
+
+        <t>Because jitter is an overloaded term, we instead use the term
+        Packet Delay Variation (PDV) to describe the variation of delay of
+        individual packets in the same sense as the IETF IPPM WG has defined
+        PDV in their documents (e.g., RFC 3393) and as the ITU-T SG16 has
+        defined IP Packet Delay Variation (IPDV) in their documents (e.g.,
+        Y.1540).</t>
+
+        <t>Most PDV distributions in packet network systems are one-sided
+        distributions (the measurement of which with a finite number of
+        measurement samples result in one-sided histograms). In the usual
+        packet network transport case there is typically one packet that
+        transited the network with the minimum delay, then a majority of
+        packets also transit the system within some variation from this
+        minimum delay, and then a minority of the packets transits the network
+        with delays higher than the median or average transit time (these are
+        outliers). Although infrequent, outliers can cause significant
+        deleterious operation in adaptive systems and should be considered in
+        RMCAT adaptation designs.</t>
+
+        <t>In this section we define two different bounded PDV
+        characteristics, 1) Random Bounded PDV and 2) Approximately Random
+        Subject to No-Reordering Bounded PDV.</t>
+
+        <section title="Random Bounded PDV (RBPDV)">
+
+        <t>The RBPDV probability distribution function (pdf) is specified to
+        be of some mathematically describable function which includes some
+        practical minimum and maximum discrete values suitable for testing.
+        For example, the minimum value, x_min, might be specified as the
+        minimum transit time packet and the maximum value, x_max, might be
+        idefined to be two standard deviations higher than the mean.</t>
+
+        <t>Since we are typically interested in the distribution relative to
+        the mean delay packet, we define the zero mean PVD sample, z(n), to be
+        z(n) = x(n) - x_mean, where x(n) is a sample of the RBPDV random
+        variable x and x_mean is the mean of x.</t>
+
+        <t>We assume here that s(n) is the original source time of packet n
+        and the post-jitter induced emmission time, j(n), for packet n is j(n)
+        = {[z(n) + x_mean] + s(n)}. It follows that the separation in the
+        post-jitter time of packets n and n+1 is {[s(n+1)-s(n)] -
+        [z(n)-z(n+1)]}. Since the first term is always a positive quantity, we
+        note that packet reordering at the receiver is possible whenever the
+        second term is greater than the first. Said another way, whenever the
+        difference in possible zero mean PDV sample delays (i.e.,
+        [x_max-x_min]) exceeds the inter-departure time of any two sent
+        packets, we have the possibility of packet re-ordering.</t>
+
+        <t>There are important use cases in real networks where packets can
+        become re-ordered such as in load balancing topologies and during
+        route changes. However, for the vast majority of cases there is no
+        packet re-ordering because most of the time packets follow the same
+        path. Due to this, if a packet becomes overly delayed, the packets
+        after it on that flow are also delayed. This is especially true for
+        mobile wireless links where there are per-flow queues prior to base
+        station scheduling. Owing to this important use case, we define
+        another PDV profile similar to the above, but one that does not allow
+        for re-ordering within a flow.</t>
         </section>
-        -->
-        
+
+        <section title="Approximately Random Subject to No-Reordering Bounded PDV
+        (NR-RPVD)">
+
+          <t>No Reordering RPDV, NR-RPVD, is defined similarly to the above with
+          one important exception. Let serial(n) be defined as the serialization
+          delay of packet n at the lowest bottleneck link rate (or other
+          appropriate rate) in a given test. Then we produce all the post-jitter
+          values for j(n) for n = 1, 2, ... N, where N is the length of the
+          source sequence s to be offset-ed. The exception can be stated as
+          follows: We revisit all j(n) beginning from index n=2, and if j(n) is
+          determined to be less than [j(n-1)+serial(n-1)], we redefine j(n) to
+          be equal to [j(n-1)+serial(n-1)] and continue for all remaining n
+          (i.e., n = 3, 4, .. N). This models the case where the packet n is
+          sent immediately after packet (n-1) at the bottleneck link rate.
+          Although this is generally the theoretical minimum in that it assumes
+          that no other packets from other flows are in-between packet n and n+1
+          at the bottleneck link, it is a reasonable assumption for per flow
+          queuing.</t>
+
+          <t>We note that this assumption holds for some important exception
+          cases, such as packets immediately following outliers. There are a
+          multitude of software controlled elements common on end-to-end
+          Internet paths (such as firewalls, ALGs and other middleboxes) which
+          stop processing packets while servicing other functions (e.g., garbage
+          collection). Often these devices do not drop packets, but rather queue
+          them for later processing and cause many of the outliers. Thus NR-RPVD
+          models this particular use case (assuming serial(n+1) is defined
+          appropriately for the device causing the outlier) and thus is believed
+          to be important for adaptation development for RMCAT.</t>
+
+          <t>[Editor's Note: It may require to define test distributions as
+          well. Example test distribution may include-</t>
+
+          <t>1 - Two-sided: Uniform PDV Distribution. Two quantities to define:
+          x_min and x_max.</t>
+
+          <t>2 - Two-sided: Truncated Gaussian PDV Distribution. Four quantities
+          to define: the appropriate x_min and x_max for test (e.g., +/- two
+          sigma values), the standard deviation and the mean.</t>
+
+          <t>3 - One Sided: TBD]</t>
+        </section>
+      </section>
+    </section>
+
+    <section anchor="app-additional" title="Traffic Models">
+
+      <section title="TCP taffic model">
+        <t>Long-lived TCP flows will download data throughout the session and
+        are expected to have infinite amount of data to send or receive.</t>
+
+        <t>Each short TCP flow is modeled as a sequence of file downloads
+        interleaved with idle periods. Not all short TCPs start at the same
+        time, i.e., some start in the ON state while others start in the OFF
+        state.</t>
+
+        <t>The short TCP flows can be modelled in two ways, 1) 100s of flows
+        fetching small (5-20 KB) amounts of data, or 2) 10s of flows fetching
+        slightly larger (100-1000KB) amounts of data.</t>
+
+        <t>The idle period is typically derived from an exponential
+        distribution with the mean value of 10 seconds.</t>
+
+        <t>[Open issue: short-lived/bursty TCP cross-traffic parameters are
+        still to be agreed upon].</t>
+      </section>
+
+      <section title="RTP Video model">
+        <t>
+          <xref target="I-D.zhu-rmcat-video-traffic-source" /> describes two
+          types of video traffic models for evaluating RMCAT candidate algorithms.
+          The first model statistically characterizes the behavior of a video
+          encoder. Whereas the second model uses video traces.
+        </t>
+      </section>
+
+    </section>
+
         <section title="Status of Proposals" anchor="cc-proposal">
-            
+
             <t>Congestion control algorithms are expected to be published
             as "Experimental" documents until they are shown to be safe to
             deploy. An algorithm published as a draft should be
@@ -558,7 +661,7 @@
             which the algorithm is tested and safe to deploy. It is
             possible that an algorithm is not recommended for certain
             environments or perform sub-optimally for the user.</t>
-            
+
             <t>[Editor's Note: Should there be a distinction between
             "Informational" and "Experimental" drafts for congestion
             control algorithms in RMCAT. <xref target="RFC5033" />
@@ -567,9 +670,9 @@
             simulation/testbeds. While Experimental algorithms are ones
             that are deemed safe in some environments but require a more
             thorough evaluation (from the community).]</t>
-            
+
         </section>
-        
+
         <section title="Security Considerations">
             <t>Security issues have not been discussed in this memo.</t>
             <!-- Congestion Collapse, Denial of Service -->
@@ -578,30 +681,30 @@
         <section title="IANA Considerations">
             <t>There are no IANA impacts in this memo.</t>
         </section>
-        
+
         <section anchor="contrib" title="Contributors">
-            <t>The content and concepts within this document are a product of 
+            <t>The content and concepts within this document are a product of
             the discussion carried out in the Design Team.</t>
 
-            <t>Michael Ramalho provided the text for a specific scenario,
-            which is now covered in <xref target="I-D.sarker-rmcat-eval-test" />.</t>
+            <t>Michael Ramalho provided the text for the Jitter model.</t>
         </section>
-        
+
         <section title="Acknowledgements">
           <t> Much of this document is derived from previous work on
           congestion control at the IETF.</t>
-          <t> The authors would like to thank 
-          Harald Alvestrand, 
+          <t> The authors would like to thank
+          Harald Alvestrand,
           Anna Brunstrom,
-          Luca De Cicco, 
-          Wesley Eddy, 
+          Luca De Cicco,
+          Wesley Eddy,
           Lars Eggert,
           Kevin Gross,
           Vinayak Hegde,
-          Stefan Holmer, 
-          Randell Jesup, 
-          Karen Nielsen, 
-          Piers O'Hanlon, 
+          Stefan Holmer,
+          Randell Jesup,
+          Mirja Kuehlewind,
+          Karen Nielsen,
+          Piers O'Hanlon,
           Colin Perkins,
           Michael Ramalho,
           Zaheduzzaman Sarker,
@@ -615,7 +718,7 @@
         </section>
     </middle>
     <back>
-        <references title="Normative References"> 
+        <references title="Normative References">
             <!--&rfc2119;-->
             <!-- RTP related -->
             &rfc3550;
@@ -627,12 +730,13 @@
             &I-D.ietf-rmcat-cc-requirements;
             &I-D.ietf-avtcore-rtp-circuit-breakers;
             </references>
-            
-            <references title="Informative References"> 
+
+            <references title="Informative References">
             &rfc5033; <!-- CC Evaluation -->
             &rfc5166; <!-- CC Metrics -->
             &rfc5681; <!-- Standard TCP -->
             &I-D.sarker-rmcat-eval-test;
+            &I-D.zhu-rmcat-video-traffic-source;
             <!--
             &I-D.ietf-xrblock-rtcp-xr-qoe;
             <?rfc include="reference.3GPP.R1.081955"?>
@@ -653,8 +757,8 @@
                 <seriesInfo name="3GPP" value="R1-081955" />
                 <format type='ZIP' octets='3459875' target='http://www.3gpp.net/ftp/tsg_ran/WG1_RL1/TSGR1_53/Docs/R1-081955.zip' />
             </reference>
-            
-   
+
+
             <reference anchor="SA4-LR">
                 <front>
                     <title>Error Patterns for MBMS Streaming over UTRAN and GERAN</title>
@@ -677,7 +781,7 @@
                 <author initials="R." surname="Guillier"  fullname="Romeric Guillier"/>
                 <author initials="W." surname="Gang"  fullname="Wang Gang"/>
                 <author initials="L." surname="Eggert"  fullname="Lars Eggert"/>
-                <author initials="S." surname="Ha"  fullname="Sangtae Ha"/>            
+                <author initials="S." surname="Ha"  fullname="Sangtae Ha"/>
                 <author initials="I." surname="Rhee"  fullname="Injong Rhee"/>
                 <date month="August" year="2008"/>
               </front>
@@ -685,7 +789,7 @@
             </reference>
 
         </references>
-        
+
         <section anchor="misc"  title="Application Trade-off">
           <t>Application trade-off is yet to be defined. see <xref
           target="I-D.ietf-rmcat-cc-requirements">RMCAT requirements</xref>
@@ -699,27 +803,33 @@
             codec and video sequences. </t>
           </section>
         </section>
-        
-        <section anchor="App-cl" title="Change Log"> 
+
+        <section anchor="App-cl" title="Change Log">
         <t>Note to the RFC-Editor: please remove this section prior to
         publication as an RFC.</t>
             <section title="Changes in draft-ietf-rmcat-eval-criteria-02">
             <t><list style="symbols">
+                <t>Keep-alive version.</t>
+                <t>Moved link parameters and traffic models from eval-test</t>
+              </list></t>
+            </section>
+            <section title="Changes in draft-ietf-rmcat-eval-criteria-02">
+            <t><list style="symbols">
                 <t>Incorporated fairness test as a working test.</t>
                 <t>Updated text on mimimum evaluation requirements.</t>
-            </list></t> 
+            </list></t>
             </section>
             <section title="Changes in draft-ietf-rmcat-eval-criteria-01">
             <t><list style="symbols">
                 <t>Removed Appendix B.</t>
                 <t>Removed Section on Evaluation Parameters.</t>
-            </list></t> 
+            </list></t>
             </section>
             <section title="Changes in draft-ietf-rmcat-eval-criteria-00">
             <t><list style="symbols">
                 <t>Updated references.</t>
                 <t>Resubmitted as WG draft.</t>
-            </list></t> 
+            </list></t>
             </section>
             <section title="Changes in draft-singh-rmcat-cc-eval-04">
             <t><list style="symbols">
@@ -733,36 +843,36 @@
                 <t>clarified use of DropTail and AQM.</t>
                 <t>Updated text in "Minimum Requirements for Evaluation"</t>
 
-            </list></t> 
+            </list></t>
             </section>
             <section title="Changes in draft-singh-rmcat-cc-eval-03">
             <t><list style="symbols">
                 <t>Incorporate the discussion within the design team.</t>
-                <t>Added a section on evaluation parameters, it describes the 
+                <t>Added a section on evaluation parameters, it describes the
                 flow and network characteristics.</t>
                 <t>Added Appendix with self-fairness experiment.</t>
                 <t>Changed bottleneck parameters from a proposal to an example
                 set.</t>
                 <t></t>
-            </list></t> 
+            </list></t>
             </section>
 
             <section title="Changes in draft-singh-rmcat-cc-eval-02">
             <t><list style="symbols">
                 <t>Added scenario descriptions.</t>
-            </list></t> 
+            </list></t>
             </section>
 
             <section title="Changes in draft-singh-rmcat-cc-eval-01">
             <t><list style="symbols">
                 <t>Removed QoE metrics.</t>
-                <t>Changed stability to steady-state.</t> 
+                <t>Changed stability to steady-state.</t>
                 <t>Added measuring impact against few and many
                 flows.</t>
                 <t>Added guideline for idle and data-limited periods.</t>
                 <t>Added reference to TCP evaluation suite in example
                 evaluation scenarios.</t>
-            </list></t> 
+            </list></t>
             </section>
         </section>
     </back>
