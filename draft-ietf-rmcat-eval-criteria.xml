@@ -17,8 +17,8 @@
 "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-ledbat-congestion.xml">
 <!ENTITY I-D.ietf-xrblock-rtcp-xr-qoe PUBLIC ""
 "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-xrblock-rtcp-xr-qoe.xml">
-<!ENTITY I-D.sarker-rmcat-eval-test PUBLIC ""
-"http://xml.resource.org/public/rfc/bibxml3/reference.I-D.sarker-rmcat-eval-test.xml">
+<!ENTITY I-D.ietf-rmcat-eval-test PUBLIC ""
+"http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-rmcat-eval-test.xml">
 <!ENTITY I-D.zhu-rmcat-video-traffic-source PUBLIC ""
 "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.zhu-rmcat-video-traffic-source.xml">
 ]>
@@ -100,9 +100,11 @@
             target="I-D.ietf-avtcore-rtp-circuit-breakers" />.</t>
 
             <t>This document only provides broad-level criteria for
-            evaluating a new congestion control algorithm and the working
-            group should expect a thorough scientific study to make its
-            decision. The results of the evaluation are not expected to be
+            evaluating a new congestion control algorithm. The minimal
+            requirement for RMCAT proposals is to produce or present
+            results for the test scenarios described in
+            <xref target="I-D.ietf-rmcat-eval-test" /> (Basic Test Cases).
+            The results of the evaluation are not expected to be
             included within the internet-draft but should be cited in the
             document.</t>
 
@@ -169,7 +171,7 @@
                 new flow is added.
                 <vspace />
             For example, see the test scenarios described in
-            <xref target="I-D.sarker-rmcat-eval-test" />.</t>
+            <xref target="I-D.ietf-rmcat-eval-test" />.</t>
 
             <t>Convergence time: The time taken to reach a stable rate at startup,
             after the available link capacity changes, or when new flows get added
@@ -419,13 +421,6 @@
 
         </section>
 
-        <section title="Minimum Requirements for Evaluation">
-            <t>The minimal requirements for RMCAT proposals is to produce or
-                present results for the test scenarios described in Section 5
-                of <xref target="I-D.sarker-rmcat-eval-test" />
-                (Basic Test Cases).</t>
-        </section>
-
 
     <section anchor="add-params" title="List of Network Parameters">
 
@@ -650,29 +645,6 @@
 
     </section>
 
-        <section title="Status of Proposals" anchor="cc-proposal">
-
-            <t>Congestion control algorithms are expected to be published
-            as "Experimental" documents until they are shown to be safe to
-            deploy. An algorithm published as a draft should be
-            experimented in simulation, or a controlled environment
-            (testbed) to show its applicability. Every congestion control
-            algorithm should include a note describing the environments in
-            which the algorithm is tested and safe to deploy. It is
-            possible that an algorithm is not recommended for certain
-            environments or perform sub-optimally for the user.</t>
-
-            <t>[Editor's Note: Should there be a distinction between
-            "Informational" and "Experimental" drafts for congestion
-            control algorithms in RMCAT. <xref target="RFC5033" />
-            describes Informational proposals as algorithms that are not
-            safe for deployment but are proposals to experiment with in
-            simulation/testbeds. While Experimental algorithms are ones
-            that are deemed safe in some environments but require a more
-            thorough evaluation (from the community).]</t>
-
-        </section>
-
         <section title="Security Considerations">
             <t>Security issues have not been discussed in this memo.</t>
             <!-- Congestion Collapse, Denial of Service -->
@@ -735,7 +707,7 @@
             &rfc5033; <!-- CC Evaluation -->
             &rfc5166; <!-- CC Metrics -->
             &rfc5681; <!-- Standard TCP -->
-            &I-D.sarker-rmcat-eval-test;
+            &I-D.ietf-rmcat-eval-test;
             &I-D.zhu-rmcat-video-traffic-source;
             <!--
             &I-D.ietf-xrblock-rtcp-xr-qoe;

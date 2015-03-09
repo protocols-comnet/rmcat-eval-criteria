@@ -75,37 +75,37 @@ Table of Contents
      4.8.  Fairness With Similar Cross-Traffic . . . . . . . . . . .   7
      4.9.  Impact on Cross-Traffic . . . . . . . . . . . . . . . . .   7
      4.10. Extensions to RTP/RTCP  . . . . . . . . . . . . . . . . .   7
-   5.  Minimum Requirements for Evaluation . . . . . . . . . . . . .   7
-   6.  List of Network Parameters  . . . . . . . . . . . . . . . . .   7
-     6.1.  One-way Propagation Delay . . . . . . . . . . . . . . . .   8
-     6.2.  End-to-end Loss . . . . . . . . . . . . . . . . . . . . .   8
-     6.3.  DropTail Router Queue Length  . . . . . . . . . . . . . .   8
-     6.4.  Loss generation model . . . . . . . . . . . . . . . . . .   9
-     6.5.  Jitter models . . . . . . . . . . . . . . . . . . . . . .   9
-       6.5.1.  Random Bounded PDV (RBPDV)  . . . . . . . . . . . . .  10
-       6.5.2.  Approximately Random Subject to No-Reordering Bounded
+   5.  List of Network Parameters  . . . . . . . . . . . . . . . . .   7
+     5.1.  One-way Propagation Delay . . . . . . . . . . . . . . . .   7
+     5.2.  End-to-end Loss . . . . . . . . . . . . . . . . . . . . .   8
+     5.3.  DropTail Router Queue Length  . . . . . . . . . . . . . .   8
+     5.4.  Loss generation model . . . . . . . . . . . . . . . . . .   8
+     5.5.  Jitter models . . . . . . . . . . . . . . . . . . . . . .   9
+       5.5.1.  Random Bounded PDV (RBPDV)  . . . . . . . . . . . . .   9
+       5.5.2.  Approximately Random Subject to No-Reordering Bounded
                PDV         (NR-RPVD) . . . . . . . . . . . . . . . .  10
-   7.  Traffic Models  . . . . . . . . . . . . . . . . . . . . . . .  11
-     7.1.  TCP taffic model  . . . . . . . . . . . . . . . . . . . .  11
-     7.2.  RTP Video model . . . . . . . . . . . . . . . . . . . . .  12
-   8.  Status of Proposals . . . . . . . . . . . . . . . . . . . . .  12
-   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  12
-   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  12
-   11. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  12
-   12. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  13
-   13. References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
-     13.1.  Normative References . . . . . . . . . . . . . . . . . .  13
-     13.2.  Informative References . . . . . . . . . . . . . . . . .  14
+   6.  Traffic Models  . . . . . . . . . . . . . . . . . . . . . . .  11
+     6.1.  TCP taffic model  . . . . . . . . . . . . . . . . . . . .  11
+     6.2.  RTP Video model . . . . . . . . . . . . . . . . . . . . .  12
+   7.  Security Considerations . . . . . . . . . . . . . . . . . . .  12
+   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  12
+   9.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  12
+   10. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  12
+   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  12
+     11.1.  Normative References . . . . . . . . . . . . . . . . . .  12
+     11.2.  Informative References . . . . . . . . . . . . . . . . .  13
    Appendix A.  Application Trade-off  . . . . . . . . . . . . . . .  14
-     A.1.  Measuring Quality . . . . . . . . . . . . . . . . . . . .  15
-   Appendix B.  Change Log . . . . . . . . . . . . . . . . . . . . .  15
-     B.1.  Changes in draft-ietf-rmcat-eval-criteria-02  . . . . . .  15
-     B.2.  Changes in draft-ietf-rmcat-eval-criteria-02  . . . . . .  15
-     B.3.  Changes in draft-ietf-rmcat-eval-criteria-01  . . . . . .  15
+     A.1.  Measuring Quality . . . . . . . . . . . . . . . . . . . .  14
+   Appendix B.  Change Log . . . . . . . . . . . . . . . . . . . . .  14
+     B.1.  Changes in draft-ietf-rmcat-eval-criteria-02  . . . . . .  14
+     B.2.  Changes in draft-ietf-rmcat-eval-criteria-02  . . . . . .  14
+     B.3.  Changes in draft-ietf-rmcat-eval-criteria-01  . . . . . .  14
      B.4.  Changes in draft-ietf-rmcat-eval-criteria-00  . . . . . .  15
      B.5.  Changes in draft-singh-rmcat-cc-eval-04 . . . . . . . . .  15
-     B.6.  Changes in draft-singh-rmcat-cc-eval-03 . . . . . . . . .  16
-     B.7.  Changes in draft-singh-rmcat-cc-eval-02 . . . . . . . . .  16
+     B.6.  Changes in draft-singh-rmcat-cc-eval-03 . . . . . . . . .  15
+     B.7.  Changes in draft-singh-rmcat-cc-eval-02 . . . . . . . . .  15
+     B.8.  Changes in draft-singh-rmcat-cc-eval-01 . . . . . . . . .  15
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  16
 
 
 
@@ -113,9 +113,6 @@ Singh & Ott            Expires September 11, 2015               [Page 2]
 
 Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
 
-
-     B.8.  Changes in draft-singh-rmcat-cc-eval-01 . . . . . . . . .  16
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  16
 
 1.  Introduction
 
@@ -134,10 +131,11 @@ Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
    defined in [I-D.ietf-avtcore-rtp-circuit-breakers].
 
    This document only provides broad-level criteria for evaluating a new
-   congestion control algorithm and the working group should expect a
-   thorough scientific study to make its decision.  The results of the
-   evaluation are not expected to be included within the internet-draft
-   but should be cited in the document.
+   congestion control algorithm.  The minimal requirement for RMCAT
+   proposals is to produce or present results for the test scenarios
+   described in [I-D.ietf-rmcat-eval-test] (Basic Test Cases).  The
+   results of the evaluation are not expected to be included within the
+   internet-draft but should be cited in the document.
 
 2.  Terminology
 
@@ -162,6 +160,8 @@ Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
 
    3.   Bytes sent, bytes received
 
+   4.   Packet delay
+
 
 
 
@@ -169,8 +169,6 @@ Singh & Ott            Expires September 11, 2015               [Page 3]
 
 Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
 
-
-   4.   Packet delay
 
    5.   Packets lost, Packets discarded (from the playout or de-jitter
         buffer)
@@ -189,7 +187,7 @@ Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
         3.  RTT should not grow by a factor of 3 for the existing flows
         when a new flow is added.
         For example, see the test scenarios described in
-        [I-D.sarker-rmcat-eval-test].
+        [I-D.ietf-rmcat-eval-test].
 
    8.   Convergence time: The time taken to reach a stable rate at
         startup, after the available link capacity changes, or when new
@@ -218,6 +216,8 @@ Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
    fairness between RTP flows? measured at what intervals? visualized as
    a CDF or a timeseries?  Additionally: Use JFI for comparing fairness
    between RTP and long TCP flows? ]
+
+
 
 
 
@@ -372,29 +372,12 @@ Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
    extensions are required to implement it and should carefully describe
    the impact of the extension.
 
-5.  Minimum Requirements for Evaluation
-
-   The minimal requirements for RMCAT proposals is to produce or present
-   results for the test scenarios described in Section 5 of
-   [I-D.sarker-rmcat-eval-test] (Basic Test Cases).
-
-6.  List of Network Parameters
+5.  List of Network Parameters
 
    The implementors initially are encouraged to choose evaluation
    settings from the following values:
 
-
-
-
-
-
-
-Singh & Ott            Expires September 11, 2015               [Page 7]
-
-Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
-
-
-6.1.  One-way Propagation Delay
+5.1.  One-way Propagation Delay
 
    Experiments are expected to verify that the congestion control is
    able to work in challenging situations, for example over trans-
@@ -404,11 +387,18 @@ Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
 
    2.  Low latency: 50ms
 
+
+
+Singh & Ott            Expires September 11, 2015               [Page 7]
+
+Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
+
+
    3.  High latency: 150ms
 
    4.  Extreme latency: 300ms
 
-6.2.  End-to-end Loss
+5.2.  End-to-end Loss
 
    To model lossy links, the experiments can choose one of the following
    loss rates, the fractional loss is the ratio of packets lost and
@@ -424,7 +414,7 @@ Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
 
    5.  20%
 
-6.3.  DropTail Router Queue Length
+5.3.  DropTail Router Queue Length
 
    The router queue length is measured as the time taken to drain the
    FIFO queue.  It has been noted in various discussions that the queue
@@ -443,6 +433,16 @@ Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
    convert the queue length measured in seconds to queue length in
    bytes:
 
+   QueueSize (in bytes) = QueueSize (in sec) x Throughput (in bps)/8
+
+5.4.  Loss generation model
+
+   [Editor's note : Describes the model for generating packet losses,
+   for example, losses can be generated using traces, or using the
+   Gilbert-Elliot model, or randomly (uncorrelated loss).]
+
+
+
 
 
 Singh & Ott            Expires September 11, 2015               [Page 8]
@@ -450,15 +450,7 @@ Singh & Ott            Expires September 11, 2015               [Page 8]
 Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
 
 
-   QueueSize (in bytes) = QueueSize (in sec) x Throughput (in bps)/8
-
-6.4.  Loss generation model
-
-   [Editor's note : Describes the model for generating packet losses,
-   for example, losses can be generated using traces, or using the
-   Gilbert-Elliot model, or randomly (uncorrelated loss).]
-
-6.5.  Jitter models
+5.5.  Jitter models
 
    This section defines jitter model for the purposes of this document.
    When jitter is to be applied to both the RMCAT flow and any competing
@@ -496,6 +488,14 @@ Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
    1) Random Bounded PDV and 2) Approximately Random Subject to No-
    Reordering Bounded PDV.
 
+5.5.1.  Random Bounded PDV (RBPDV)
+
+   The RBPDV probability distribution function (pdf) is specified to be
+   of some mathematically describable function which includes some
+   practical minimum and maximum discrete values suitable for testing.
+   For example, the minimum value, x_min, might be specified as the
+   minimum transit time packet and the maximum value, x_max, might be
+   idefined to be two standard deviations higher than the mean.
 
 
 
@@ -505,15 +505,6 @@ Singh & Ott            Expires September 11, 2015               [Page 9]
 
 Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
 
-
-6.5.1.  Random Bounded PDV (RBPDV)
-
-   The RBPDV probability distribution function (pdf) is specified to be
-   of some mathematically describable function which includes some
-   practical minimum and maximum discrete values suitable for testing.
-   For example, the minimum value, x_min, might be specified as the
-   minimum transit time packet and the maximum value, x_max, might be
-   idefined to be two standard deviations higher than the mean.
 
    Since we are typically interested in the distribution relative to the
    mean delay packet, we define the zero mean PVD sample, z(n), to be
@@ -542,7 +533,7 @@ Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
    another PDV profile similar to the above, but one that does not allow
    for re-ordering within a flow.
 
-6.5.2.  Approximately Random Subject to No-Reordering Bounded PDV (NR-
+5.5.2.  Approximately Random Subject to No-Reordering Bounded PDV (NR-
         RPVD)
 
    No Reordering RPDV, NR-RPVD, is defined similarly to the above with
@@ -554,14 +545,6 @@ Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
    be stated as follows: We revisit all j(n) beginning from index n=2,
    and if j(n) is determined to be less than [j(n-1)+serial(n-1)], we
    redefine j(n) to be equal to [j(n-1)+serial(n-1)] and continue for
-
-
-
-Singh & Ott            Expires September 11, 2015              [Page 10]
-
-Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
-
-
    all remaining n (i.e., n = 3, 4, .. N).  This models the case where
    the packet n is sent immediately after packet (n-1) at the bottleneck
    link rate.  Although this is generally the theoretical minimum in
@@ -571,6 +554,14 @@ Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
 
    We note that this assumption holds for some important exception
    cases, such as packets immediately following outliers.  There are a
+
+
+
+Singh & Ott            Expires September 11, 2015              [Page 10]
+
+Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
+
+
    multitude of software controlled elements common on end-to-end
    Internet paths (such as firewalls, ALGs and other middleboxes) which
    stop processing packets while servicing other functions (e.g.,
@@ -593,9 +584,9 @@ Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
 
    3 - One Sided: TBD]
 
-7.  Traffic Models
+6.  Traffic Models
 
-7.1.  TCP taffic model
+6.1.  TCP taffic model
 
    Long-lived TCP flows will download data throughout the session and
    are expected to have infinite amount of data to send or receive.
@@ -609,6 +600,15 @@ Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
    fetching small (5-20 KB) amounts of data, or 2) 10s of flows fetching
    slightly larger (100-1000KB) amounts of data.
 
+   The idle period is typically derived from an exponential distribution
+   with the mean value of 10 seconds.
+
+   [Open issue: short-lived/bursty TCP cross-traffic parameters are
+   still to be agreed upon].
+
+
+
+
 
 
 
@@ -618,63 +618,29 @@ Singh & Ott            Expires September 11, 2015              [Page 11]
 Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
 
 
-   The idle period is typically derived from an exponential distribution
-   with the mean value of 10 seconds.
-
-   [Open issue: short-lived/bursty TCP cross-traffic parameters are
-   still to be agreed upon].
-
-7.2.  RTP Video model
+6.2.  RTP Video model
 
    [I-D.zhu-rmcat-video-traffic-source] describes two types of video
    traffic models for evaluating RMCAT candidate algorithms.  The first
    model statistically characterizes the behavior of a video encoder.
    Whereas the second model uses video traces.
 
-8.  Status of Proposals
-
-   Congestion control algorithms are expected to be published as
-   "Experimental" documents until they are shown to be safe to deploy.
-   An algorithm published as a draft should be experimented in
-   simulation, or a controlled environment (testbed) to show its
-   applicability.  Every congestion control algorithm should include a
-   note describing the environments in which the algorithm is tested and
-   safe to deploy.  It is possible that an algorithm is not recommended
-   for certain environments or perform sub-optimally for the user.
-
-   [Editor's Note: Should there be a distinction between "Informational"
-   and "Experimental" drafts for congestion control algorithms in RMCAT.
-   [RFC5033] describes Informational proposals as algorithms that are
-   not safe for deployment but are proposals to experiment with in
-   simulation/testbeds.  While Experimental algorithms are ones that are
-   deemed safe in some environments but require a more thorough
-   evaluation (from the community).]
-
-9.  Security Considerations
+7.  Security Considerations
 
    Security issues have not been discussed in this memo.
 
-10.  IANA Considerations
+8.  IANA Considerations
 
    There are no IANA impacts in this memo.
 
-11.  Contributors
+9.  Contributors
 
    The content and concepts within this document are a product of the
    discussion carried out in the Design Team.
 
    Michael Ramalho provided the text for the Jitter model.
 
-
-
-
-
-Singh & Ott            Expires September 11, 2015              [Page 12]
-
-Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
-
-
-12.  Acknowledgements
+10.  Acknowledgements
 
    Much of this document is derived from previous work on congestion
    control at the IETF.
@@ -688,9 +654,9 @@ Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
    also thank the participants of the design team for their comments and
    discussion related to the evaluation criteria.
 
-13.  References
+11.  References
 
-13.1.  Normative References
+11.1.  Normative References
 
    [RFC3550]  Schulzrinne, H., Casner, S., Frederick, R., and V.
               Jacobson, "RTP: A Transport Protocol for Real-Time
@@ -699,6 +665,14 @@ Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
    [RFC3551]  Schulzrinne, H. and S. Casner, "RTP Profile for Audio and
               Video Conferences with Minimal Control", STD 65, RFC 3551,
               July 2003.
+
+
+
+
+Singh & Ott            Expires September 11, 2015              [Page 12]
+
+Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
+
 
    [RFC3611]  Friedman, T., Caceres, R., and A. Clark, "RTP Control
               Protocol Extended Reports (RTCP XR)", RFC 3611, November
@@ -718,25 +692,13 @@ Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
               for Interactive Real-Time Media", draft-ietf-rmcat-cc-
               requirements-09 (work in progress), December 2014.
 
-
-
-
-
-
-
-
-Singh & Ott            Expires September 11, 2015              [Page 13]
-
-Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
-
-
    [I-D.ietf-avtcore-rtp-circuit-breakers]
               Perkins, C. and V. Singh, "Multimedia Congestion Control:
               Circuit Breakers for Unicast RTP Sessions", draft-ietf-
               avtcore-rtp-circuit-breakers-09 (work in progress), March
               2015.
 
-13.2.  Informative References
+11.2.  Informative References
 
    [RFC5033]  Floyd, S. and M. Allman, "Specifying New Congestion
               Control Algorithms", BCP 133, RFC 5033, August 2007.
@@ -747,10 +709,10 @@ Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
    [RFC5681]  Allman, M., Paxson, V., and E. Blanton, "TCP Congestion
               Control", RFC 5681, September 2009.
 
-   [I-D.sarker-rmcat-eval-test]
+   [I-D.ietf-rmcat-eval-test]
               Sarker, Z., Singh, V., Zhu, X., and M. Ramalho, "Test
-              Cases for Evaluating RMCAT Proposals", draft-sarker-rmcat-
-              eval-test-01 (work in progress), June 2014.
+              Cases for Evaluating RMCAT Proposals", draft-ietf-rmcat-
+              eval-test-00 (work in progress), August 2014.
 
    [I-D.zhu-rmcat-video-traffic-source]
               Zhu, X., Cruz, S., and Z. Sarker, "Modeling Video Traffic
@@ -760,6 +722,13 @@ Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
    [SA4-EVAL]
               R1-081955, 3GPP., "LTE Link Level Throughput Data for SA4
               Evaluation Framework", 3GPP R1-081955, 5 2008.
+
+
+
+Singh & Ott            Expires September 11, 2015              [Page 13]
+
+Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
+
 
    [SA4-LR]   S4-050560, 3GPP., "Error Patterns for MBMS Streaming over
               UTRAN and GERAN", 3GPP S4-050560, 5 2008.
@@ -775,16 +744,6 @@ Appendix A.  Application Trade-off
    Application trade-off is yet to be defined. see RMCAT requirements
    [I-D.ietf-rmcat-cc-requirements] document.  Perhaps each experiment
    should define the application's expectation or trade-off.
-
-
-
-
-
-
-Singh & Ott            Expires September 11, 2015              [Page 14]
-
-Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
-
 
 A.1.  Measuring Quality
 
@@ -817,6 +776,16 @@ B.3.  Changes in draft-ietf-rmcat-eval-criteria-01
 
    o  Removed Section on Evaluation Parameters.
 
+
+
+
+
+
+Singh & Ott            Expires September 11, 2015              [Page 14]
+
+Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
+
+
 B.4.  Changes in draft-ietf-rmcat-eval-criteria-00
 
    o  Updated references.
@@ -834,13 +803,6 @@ B.5.  Changes in draft-singh-rmcat-cc-eval-04
    o  Added measuring pre- and post-repair loss.
 
    o  Added open issue of measuring video quality to appendix.
-
-
-
-Singh & Ott            Expires September 11, 2015              [Page 15]
-
-Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
-
 
    o  clarified use of DropTail and AQM.
 
@@ -873,6 +835,13 @@ B.8.  Changes in draft-singh-rmcat-cc-eval-01
 
    o  Added guideline for idle and data-limited periods.
 
+
+
+Singh & Ott            Expires September 11, 2015              [Page 15]
+
+Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
+
+
    o  Added reference to TCP evaluation suite in example evaluation
       scenarios.
 
@@ -887,15 +856,6 @@ Authors' Addresses
 
    Email: varun@comnet.tkk.fi
    URI:   http://www.netlab.tkk.fi/~varun/
-
-
-
-
-
-
-Singh & Ott            Expires September 11, 2015              [Page 16]
-
-Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
 
 
    Joerg Ott
@@ -933,20 +893,4 @@ Internet-Draft   Evaluating Congestion Control for RMCAT      March 2015
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Singh & Ott            Expires September 11, 2015              [Page 17]
+Singh & Ott            Expires September 11, 2015              [Page 16]
