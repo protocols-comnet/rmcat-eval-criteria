@@ -21,12 +21,16 @@
 "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-rmcat-eval-test.xml">
 <!ENTITY I-D.zhu-rmcat-video-traffic-source PUBLIC ""
 "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.zhu-rmcat-video-traffic-source.xml">
+<!ENTITY I-D.ietf-rmcat-wireless-tests PUBLIC ""
+"http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-rmcat-wireless-tests.xml">
+<!ENTITY I-D.fu-rmcat-wifi-test-case PUBLIC ""
+"http://xml.resource.org/public/rfc/bibxml3/reference.I-D.fu-rmcat-wifi-test-case.xml">
 ]>
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 <?rfc toc="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc symrefs="yes" ?>
-<rfc ipr="trust200902" docName="draft-ietf-rmcat-eval-criteria-03" category="info">
+<rfc ipr="trust200902" docName="draft-ietf-rmcat-eval-criteria-04" category="info">
     <!-- What is the category field value-->
     <front>
         <title abbrev="Evaluating Congestion Control for RMCAT">
@@ -34,20 +38,18 @@
             <!--Evaluation Criteria for RTP Congestion Avoidance Techniques -->
         </title>
 
-        <author fullname="Varun Singh" initials="V" surname="Singh">
-            <organization>Aalto University</organization>
-            <address>
-                <postal>
-                    <street>School of Electrical Engineering</street>
-                    <street>Otakaari 5 A</street>
-                    <city>Espoo</city>
-                    <region>FIN</region>
-                    <code>02150</code>
-                    <country>Finland</country>
-                </postal>
-                <email>varun@comnet.tkk.fi</email>
-                <uri>http://www.netlab.tkk.fi/~varun/</uri>
-            </address>
+        <author fullname="Varun Singh" initials="V." surname="Singh">
+          <organization abbrev="callstats.io">Nemu Dialogue Systems Oy</organization>
+          <address>
+            <postal>
+              <street>Runeberginkatu 4c A 4 </street>
+              <city>Helsinki</city>
+              <code>00100</code>
+              <country>Finland</country>
+            </postal>
+            <email>varun@callstats.io</email>
+            <uri>http://www.callstats.io/</uri>
+          </address>
         </author>
 
         <author initials="J." surname="Ott" fullname="Joerg Ott">
@@ -292,7 +294,7 @@
             <t> </t>
         </section>
         -->
-
+<!--
         <section title="Guidelines" anchor="cc-guidelines">
             <t>A congestion control algorithm should be tested in
             simulation or a testbed environment, and the experiments should
@@ -337,9 +339,6 @@
             as when competing with varying amount of cross-traffic or how
             quickly does the congestion control algorithm achieve a stable
             sending rate.</t>
-
-            <!-- <t>[Editor's note: requires a robust definition for unfriendliness
-            and convergence time.]</t> -->
             </section>
 
             <section title="Diverse Environments">
@@ -391,9 +390,6 @@
             competing with other RTP flows using the same or another candidate
             congestion control algorithm. The proposal should highlight the
             bottleneck capacity share of each RTP flow.</t>
-
-            <!-- <t>[Editor's note: If we define Unfriendliness then that criteria
-            should be applied here.]</t> -->
             </section>
 
             <section title="Impact on Cross-Traffic">
@@ -403,10 +399,6 @@
             as transient events and the RTP flow may give way to the short
             TCP flow to complete quickly. However, long-lived TCP flows may
             starve out the RTP flow depending on router queue length. </t>
-
-            <!-- In the latter case the proposed congestion control for RTP
-             should be as aggressive as <xref target="RFC5681">standard
-            TCP</xref>.</t> -->
 
             <t>The proposal should also measure the impact on varied number
             of cross-traffic sources, i.e., few and many competing flows,
@@ -419,7 +411,7 @@
             carefully describe the impact of the extension.</t>
             </section>
 
-        </section>
+        </section> -->
 
 
     <section anchor="add-params" title="List of Network Parameters">
@@ -605,33 +597,45 @@
 
           <t>2 - Two-sided: Truncated Gaussian PDV Distribution. Four quantities
           to define: the appropriate x_min and x_max for test (e.g., +/- two
-          sigma values), the standard deviation and the mean.</t>
+          sigma values), the standard deviation, and the mean.</t>
 
-          <t>3 - One Sided: TBD]</t>
+          <t>3 - One Sided: Truncated Gaussian PDV Distribution. Quantities
+          to define: three sigma value, the standard deviation, and the mean]</t>
         </section>
       </section>
+    </section>
+
+    <section title="WiFi or Cellular Links">
+        <t>
+          <xref target="I-D.fu-rmcat-wifi-test-case" /> describes methods to
+          evaluate the congestion control in WiFi network, alternatively
+          <xref target="I-D.ietf-rmcat-wireless-tests" /> describes mechanisms
+          to emulate and simulate cellular networks.
+        </t>
     </section>
 
     <section anchor="app-additional" title="Traffic Models">
 
       <section title="TCP taffic model">
         <t>Long-lived TCP flows will download data throughout the session and
-        are expected to have infinite amount of data to send or receive.</t>
+        are expected to have infinite amount of data to send or receive.
+        For example, to </t>
 
         <t>Each short TCP flow is modeled as a sequence of file downloads
         interleaved with idle periods. Not all short TCPs start at the same
         time, i.e., some start in the ON state while others start in the OFF
         state.</t>
 
-        <t>The short TCP flows can be modelled in two ways, 1) 100s of flows
-        fetching small (5-20 KB) amounts of data, or 2) 10s of flows fetching
-        slightly larger (100-1000KB) amounts of data.</t>
+        <t>The short TCP flows can be modelled as follows: 30 connections start
+        simultaneously fetching small (30-50 KB) amounts of data. This covers the
+        case where the short TCP flows are not fetching a video file.</t>
 
-        <t>The idle period is typically derived from an exponential
-        distribution with the mean value of 10 seconds.</t>
+        <t>The idle period between bursts of starting a group of TCP flows is
+        typically derived from an exponential distribution with the mean value of
+        10 seconds.</t>
 
-        <t>[Open issue: short-lived/bursty TCP cross-traffic parameters are
-        still to be agreed upon].</t>
+        <t>[These values were picked based on the data available at
+        http://httparchive.org/interesting.php as of October 2015].</t>
       </section>
 
       <section title="RTP Video model">
@@ -701,6 +705,8 @@
             <!--RMCAT related -->
             &I-D.ietf-rmcat-cc-requirements;
             &I-D.ietf-avtcore-rtp-circuit-breakers;
+            &I-D.ietf-rmcat-wireless-tests;
+            &I-D.fu-rmcat-wifi-test-case;
             </references>
 
             <references title="Informative References">
@@ -779,7 +785,15 @@
         <section anchor="App-cl" title="Change Log">
         <t>Note to the RFC-Editor: please remove this section prior to
         publication as an RFC.</t>
-            <section title="Changes in draft-ietf-rmcat-eval-criteria-02">
+        <section title="Changes in draft-ietf-rmcat-eval-criteria-04">
+            <t><list style="symbols">
+                <t>Removed the guidelines section, as most of the sections
+                  are now covered: wireless tests, video model, etc.</t>
+                <t>Improved Short TCP model based on the suggestion to use
+                  httparchive.org.</t>
+              </list></t>
+            </section>
+            <section title="Changes in draft-ietf-rmcat-eval-criteria-03">
             <t><list style="symbols">
                 <t>Keep-alive version.</t>
                 <t>Moved link parameters and traffic models from eval-test</t>
