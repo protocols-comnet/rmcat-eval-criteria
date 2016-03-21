@@ -835,7 +835,13 @@
         <section anchor="App-cl" title="Change Log">
         <t>Note to the RFC-Editor: please remove this section prior to
         publication as an RFC.</t>
-        <section title="Changes in draft-ietf-rmcat-eval-criteria-04">
+            <section title="Changes in draft-ietf-rmcat-eval-criteria-05">
+            <t><list style="symbols">
+                <t>Improved text surrounding wireless tests, video sequences,
+                and short-TCP model.</t>
+              </list></t>
+            </section>
+            <section title="Changes in draft-ietf-rmcat-eval-criteria-04">
             <t><list style="symbols">
                 <t>Removed the guidelines section, as most of the sections
                   are now covered: wireless tests, video model, etc.</t>
