@@ -19,8 +19,8 @@
 "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-xrblock-rtcp-xr-qoe.xml">
 <!ENTITY I-D.ietf-rmcat-eval-test PUBLIC ""
 "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-rmcat-eval-test.xml">
-<!ENTITY I-D.zhu-rmcat-video-traffic-source PUBLIC ""
-"http://xml.resource.org/public/rfc/bibxml3/reference.I-D.zhu-rmcat-video-traffic-source.xml">
+<!ENTITY I-D.ietf-rmcat-video-traffic-model PUBLIC ""
+"http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-rmcat-video-traffic-model.xml">
 <!ENTITY I-D.ietf-rmcat-wireless-tests PUBLIC ""
 "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-rmcat-wireless-tests.xml">
 <!ENTITY I-D.fu-rmcat-wifi-test-case PUBLIC ""
@@ -30,7 +30,7 @@
 <?rfc toc="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc symrefs="yes" ?>
-<rfc ipr="trust200902" docName="draft-ietf-rmcat-eval-criteria-04" category="info">
+<rfc ipr="trust200902" docName="draft-ietf-rmcat-eval-criteria-05" category="info">
     <!-- What is the category field value-->
     <front>
         <title abbrev="Evaluating Congestion Control for RMCAT">
@@ -39,35 +39,48 @@
         </title>
 
         <author fullname="Varun Singh" initials="V." surname="Singh">
-          <organization abbrev="callstats.io">Nemu Dialogue Systems Oy</organization>
-          <address>
+            <organization abbrev="callstats.io">Nemu Dialogue Systems Oy</organization>
+            <address>
             <postal>
               <street>Runeberginkatu 4c A 4 </street>
               <city>Helsinki</city>
               <code>00100</code>
               <country>Finland</country>
             </postal>
-            <email>varun@callstats.io</email>
-            <uri>http://www.callstats.io/</uri>
-          </address>
-        </author>
-
-        <author initials="J." surname="Ott" fullname="Joerg Ott">
-            <organization>Aalto University</organization>
-            <address>
-                <postal>
-                    <street>School of Electrical Engineering</street>
-                    <street>Otakaari 5 A</street>
-                    <city>Espoo</city>
-                    <region>FIN</region>
-                    <code>02150</code>
-                    <country>Finland</country>
-                </postal>
-                <email>jo@comnet.tkk.fi</email>
+                <email>varun.singh@iki.fi</email>
+                <uri>http://www.callstats.io/</uri>
             </address>
         </author>
 
-        <date year="2015"/>
+        <author initials="J." surname="Ott" fullname="Joerg Ott">
+          <organization>Technical University of Munich</organization>
+          <address>
+            <postal>
+              <street>Faculty of Informatics</street>
+              <street>Boltzmannstrasse 3</street>
+              <city>Garching bei München</city>
+              <region>DE</region>
+              <code>85748</code>
+              <country>Germany</country>
+            </postal>
+            <email>ott@in.tum.de</email>
+          </address>
+        </author>
+
+        <author fullname="Stefan Holmer" initials="S." surname="Holmer">
+          <organization>Google</organization>
+          <address>
+            <postal>
+              <street>Kungsbron 2</street>
+              <code>11122</code>
+              <city>Stockholm</city>
+              <country>Sweden</country>
+            </postal>
+            <email>holmer@google.com</email>
+          </address>
+        </author>
+
+        <date year="2016"/>
         <area>TSV</area>
         <workgroup>RMCAT WG</workgroup>
         <keyword>RTP</keyword>
@@ -106,10 +119,10 @@
             requirement for RMCAT proposals is to produce or present
             results for the test scenarios described in
             <xref target="I-D.ietf-rmcat-eval-test" /> (Basic Test Cases).
-            The results of the evaluation are not expected to be
-            included within the internet-draft but should be cited in the
-            document.</t>
-
+            Additionally, proponents may produce evaluation results for the
+            <xref target="I-D.ietf-rmcat-wireless-tests"> wireless test
+            scenarios</xref>.
+            </t>
         </section>
 
         <section title="Terminology" anchor="sec-terminology">
@@ -480,7 +493,7 @@
       </section>
 
       <section title="Loss generation model">
-        <t>[Editor's note : Describes the model for generating packet losses,
+        <t>[Open Issue: Describes the model for generating packet losses,
         for example, losses can be generated using traces, or using the
         Gilbert-Elliot model, or randomly (uncorrelated loss).]</t>
       </section>
@@ -521,6 +534,8 @@
         <t>In this section we define two different bounded PDV
         characteristics, 1) Random Bounded PDV and 2) Approximately Random
         Subject to No-Reordering Bounded PDV.</t>
+
+        <t>[Open issue: which one is used in evaluations? Are both used?]</t>
 
         <section title="Random Bounded PDV (RBPDV)">
 
@@ -607,10 +622,9 @@
 
     <section title="WiFi or Cellular Links">
         <t>
-          <xref target="I-D.fu-rmcat-wifi-test-case" /> describes methods to
-          evaluate the congestion control in WiFi network, alternatively
-          <xref target="I-D.ietf-rmcat-wireless-tests" /> describes mechanisms
-          to emulate and simulate cellular networks.
+          <xref target="I-D.ietf-rmcat-wireless-tests" /> describes the test
+          cases to simulate networks with wireless links. The document
+          describes mechanism to simulate both cellular and WiFi networks.
         </t>
     </section>
 
@@ -640,12 +654,26 @@
 
       <section title="RTP Video model">
         <t>
-          <xref target="I-D.zhu-rmcat-video-traffic-source" /> describes two
+          <xref target="I-D.ietf-rmcat-video-traffic-model" /> describes two
           types of video traffic models for evaluating RMCAT candidate algorithms.
           The first model statistically characterizes the behavior of a video
           encoder. Whereas the second model uses video traces.
         </t>
+        <t> For example, test sequences are available at:
+            <xref target="xiph-seq"></xref> and <xref target="HEVC-seq"></xref>.
+        </t>
+        <t>[Open issue: Which sequences are used? All? Some subset?]</t>
+
       </section>
+
+      <section title="Background UDP">
+       <t>[Open issue: Background UDP flow is modeled as a constant
+            bit rate (CBR) flow. It will download data at a particular CBR
+            rate for the complete session, or will change to particular
+            CBR rate at predefined intervals. They parameters are still TBD.
+            e.g., packet size, packet spacing interval, etc.]
+        </t>
+        </section>
 
     </section>
 
@@ -706,7 +734,6 @@
             &I-D.ietf-rmcat-cc-requirements;
             &I-D.ietf-avtcore-rtp-circuit-breakers;
             &I-D.ietf-rmcat-wireless-tests;
-            &I-D.fu-rmcat-wifi-test-case;
             </references>
 
             <references title="Informative References">
@@ -714,7 +741,7 @@
             &rfc5166; <!-- CC Metrics -->
             &rfc5681; <!-- Standard TCP -->
             &I-D.ietf-rmcat-eval-test;
-            &I-D.zhu-rmcat-video-traffic-source;
+            &I-D.ietf-rmcat-video-traffic-model;
             <!--
             &I-D.ietf-xrblock-rtcp-xr-qoe;
             <?rfc include="reference.3GPP.R1.081955"?>
@@ -764,6 +791,29 @@
                 <date month="August" year="2008"/>
               </front>
               <seriesInfo name="Proc. PFLDnet." value="2008"/>
+            </reference>
+
+            <reference anchor="xiph-seq">
+                <front>
+                  <title>Video Test Media</title>
+
+                  <author fullname="" initials="" surname="Xiph.org"></author>
+
+                  <date month="" year="" />
+                </front>
+                <seriesInfo name="http://media.xiph.org/video/derf/" value="" />
+            </reference>
+
+            <reference anchor="HEVC-seq">
+                <front>
+                  <title>Test Sequences</title>
+
+                  <author fullname="" initials="" surname="HEVC"></author>
+
+                  <date month="" year="" />
+                </front>
+                <seriesInfo name="http://www.netlab.tkk.fi/~varun/test_sequences/"
+                        value="" />
             </reference>
 
         </references>
