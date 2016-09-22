@@ -68,7 +68,7 @@
         </author>
 
         <author fullname="Stefan Holmer" initials="S." surname="Holmer">
-          <organization>Google</organization>
+          <organization abbrev="Google">Google</organization>
           <address>
             <postal>
               <street>Kungsbron 2</street>
@@ -499,7 +499,7 @@
       </section>
 
       <section anchor="JM" title="Jitter models">
-        <t>This section defines jitter model for the purposes of this
+        <t>This section defines jitter models for the purposes of this
         document. When jitter is to be applied to both the RMCAT flow and any
         competing flow (such as a TCP competing flow), the competing flow will
         use the jitter definition below that does not allow for re-ordering of
@@ -525,7 +525,7 @@
         packet network transport case there is typically one packet that
         transited the network with the minimum delay, then a majority of
         packets also transit the system within some variation from this
-        minimum delay, and then a minority of the packets transits the network
+        minimum delay, and then a minority of the packets transit the network
         with delays higher than the median or average transit time (these are
         outliers). Although infrequent, outliers can cause significant
         deleterious operation in adaptive systems and should be considered in
@@ -547,7 +547,7 @@
         idefined to be two standard deviations higher than the mean.</t>
 
         <t>Since we are typically interested in the distribution relative to
-        the mean delay packet, we define the zero mean PVD sample, z(n), to be
+        the mean delay packet, we define the zero mean PDV sample, z(n), to be
         z(n) = x(n) - x_mean, where x(n) is a sample of the RBPDV random
         variable x and x_mean is the mean of x.</t>
 
@@ -603,19 +603,17 @@
           models this particular use case (assuming serial(n+1) is defined
           appropriately for the device causing the outlier) and thus is believed
           to be important for adaptation development for RMCAT.</t>
-
-          <t>[Editor's Note: It may require to define test distributions as
-          well. Example test distribution may include-</t>
-
-          <t>1 - Two-sided: Uniform PDV Distribution. Two quantities to define:
-          x_min and x_max.</t>
-
-          <t>2 - Two-sided: Truncated Gaussian PDV Distribution. Four quantities
-          to define: the appropriate x_min and x_max for test (e.g., +/- two
-          sigma values), the standard deviation, and the mean.</t>
-
-          <t>3 - One Sided: Truncated Gaussian PDV Distribution. Quantities
-          to define: three sigma value, the standard deviation, and the mean]</t>
+        </section>
+        <section title="Recommended distribution">
+          <t>It is recommended that z(n) is distributed according to a truncated
+            Gaussian:</t>
+            <t>z(n) ~ |max(min(N(0, std^2), N_STD * std), -N_STD * std)|</t>
+          <t>where N(0, std^2) is the Gaussian distribution with zero mean and
+          standard deviation std. Recommended values:</t>
+          <t><list style="symbols">
+            <t>std = 5 ms</t>
+            <t>N_STD = 3</t>
+          </list></t>
         </section>
       </section>
     </section>
