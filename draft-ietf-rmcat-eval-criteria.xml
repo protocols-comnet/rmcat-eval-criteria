@@ -13,24 +13,20 @@
 "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-rmcat-cc-requirements.xml">
 <!ENTITY I-D.ietf-avtcore-rtp-circuit-breakers PUBLIC ""
 "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-avtcore-rtp-circuit-breakers.xml">
-<!ENTITY I-D.ietf-ledbat-congestion PUBLIC ""
-"http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-ledbat-congestion.xml">
-<!ENTITY I-D.ietf-xrblock-rtcp-xr-qoe PUBLIC ""
-"http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-xrblock-rtcp-xr-qoe.xml">
+<!ENTITY I-D.ietf-netvc-testing PUBLIC ""
+"https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-netvc-testing.xml">
 <!ENTITY I-D.ietf-rmcat-eval-test PUBLIC ""
 "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-rmcat-eval-test.xml">
 <!ENTITY I-D.ietf-rmcat-video-traffic-model PUBLIC ""
 "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-rmcat-video-traffic-model.xml">
 <!ENTITY I-D.ietf-rmcat-wireless-tests PUBLIC ""
 "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-rmcat-wireless-tests.xml">
-<!ENTITY I-D.fu-rmcat-wifi-test-case PUBLIC ""
-"http://xml.resource.org/public/rfc/bibxml3/reference.I-D.fu-rmcat-wifi-test-case.xml">
 ]>
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 <?rfc toc="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc symrefs="yes" ?>
-<rfc ipr="trust200902" docName="draft-ietf-rmcat-eval-criteria-05" category="info">
+<rfc ipr="trust200902" docName="draft-ietf-rmcat-eval-criteria-06" category="info">
     <!-- What is the category field value-->
     <front>
         <title abbrev="Evaluating Congestion Control for RMCAT">
@@ -38,18 +34,21 @@
             <!--Evaluation Criteria for RTP Congestion Avoidance Techniques -->
         </title>
 
-        <author fullname="Varun Singh" initials="V." surname="Singh">
-            <organization abbrev="callstats.io">Nemu Dialogue Systems Oy</organization>
-            <address>
+        <author initials="V." surname="Singh" fullname="Varun Singh">
+          <organization abbrev="callstats.io">
+            CALLSTATS I/O Oy
+          </organization>
+          <address>
             <postal>
-              <street>Runeberginkatu 4c A 4 </street>
-              <city>Helsinki</city>
-              <code>00100</code>
+              <street>Runeberginkatu 4c A 4</street>
+              <code>00100</code> <city>Helsinki</city>
               <country>Finland</country>
             </postal>
-                <email>varun.singh@iki.fi</email>
-                <uri>http://www.callstats.io/</uri>
-            </address>
+            <email>varun@callstats.io</email>
+            <uri>
+              https://www.callstats.io/about
+            </uri>
+          </address>
         </author>
 
         <author initials="J." surname="Ott" fullname="Joerg Ott">
@@ -197,6 +196,9 @@
             high watermark level and a low watermark level, or vice-versa in
             a defined time window. For example, the watermarks can be set at 4x
             interval: 500 Kbps, 2 Mbps, and a time window of 500ms.</t>
+
+            <t>[Editor's note: Section 3, in <xref target="I-D.ietf-netvc-testing" />
+                contains objective Metrics for evaluating codecs.]</t>
 
         <!--
         <t>[Open issue (2): Convergence time was discussed briefly in the
@@ -659,17 +661,17 @@
         </t>
         <t> For example, test sequences are available at:
             <xref target="xiph-seq"></xref> and <xref target="HEVC-seq"></xref>.
-        </t>
-        <t>[Open issue: Which sequences are used? All? Some subset?]</t>
+            The currently chosen video streams are: Foreman and FourPeople.</t>
 
       </section>
 
       <section title="Background UDP">
-       <t>[Open issue: Background UDP flow is modeled as a constant
+       <t>Background UDP flow is modeled as a constant
             bit rate (CBR) flow. It will download data at a particular CBR
             rate for the complete session, or will change to particular
-            CBR rate at predefined intervals. They parameters are still TBD.
-            e.g., packet size, packet spacing interval, etc.]
+            CBR rate at predefined intervals. The inter packet interval is
+            calculated based on the CBR and the packet size (is typically
+            set to the path MTU size, the default value can be 1500 bytes).
         </t>
         </section>
 
@@ -740,10 +742,8 @@
             &rfc5681; <!-- Standard TCP -->
             &I-D.ietf-rmcat-eval-test;
             &I-D.ietf-rmcat-video-traffic-model;
-            <!--
-            &I-D.ietf-xrblock-rtcp-xr-qoe;
-            <?rfc include="reference.3GPP.R1.081955"?>
-            -->
+            &I-D.ietf-netvc-testing;
+            <!-- <?rfc include="reference.3GPP.R1.081955"?>
             <reference anchor="SA4-EVAL">
                 <front>
                     <title>LTE Link Level Throughput Data for SA4 Evaluation Framework</title>
@@ -760,6 +760,7 @@
                 <seriesInfo name="3GPP" value="R1-081955" />
                 <format type='ZIP' octets='3459875' target='http://www.3gpp.net/ftp/tsg_ran/WG1_RL1/TSGR1_53/Docs/R1-081955.zip' />
             </reference>
+            -->
 
 
             <reference anchor="SA4-LR">
@@ -793,13 +794,13 @@
 
             <reference anchor="xiph-seq">
                 <front>
-                  <title>Video Test Media</title>
+                  <title>Video Test Media Set</title>
 
-                  <author fullname="" initials="" surname="Xiph.org"></author>
+                  <author fullname="Daede, T." initials="T." surname="Daede"></author>
 
                   <date month="" year="" />
                 </front>
-                <seriesInfo name="http://media.xiph.org/video/derf/" value="" />
+                <seriesInfo name="https://people.xiph.org/~tdaede/sets/" value="" />
             </reference>
 
             <reference anchor="HEVC-seq">
@@ -833,6 +834,11 @@
         <section anchor="App-cl" title="Change Log">
         <t>Note to the RFC-Editor: please remove this section prior to
         publication as an RFC.</t>
+            <section title="Changes in draft-ietf-rmcat-eval-criteria-06">
+            <t><list style="symbols">
+                <t>Updated Jitter.</t>
+              </list></t>
+            </section>
             <section title="Changes in draft-ietf-rmcat-eval-criteria-05">
             <t><list style="symbols">
                 <t>Improved text surrounding wireless tests, video sequences,
