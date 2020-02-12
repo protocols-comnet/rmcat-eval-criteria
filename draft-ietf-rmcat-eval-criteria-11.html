@@ -1,0 +1,996 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head profile="http://www.w3.org/2006/03/hcard http://dublincore.org/documents/2008/08/04/dc-html/">
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+
+  <title>Evaluating Congestion Control for Interactive Real-time Media </title>
+
+  <style type="text/css" title="Xml2Rfc (sans serif)">
+  /*<![CDATA[*/
+	  a {
+	  text-decoration: none;
+	  }
+      /* info code from SantaKlauss at http://www.madaboutstyle.com/tooltip2.html */
+      a.info {
+          /* This is the key. */
+          position: relative;
+          z-index: 24;
+          text-decoration: none;
+      }
+      a.info:hover {
+          z-index: 25;
+          color: #FFF; background-color: #900;
+      }
+      a.info span { display: none; }
+      a.info:hover span.info {
+          /* The span will display just on :hover state. */
+          display: block;
+          position: absolute;
+          font-size: smaller;
+          top: 2em; left: -5em; width: 15em;
+          padding: 2px; border: 1px solid #333;
+          color: #900; background-color: #EEE;
+          text-align: left;
+      }
+	  a.smpl {
+	  color: black;
+	  }
+	  a:hover {
+	  text-decoration: underline;
+	  }
+	  a:active {
+	  text-decoration: underline;
+	  }
+	  address {
+	  margin-top: 1em;
+	  margin-left: 2em;
+	  font-style: normal;
+	  }
+	  body {
+	  color: black;
+	  font-family: verdana, helvetica, arial, sans-serif;
+	  font-size: 10pt;
+	  max-width: 55em;
+	  
+	  }
+	  cite {
+	  font-style: normal;
+	  }
+	  dd {
+	  margin-right: 2em;
+	  }
+	  dl {
+	  margin-left: 2em;
+	  }
+	
+	  ul.empty {
+	  list-style-type: none;
+	  }
+	  ul.empty li {
+	  margin-top: .5em;
+	  }
+	  dl p {
+	  margin-left: 0em;
+	  }
+	  dt {
+	  margin-top: .5em;
+	  }
+	  h1 {
+	  font-size: 14pt;
+	  line-height: 21pt;
+	  page-break-after: avoid;
+	  }
+	  h1.np {
+	  page-break-before: always;
+	  }
+	  h1 a {
+	  color: #333333;
+	  }
+	  h2 {
+	  font-size: 12pt;
+	  line-height: 15pt;
+	  page-break-after: avoid;
+	  }
+	  h3, h4, h5, h6 {
+	  font-size: 10pt;
+	  page-break-after: avoid;
+	  }
+	  h2 a, h3 a, h4 a, h5 a, h6 a {
+	  color: black;
+	  }
+	  img {
+	  margin-left: 3em;
+	  }
+	  li {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  ol {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  ol p {
+	  margin-left: 0em;
+	  }
+	  p {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  pre {
+	  margin-left: 3em;
+	  background-color: lightyellow;
+	  padding: .25em;
+	  }
+	  pre.text2 {
+	  border-style: dotted;
+	  border-width: 1px;
+	  background-color: #f0f0f0;
+	  width: 69em;
+	  }
+	  pre.inline {
+	  background-color: white;
+	  padding: 0em;
+	  }
+	  pre.text {
+	  border-style: dotted;
+	  border-width: 1px;
+	  background-color: #f8f8f8;
+	  width: 69em;
+	  }
+	  pre.drawing {
+	  border-style: solid;
+	  border-width: 1px;
+	  background-color: #f8f8f8;
+	  padding: 2em;
+	  }
+	  table {
+	  margin-left: 2em;
+	  }
+	  table.tt {
+	  vertical-align: top;
+	  }
+	  table.full {
+	  border-style: outset;
+	  border-width: 1px;
+	  }
+	  table.headers {
+	  border-style: outset;
+	  border-width: 1px;
+	  }
+	  table.tt td {
+	  vertical-align: top;
+	  }
+	  table.full td {
+	  border-style: inset;
+	  border-width: 1px;
+	  }
+	  table.tt th {
+	  vertical-align: top;
+	  }
+	  table.full th {
+	  border-style: inset;
+	  border-width: 1px;
+	  }
+	  table.headers th {
+	  border-style: none none inset none;
+	  border-width: 1px;
+	  }
+	  table.left {
+	  margin-right: auto;
+	  }
+	  table.right {
+	  margin-left: auto;
+	  }
+	  table.center {
+	  margin-left: auto;
+	  margin-right: auto;
+	  }
+	  caption {
+	  caption-side: bottom;
+	  font-weight: bold;
+	  font-size: 9pt;
+	  margin-top: .5em;
+	  }
+	
+	  table.header {
+	  border-spacing: 1px;
+	  width: 95%;
+	  font-size: 10pt;
+	  color: white;
+	  }
+	  td.top {
+	  vertical-align: top;
+	  }
+	  td.topnowrap {
+	  vertical-align: top;
+	  white-space: nowrap; 
+	  }
+	  table.header td {
+	  background-color: gray;
+	  width: 50%;
+	  }
+	  table.header a {
+	  color: white;
+	  }
+	  td.reference {
+	  vertical-align: top;
+	  white-space: nowrap;
+	  padding-right: 1em;
+	  }
+	  thead {
+	  display:table-header-group;
+	  }
+	  ul.toc, ul.toc ul {
+	  list-style: none;
+	  margin-left: 1.5em;
+	  margin-right: 0em;
+	  padding-left: 0em;
+	  }
+	  ul.toc li {
+	  line-height: 150%;
+	  font-weight: bold;
+	  font-size: 10pt;
+	  margin-left: 0em;
+	  margin-right: 0em;
+	  }
+	  ul.toc li li {
+	  line-height: normal;
+	  font-weight: normal;
+	  font-size: 9pt;
+	  margin-left: 0em;
+	  margin-right: 0em;
+	  }
+	  li.excluded {
+	  font-size: 0pt;
+	  }
+	  ul p {
+	  margin-left: 0em;
+	  }
+	
+	  .comment {
+	  background-color: yellow;
+	  }
+	  .center {
+	  text-align: center;
+	  }
+	  .error {
+	  color: red;
+	  font-style: italic;
+	  font-weight: bold;
+	  }
+	  .figure {
+	  font-weight: bold;
+	  text-align: center;
+	  font-size: 9pt;
+	  }
+	  .filename {
+	  color: #333333;
+	  font-weight: bold;
+	  font-size: 12pt;
+	  line-height: 21pt;
+	  text-align: center;
+	  }
+	  .fn {
+	  font-weight: bold;
+	  }
+	  .hidden {
+	  display: none;
+	  }
+	  .left {
+	  text-align: left;
+	  }
+	  .right {
+	  text-align: right;
+	  }
+	  .title {
+	  color: #990000;
+	  font-size: 18pt;
+	  line-height: 18pt;
+	  font-weight: bold;
+	  text-align: center;
+	  margin-top: 36pt;
+	  }
+	  .vcardline {
+	  display: block;
+	  }
+	  .warning {
+	  font-size: 14pt;
+	  background-color: yellow;
+	  }
+	
+	
+	  @media print {
+	  .noprint {
+		display: none;
+	  }
+	
+	  a {
+		color: black;
+		text-decoration: none;
+	  }
+	
+	  table.header {
+		width: 90%;
+	  }
+	
+	  td.header {
+		width: 50%;
+		color: black;
+		background-color: white;
+		vertical-align: top;
+		font-size: 12pt;
+	  }
+	
+	  ul.toc a::after {
+		content: leader('.') target-counter(attr(href), page);
+	  }
+	
+	  ul.ind li li a {
+		content: target-counter(attr(href), page);
+	  }
+	
+	  .print2col {
+		column-count: 2;
+		-moz-column-count: 2;
+		column-fill: auto;
+	  }
+	  }
+	
+	  @page {
+	  @top-left {
+		   content: "Internet-Draft"; 
+	  } 
+	  @top-right {
+		   content: "December 2010"; 
+	  } 
+	  @top-center {
+		   content: "Abbreviated Title";
+	  } 
+	  @bottom-left {
+		   content: "Doe"; 
+	  } 
+	  @bottom-center {
+		   content: "Expires June 2011"; 
+	  } 
+	  @bottom-right {
+		   content: "[Page " counter(page) "]"; 
+	  } 
+	  }
+	
+	  @page:first { 
+		@top-left {
+		  content: normal;
+		}
+		@top-right {
+		  content: normal;
+		}
+		@top-center {
+		  content: normal;
+		}
+	  }
+  /*]]>*/
+  </style>
+
+  <link href="#rfc.toc" rel="Contents">
+<link href="#rfc.section.1" rel="Chapter" title="1 Introduction">
+<link href="#rfc.section.2" rel="Chapter" title="2 Terminology">
+<link href="#rfc.section.3" rel="Chapter" title="3 Metrics">
+<link href="#rfc.section.3.1" rel="Chapter" title="3.1 RTP Log Format">
+<link href="#rfc.section.4" rel="Chapter" title="4 List of Network Parameters">
+<link href="#rfc.section.4.1" rel="Chapter" title="4.1 One-way Propagation Delay">
+<link href="#rfc.section.4.2" rel="Chapter" title="4.2 End-to-end Loss">
+<link href="#rfc.section.4.3" rel="Chapter" title="4.3 Drop Tail Router Queue Length">
+<link href="#rfc.section.4.4" rel="Chapter" title="4.4 Loss generation model">
+<link href="#rfc.section.4.5" rel="Chapter" title="4.5 Jitter models">
+<link href="#rfc.section.4.5.1" rel="Chapter" title="4.5.1 Random Bounded PDV (RBPDV)">
+<link href="#rfc.section.4.5.2" rel="Chapter" title="4.5.2 Approximately Random Subject to No-Reordering Bounded PDV         (NR-RPVD)">
+<link href="#rfc.section.4.5.3" rel="Chapter" title="4.5.3 Recommended distribution">
+<link href="#rfc.section.5" rel="Chapter" title="5 Traffic Models">
+<link href="#rfc.section.5.1" rel="Chapter" title="5.1 TCP traffic model">
+<link href="#rfc.section.5.2" rel="Chapter" title="5.2 RTP Video model">
+<link href="#rfc.section.5.3" rel="Chapter" title="5.3 Background UDP">
+<link href="#rfc.section.6" rel="Chapter" title="6 Security Considerations">
+<link href="#rfc.section.7" rel="Chapter" title="7 IANA Considerations">
+<link href="#rfc.section.8" rel="Chapter" title="8 Contributors">
+<link href="#rfc.section.9" rel="Chapter" title="9 Acknowledgments">
+<link href="#rfc.references" rel="Chapter" title="10 References">
+<link href="#rfc.references.1" rel="Chapter" title="10.1 Normative References">
+<link href="#rfc.references.2" rel="Chapter" title="10.2 Informative References">
+<link href="#rfc.appendix.A" rel="Chapter" title="A Application Trade-off">
+<link href="#rfc.appendix.A.1" rel="Chapter" title="A.1 Measuring Quality">
+<link href="#rfc.appendix.B" rel="Chapter" title="B Change Log">
+<link href="#rfc.appendix.B.1" rel="Chapter" title="B.1 Changes in draft-ietf-rmcat-eval-criteria-07">
+<link href="#rfc.appendix.B.2" rel="Chapter" title="B.2 Changes in draft-ietf-rmcat-eval-criteria-06">
+<link href="#rfc.appendix.B.3" rel="Chapter" title="B.3 Changes in draft-ietf-rmcat-eval-criteria-05">
+<link href="#rfc.appendix.B.4" rel="Chapter" title="B.4 Changes in draft-ietf-rmcat-eval-criteria-04">
+<link href="#rfc.appendix.B.5" rel="Chapter" title="B.5 Changes in draft-ietf-rmcat-eval-criteria-03">
+<link href="#rfc.appendix.B.6" rel="Chapter" title="B.6 Changes in draft-ietf-rmcat-eval-criteria-02">
+<link href="#rfc.appendix.B.7" rel="Chapter" title="B.7 Changes in draft-ietf-rmcat-eval-criteria-01">
+<link href="#rfc.appendix.B.8" rel="Chapter" title="B.8 Changes in draft-ietf-rmcat-eval-criteria-00">
+<link href="#rfc.appendix.B.9" rel="Chapter" title="B.9 Changes in draft-singh-rmcat-cc-eval-04">
+<link href="#rfc.appendix.B.10" rel="Chapter" title="B.10 Changes in draft-singh-rmcat-cc-eval-03">
+<link href="#rfc.appendix.B.11" rel="Chapter" title="B.11 Changes in draft-singh-rmcat-cc-eval-02">
+<link href="#rfc.appendix.B.12" rel="Chapter" title="B.12 Changes in draft-singh-rmcat-cc-eval-01">
+<link href="#rfc.authors" rel="Chapter">
+
+
+  <meta name="generator" content="xml2rfc version 2.39.0 - https://tools.ietf.org/tools/xml2rfc" />
+  <link rel="schema.dct" href="http://purl.org/dc/terms/" />
+
+  <meta name="dct.creator" content="Singh, V., Ott, J., and S. Holmer" />
+  <meta name="dct.identifier" content="urn:ietf:id:draft-ietf-rmcat-eval-criteria-11" />
+  <meta name="dct.issued" scheme="ISO8601" content="2020-12" />
+  <meta name="dct.abstract" content="The Real-time Transport Protocol (RTP) is used to transmit media in telephony and video conferencing applications. This document describes the guidelines to evaluate new congestion control algorithms for interactive point-to-point real-time media. " />
+  <meta name="description" content="The Real-time Transport Protocol (RTP) is used to transmit media in telephony and video conferencing applications. This document describes the guidelines to evaluate new congestion control algorithms for interactive point-to-point real-time media. " />
+
+</head>
+
+<body>
+
+  <table class="header">
+    <tbody>
+    
+    	<tr>
+<td class="left">RMCAT WG</td>
+<td class="right">V. Singh</td>
+</tr>
+<tr>
+<td class="left">Internet-Draft</td>
+<td class="right">callstats.io</td>
+</tr>
+<tr>
+<td class="left">Intended status: Informational</td>
+<td class="right">J. Ott</td>
+</tr>
+<tr>
+<td class="left">Expires: August 15, 2020</td>
+<td class="right">Technical University of Munich</td>
+</tr>
+<tr>
+<td class="left"></td>
+<td class="right">S. Holmer</td>
+</tr>
+<tr>
+<td class="left"></td>
+<td class="right">Google</td>
+</tr>
+<tr>
+<td class="left"></td>
+<td class="right">February 12, 2020</td>
+</tr>
+
+    	
+    </tbody>
+  </table>
+
+  <p class="title">Evaluating Congestion Control for Interactive Real-time Media <br />
+  <span class="filename">draft-ietf-rmcat-eval-criteria-11</span></p>
+  
+  <h1 id="rfc.abstract"><a href="#rfc.abstract">Abstract</a></h1>
+<p>The Real-time Transport Protocol (RTP) is used to transmit media in telephony and video conferencing applications. This document describes the guidelines to evaluate new congestion control algorithms for interactive point-to-point real-time media.</p>
+<h1 id="rfc.status"><a href="#rfc.status">Status of This Memo</a></h1>
+<p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
+<p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
+<p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
+<p>This Internet-Draft will expire on August 15, 2020.</p>
+<h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
+<p>Copyright (c) 2020 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
+<p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
+
+  
+  <hr class="noprint" />
+  <h1 class="np" id="rfc.toc"><a href="#rfc.toc">Table of Contents</a></h1>
+  <ul class="toc">
+
+  	<li>1.   <a href="#rfc.section.1">Introduction</a>
+</li>
+<li>2.   <a href="#rfc.section.2">Terminology</a>
+</li>
+<li>3.   <a href="#rfc.section.3">Metrics</a>
+</li>
+<ul><li>3.1.   <a href="#rfc.section.3.1">RTP Log Format</a>
+</li>
+</ul><li>4.   <a href="#rfc.section.4">List of Network Parameters</a>
+</li>
+<ul><li>4.1.   <a href="#rfc.section.4.1">One-way Propagation Delay</a>
+</li>
+<li>4.2.   <a href="#rfc.section.4.2">End-to-end Loss</a>
+</li>
+<li>4.3.   <a href="#rfc.section.4.3">Drop Tail Router Queue Length</a>
+</li>
+<li>4.4.   <a href="#rfc.section.4.4">Loss generation model</a>
+</li>
+<li>4.5.   <a href="#rfc.section.4.5">Jitter models</a>
+</li>
+<ul><li>4.5.1.   <a href="#rfc.section.4.5.1">Random Bounded PDV (RBPDV)</a>
+</li>
+<li>4.5.2.   <a href="#rfc.section.4.5.2">Approximately Random Subject to No-Reordering Bounded PDV         (NR-RPVD)</a>
+</li>
+<li>4.5.3.   <a href="#rfc.section.4.5.3">Recommended distribution</a>
+</li>
+</ul></ul><li>5.   <a href="#rfc.section.5">Traffic Models</a>
+</li>
+<ul><li>5.1.   <a href="#rfc.section.5.1">TCP traffic model</a>
+</li>
+<li>5.2.   <a href="#rfc.section.5.2">RTP Video model</a>
+</li>
+<li>5.3.   <a href="#rfc.section.5.3">Background UDP</a>
+</li>
+</ul><li>6.   <a href="#rfc.section.6">Security Considerations</a>
+</li>
+<li>7.   <a href="#rfc.section.7">IANA Considerations</a>
+</li>
+<li>8.   <a href="#rfc.section.8">Contributors</a>
+</li>
+<li>9.   <a href="#rfc.section.9">Acknowledgments</a>
+</li>
+<li>10.   <a href="#rfc.references">References</a>
+</li>
+<ul><li>10.1.   <a href="#rfc.references.1">Normative References</a>
+</li>
+<li>10.2.   <a href="#rfc.references.2">Informative References</a>
+</li>
+</ul><li>Appendix A.   <a href="#rfc.appendix.A">Application Trade-off</a>
+</li>
+<ul><li>A.1.   <a href="#rfc.appendix.A.1">Measuring Quality</a>
+</li>
+</ul><li>Appendix B.   <a href="#rfc.appendix.B">Change Log</a>
+</li>
+<ul><li>B.1.   <a href="#rfc.appendix.B.1">Changes in draft-ietf-rmcat-eval-criteria-07</a>
+</li>
+<li>B.2.   <a href="#rfc.appendix.B.2">Changes in draft-ietf-rmcat-eval-criteria-06</a>
+</li>
+<li>B.3.   <a href="#rfc.appendix.B.3">Changes in draft-ietf-rmcat-eval-criteria-05</a>
+</li>
+<li>B.4.   <a href="#rfc.appendix.B.4">Changes in draft-ietf-rmcat-eval-criteria-04</a>
+</li>
+<li>B.5.   <a href="#rfc.appendix.B.5">Changes in draft-ietf-rmcat-eval-criteria-03</a>
+</li>
+<li>B.6.   <a href="#rfc.appendix.B.6">Changes in draft-ietf-rmcat-eval-criteria-02</a>
+</li>
+<li>B.7.   <a href="#rfc.appendix.B.7">Changes in draft-ietf-rmcat-eval-criteria-01</a>
+</li>
+<li>B.8.   <a href="#rfc.appendix.B.8">Changes in draft-ietf-rmcat-eval-criteria-00</a>
+</li>
+<li>B.9.   <a href="#rfc.appendix.B.9">Changes in draft-singh-rmcat-cc-eval-04</a>
+</li>
+<li>B.10.   <a href="#rfc.appendix.B.10">Changes in draft-singh-rmcat-cc-eval-03</a>
+</li>
+<li>B.11.   <a href="#rfc.appendix.B.11">Changes in draft-singh-rmcat-cc-eval-02</a>
+</li>
+<li>B.12.   <a href="#rfc.appendix.B.12">Changes in draft-singh-rmcat-cc-eval-01</a>
+</li>
+</ul><li><a href="#rfc.authors">Authors' Addresses</a>
+</li>
+
+
+  </ul>
+
+  <h1 id="rfc.section.1">
+<a href="#rfc.section.1">1.</a> Introduction</h1>
+<p id="rfc.section.1.p.1">This memo describes the guidelines to help with evaluating new congestion control algorithms for interactive point-to-point real time media. The requirements for the congestion control algorithm are outlined in <a href="#I-D.ietf-rmcat-cc-requirements" class="xref">[I-D.ietf-rmcat-cc-requirements]</a>). This document builds upon previous work at the IETF: <a href="#RFC5033" class="xref">Specifying New Congestion Control Algorithms</a> and <a href="#RFC5166" class="xref">Metrics for the Evaluation of Congestion Control Algorithms</a>.</p>
+<p id="rfc.section.1.p.2">The guidelines proposed in the document are intended to help prevent a congestion collapse, promote fair capacity usage and optimize the media flow's throughput. Furthermore, the proposed algorithms are expected to operate within the envelope of the circuit breakers defined in <a href="#RFC8083" class="xref">RFC8083</a>.</p>
+<p id="rfc.section.1.p.3">This document only provides the broad set of network parameters and and traffic models for evaluating a new congestion control algorithm.  The minimal requirements for congestion control proposals is to produce or present results for the test scenarios described in <a href="#I-D.ietf-rmcat-eval-test" class="xref">[I-D.ietf-rmcat-eval-test]</a> (Basic Test Cases), which also defines .  Additionally, proponents may produce evaluation results for the <a href="#I-D.ietf-rmcat-wireless-tests" class="xref">wireless test scenarios</a>.  </p>
+<h1 id="rfc.section.2">
+<a href="#rfc.section.2">2.</a> <a href="#sec-terminology" id="sec-terminology">Terminology</a>
+</h1>
+<p id="rfc.section.2.p.1">The terminology defined in <a href="#RFC3550" class="xref">RTP</a>, <a href="#RFC3551" class="xref">RTP Profile for Audio and Video Conferences with Minimal Control</a>, <a href="#RFC3611" class="xref">RTCP Extended Report (XR)</a>, <a href="#RFC4585" class="xref">Extended RTP Profile for RTCP-based Feedback (RTP/AVPF)</a> and <a href="#RFC5506" class="xref">Support for Reduced-Size RTCP</a> apply.</p>
+<h1 id="rfc.section.3">
+<a href="#rfc.section.3">3.</a> <a href="#cc-metrics" id="cc-metrics">Metrics</a>
+</h1>
+<p id="rfc.section.3.p.1">This document specifies testing criteria for evaluating congestion control algorithms for RTP media flows.  Proposed algorithms are to prove their performance by means of simulation and/or emulation experiments for all the cases described.</p>
+<p id="rfc.section.3.p.2">Each experiment is expected to log every incoming and outgoing packet (the RTP logging format is described in <a href="#rtp-logging" class="xref">Section 3.1</a>). The logging can be done inside the application or at the endpoints using PCAP (packet capture, e.g., tcpdump, wireshark). The following metrics are calculated based on the information in the packet logs: </p>
+
+<ol>
+<li>Sending rate, Receiver rate, Goodput (measured at 200ms intervals)</li>
+<li>Packets sent, Packets received</li>
+<li>Bytes sent, bytes received</li>
+<li>Packet delay</li>
+<li>Packets lost, Packets discarded (from the playout or de-jitter buffer)</li>
+<li>If using, retransmission or FEC: post-repair loss</li>
+<li>Self-Fairness and Fairness with respect to cross traffic: Experiments testing a given congestion control proposal must report on relative ratios of the average throughput (measured at coarser time intervals) obtained by each RTP media stream. In the presence of background cross-traffic such as TCP, the report must also include the relative ratio between average throughput of RTP media streams and cross-traffic streams.  <br> During static periods of a test (i.e., when bottleneck bandwidth is constant and no arrival/departure of streams), these report on relative ratios serve as an indicator of how fair the RTP streams share bandwidth amongst themselves and against cross-traffic streams. The throughput measurement interval should be set at a few values (for example, at 1s, 5s, and 20s) in order to measure fairness across different time scales.  <br> As a general guideline, the relative ratio between congestion controlled RTP flows with the same priority level and similar path RTT should be bounded between (0.333 and 3.)  For example, see the test scenarios described in <a href="#I-D.ietf-rmcat-eval-test" class="xref">[I-D.ietf-rmcat-eval-test]</a>.</li>
+<li>Convergence time: The time taken to reach a stable rate at startup, after the available link capacity changes, or when new flows get added to the bottleneck link.</li>
+<li>Instability or oscillation in the sending rate: The frequency or number of instances when the sending rate oscillates between an high watermark level and a low watermark level, or vice-versa in a defined time window. For example, the watermarks can be set at 4x interval: 500 Kbps, 2 Mbps, and a time window of 500ms.</li>
+<li>Bandwidth Utilization, defined as ratio of the instantaneous sending rate to the instantaneous bottleneck capacity. This metric is useful only when a congestion controlled RTP flow is by itself or competing with similar cross-traffic.</li>
+</ol>
+<p id="rfc.section.3.p.3">Note that the above metrics are all objective application-independent metrics.  Refer to Section 3, in <a href="#I-D.ietf-netvc-testing" class="xref">[I-D.ietf-netvc-testing]</a> for objective metrics for evaluating codecs.  </p>
+<p id="rfc.section.3.p.4">From the logs the statistical measures (min, max, mean, standard deviation and variance) for the whole duration or any specific part of the session can be calculated. Also the metrics (sending rate, receiver rate, goodput, latency) can be visualized in graphs as variation over time, the measurements in the plot are at 1 second intervals. Additionally, from the logs it is possible to plot the histogram or CDF of packet delay.</p>
+<h1 id="rfc.section.3.1">
+<a href="#rfc.section.3.1">3.1.</a> <a href="#rtp-logging" id="rtp-logging">RTP Log Format</a>
+</h1>
+<p id="rfc.section.3.1.p.1">Having a common log format simplifies running analyses across and comparing different measurements.  The log file should be tab or comma separated containing the following details: </p>
+<pre>
+        Send or receive timestamp (unix)
+        RTP payload type
+        SSRC
+        RTP sequence no
+        RTP timestamp
+        marker bit
+        payload size
+</pre>
+<p id="rfc.section.3.1.p.2">If the congestion control implements, retransmissions or FEC, the evaluation should report both packet loss (before applying error-resilience) and residual packet loss (after applying error-resilience).</p>
+<h1 id="rfc.section.4">
+<a href="#rfc.section.4">4.</a> <a href="#add-params" id="add-params">List of Network Parameters</a>
+</h1>
+<p id="rfc.section.4.p.1">The implementors initially are encouraged to choose evaluation settings from the following values:</p>
+<h1 id="rfc.section.4.1">
+<a href="#rfc.section.4.1">4.1.</a> <a href="#scen-delay" id="scen-delay">One-way Propagation Delay</a>
+</h1>
+<p id="rfc.section.4.1.p.1">Experiments are expected to verify that the congestion control is able to work across a broad range of path characteristics, also including challenging situations, for example over trans-continental and/or satellite links.  Tests thus account for the following different latencies: </p>
+
+<ol>
+<li>Very low latency: 0-1ms</li>
+<li>Low latency: 50ms</li>
+<li>High latency: 150ms</li>
+<li>Extreme latency: 300ms</li>
+</ol>
+<h1 id="rfc.section.4.2">
+<a href="#rfc.section.4.2">4.2.</a> <a href="#scen-loss" id="scen-loss">End-to-end Loss</a>
+</h1>
+<p id="rfc.section.4.2.p.1">Many paths in the Internet today are largely lossless but, with wireless networks and interference, towards remote regions, or in scenarios featuring high/fast mobility, media flows may exhibit substantial packet loss.  This variety needs to be reflected appropriately by the tests.</p>
+<p id="rfc.section.4.2.p.2">To model a wide range of lossy links, the experiments can choose one of the following loss rates, the fractional loss is the ratio of packets lost and packets sent. </p>
+
+<ol>
+<li>no loss: 0%</li>
+<li>1%</li>
+<li>5%</li>
+<li>10%</li>
+<li>20%</li>
+</ol>
+<h1 id="rfc.section.4.3">
+<a href="#rfc.section.4.3">4.3.</a> <a href="#scen-queue" id="scen-queue">Drop Tail Router Queue Length</a>
+</h1>
+<p id="rfc.section.4.3.p.1">Routers should be configured to use Drop Trail queues in the experiments due to their (still) prevalent nature.  Experimentation with AQM schemes is encouraged but not mandatory.  </p>
+<p id="rfc.section.4.3.p.2">The router queue length is measured as the time taken to drain the FIFO queue. It has been noted in various discussions that the queue length in the current deployed Internet varies significantly. While the core backbone network has very short queue length, the home gateways usually have larger queue length. Those various queue lengths can be categorized in the following way: </p>
+
+<ol>
+<li>QoS-aware (or short): 70ms</li>
+<li>Nominal: 300-500ms</li>
+<li>Buffer-bloated: 1000-2000ms</li>
+</ol>
+
+<p> Here the size of the queue is measured in bytes or packets and to convert the queue length measured in seconds to queue length in bytes:</p>
+<p id="rfc.section.4.3.p.3">QueueSize (in bytes) = QueueSize (in sec) x Throughput (in bps)/8</p>
+<h1 id="rfc.section.4.4">
+<a href="#rfc.section.4.4">4.4.</a> Loss generation model</h1>
+<p id="rfc.section.4.4.p.1">Many models for generating packet loss are available, some yield correlated, others independent losses; losses can also be extracted from packet traces.  As a (simple) minimum loss model with minimal parameterization (i.e., the loss rate), independent random losses must be used in the evaluation.  </p>
+<p id="rfc.section.4.4.p.2">It is known that independent loss models may reflect reality poorly and hence more sophisticated loss models could be considered.  Suitable models for correlated losses includes the Gilbert-Elliot model and losses generated by modeling a queue including its (different) drop behaviors.  </p>
+<h1 id="rfc.section.4.5">
+<a href="#rfc.section.4.5">4.5.</a> <a href="#JM" id="JM">Jitter models</a>
+</h1>
+<p id="rfc.section.4.5.p.1">This section defines jitter models for the purposes of this document. When jitter is to be applied to both the congestion controlled RTP flow and any competing flow (such as a TCP competing flow), the competing flow will use the jitter definition below that does not allow for re-ordering of packets on the competing flow (see NR-RBPDV definition below).</p>
+<p id="rfc.section.4.5.p.2">Jitter is an overloaded term in communications. Its meaning is typically associated with the variation of a metric (e.g., delay) with respect to some reference metric (e.g., average delay or minimum delay). For example, RFC 3550 jitter is a smoothed estimate of jitter which is particularly meaningful if the underlying packet delay variation was caused by a Gaussian random process.</p>
+<p id="rfc.section.4.5.p.3">Because jitter is an overloaded term, we instead use the term Packet Delay Variation (PDV) to describe the variation of delay of individual packets in the same sense as the IETF IPPM WG has defined PDV in their documents (e.g., RFC 3393) and as the ITU-T SG16 has defined IP Packet Delay Variation (IPDV) in their documents (e.g., Y.1540).</p>
+<p id="rfc.section.4.5.p.4">Most PDV distributions in packet network systems are one-sided distributions (the measurement of which with a finite number of measurement samples result in one-sided histograms). In the usual packet network transport case there is typically one packet that transited the network with the minimum delay, then a majority of packets also transit the system within some variation from this minimum delay, and then a minority of the packets transit the network with delays higher than the median or average transit time (these are outliers). Although infrequent, outliers can cause significant deleterious operation in adaptive systems and should be considered in rate adaptation designs for RTP congestion control.</p>
+<p id="rfc.section.4.5.p.5">In this section we define two different bounded PDV characteristics, 1) Random Bounded PDV and 2) Approximately Random Subject to No-Reordering Bounded PDV.</p>
+<p id="rfc.section.4.5.p.6">The former, 1) Random Bounded PDV is presented for information only, while the latter, 2) Approximately Random Subject to No-Reordering Bounded PDV, must be used in the evaluation.</p>
+<h1 id="rfc.section.4.5.1">
+<a href="#rfc.section.4.5.1">4.5.1.</a> Random Bounded PDV (RBPDV)</h1>
+<p id="rfc.section.4.5.1.p.1">The RBPDV probability distribution function (PDF) is specified to be of some mathematically describable function which includes some practical minimum and maximum discrete values suitable for testing.  For example, the minimum value, x_min, might be specified as the minimum transit time packet and the maximum value, x_max, might be defined to be two standard deviations higher than the mean.</p>
+<p id="rfc.section.4.5.1.p.2">Since we are typically interested in the distribution relative to the mean delay packet, we define the zero mean PDV sample, z(n), to be z(n) = x(n) - x_mean, where x(n) is a sample of the RBPDV random variable x and x_mean is the mean of x.</p>
+<p id="rfc.section.4.5.1.p.3">We assume here that s(n) is the original source time of packet n and the post-jitter induced emission time, j(n), for packet n is j(n) = {[z(n) + x_mean] + s(n)}. It follows that the separation in the post-jitter time of packets n and n+1 is {[s(n+1)-s(n)] - [z(n)-z(n+1)]}. Since the first term is always a positive quantity, we note that packet reordering at the receiver is possible whenever the second term is greater than the first. Said another way, whenever the difference in possible zero mean PDV sample delays (i.e., [x_max-x_min]) exceeds the inter-departure time of any two sent packets, we have the possibility of packet re-ordering.</p>
+<p id="rfc.section.4.5.1.p.4">There are important use cases in real networks where packets can become re-ordered such as in load balancing topologies and during route changes. However, for the vast majority of cases there is no packet re-ordering because most of the time packets follow the same path. Due to this, if a packet becomes overly delayed, the packets after it on that flow are also delayed. This is especially true for mobile wireless links where there are per-flow queues prior to base station scheduling. Owing to this important use case, we define another PDV profile similar to the above, but one that does not allow for re-ordering within a flow.</p>
+<h1 id="rfc.section.4.5.2">
+<a href="#rfc.section.4.5.2">4.5.2.</a> Approximately Random Subject to No-Reordering Bounded PDV         (NR-RPVD)</h1>
+<p id="rfc.section.4.5.2.p.1">No Reordering RPDV, NR-RPVD, is defined similarly to the above with one important exception. Let serial(n) be defined as the serialization delay of packet n at the lowest bottleneck link rate (or other appropriate rate) in a given test. Then we produce all the post-jitter values for j(n) for n = 1, 2, ... N, where N is the length of the source sequence s to be offset-ed. The exception can be stated as follows: We revisit all j(n) beginning from index n=2, and if j(n) is determined to be less than [j(n-1)+serial(n-1)], we redefine j(n) to be equal to [j(n-1)+serial(n-1)] and continue for all remaining n (i.e., n = 3, 4, .. N). This models the case where the packet n is sent immediately after packet (n-1) at the bottleneck link rate.  Although this is generally the theoretical minimum in that it assumes that no other packets from other flows are in-between packet n and n+1 at the bottleneck link, it is a reasonable assumption for per flow queuing.</p>
+<p id="rfc.section.4.5.2.p.2">We note that this assumption holds for some important exception cases, such as packets immediately following outliers. There are a multitude of software controlled elements common on end-to-end Internet paths (such as firewalls, ALGs and other middleboxes) which stop processing packets while servicing other functions (e.g., garbage collection). Often these devices do not drop packets, but rather queue them for later processing and cause many of the outliers. Thus NR-RPVD models this particular use case (assuming serial(n+1) is defined appropriately for the device causing the outlier) and thus is believed to be important for adaptation development for congestion controlled RTP streams.</p>
+<h1 id="rfc.section.4.5.3">
+<a href="#rfc.section.4.5.3">4.5.3.</a> Recommended distribution</h1>
+<p id="rfc.section.4.5.3.p.1">Whether Random Bounded PDV or Approximately Random Subject to No-Reordering Bounded PDV, it is recommended that z(n) is distributed according to a truncated Gaussian for the above jitter models:</p>
+<p id="rfc.section.4.5.3.p.2">z(n) ~ |max(min(N(0, std^2), N_STD * std), -N_STD * std)|</p>
+<p id="rfc.section.4.5.3.p.3">where N(0, std^2) is the Gaussian distribution with zero mean and standard deviation std. Recommended values:</p>
+<p></p>
+
+<ul>
+<li>std = 5 ms</li>
+<li>N_STD = 3</li>
+</ul>
+<h1 id="rfc.section.5">
+<a href="#rfc.section.5">5.</a> <a href="#app-additional" id="app-additional">Traffic Models</a>
+</h1>
+<h1 id="rfc.section.5.1">
+<a href="#rfc.section.5.1">5.1.</a> TCP traffic model</h1>
+<p id="rfc.section.5.1.p.1">Long-lived TCP flows will download data throughout the session and are expected to have infinite amount of data to send or receive.  This roughly applies, for example, when downloading software distributions.</p>
+<p id="rfc.section.5.1.p.2">Each short TCP flow is modeled as a sequence of file downloads interleaved with idle periods.  Not all short TCP flows start at the same time, i.e., some start in the ON state while others start in the OFF state.</p>
+<p id="rfc.section.5.1.p.3">The short TCP flows can be modeled as follows: 30 connections start simultaneously fetching small (30-50 KB) amounts of data, evenly distributed.  This covers the case where the short TCP flows are fetching web page resources rather than video files.</p>
+<p id="rfc.section.5.1.p.4">The idle period between bursts of starting a group of TCP flows is typically derived from an exponential distribution with the mean value of 10 seconds.</p>
+<p id="rfc.section.5.1.p.5">[These values were picked based on the data available at http://httparchive.org/interesting.php as of October 2015].</p>
+<p id="rfc.section.5.1.p.6">Many different TCP congestion control schemes are deployed today.  Therefore, experimentation with a range of different schemes, especially including CUBIC, is encouraged.  Experiments must document in detail which congestion control schemes they tested against and which parameters were used.  </p>
+<h1 id="rfc.section.5.2">
+<a href="#rfc.section.5.2">5.2.</a> RTP Video model</h1>
+<p><a href="#RFC8593" class="xref">[RFC8593]</a> describes two types of video traffic models for evaluating candidate algorithms for RTP congestion control.  The first model statistically characterizes the behavior of a video encoder, whereas the second model uses video traces.  </p>
+<p id="rfc.section.5.2.p.2">Sample video test sequences are available at: <a href="#xiph-seq" class="xref">[xiph-seq]</a> and <a href="#HEVC-seq" class="xref">[HEVC-seq]</a>.  The following two video streams are the recommended minimum for testing: Foreman and FourPeople.</p>
+<h1 id="rfc.section.5.3">
+<a href="#rfc.section.5.3">5.3.</a> Background UDP</h1>
+<p id="rfc.section.5.3.p.1">Background UDP flow is modeled as a constant bit rate (CBR) flow. It will download data at a particular CBR rate for the complete session, or will change to particular CBR rate at predefined intervals. The inter packet interval is calculated based on the CBR and the packet size (is typically set to the path MTU size, the default value can be 1500 bytes).  </p>
+<p id="rfc.section.5.3.p.2">Note that new transport protocols such as QUIC may use UDP but, due to their congestion control algorithms, will exhibit behavior conceptually similar in nature to TCP flows above and can thus be subsumed by the above, including the division into short- and long-lived flows.  As QUIC evolves independently of TCP congestion control algorithms, its future congestion control should be considered as competing traffic as appropriate.  </p>
+<h1 id="rfc.section.6">
+<a href="#rfc.section.6">6.</a> Security Considerations</h1>
+<p id="rfc.section.6.p.1">This document specifies evaluation criteria and parameters for assessing and comparing the performance of congestion control protocols and algorithms for real-time communication.  This memo itself is thus not subject to security considerations but the protocols and algorithms evaluated may be.  In particular, successful operation under all tests defined in this document may suffice for a comparative evaluation but must not be interpreted that the protocol is free of risks when deployed on the Internet as briefly described in the following by example.  </p>
+<p id="rfc.section.6.p.2">Such evaluations are expected to be carried out in controlled environments for limited numbers of parallel flows.  As such, these evaluations are by definition limited and will not be able to systematically consider possible interactions or very large groups of communicating nodes under all possible circumstances, so that careful protocol design is advised to avoid incidentally contributing traffic that could lead to unstable networks, e.g., (local) congestion collapse.  </p>
+<p id="rfc.section.6.p.3">This specification focuses on assessing the regular operation of the protocols and algorithms under considerations.  It does not suggest checks against malicious use of the protocols -- by the sender, the receiver, or intermediate parties, e.g., through faked, dropped, replicated, or modified congestion signals.  It is up to the protocol specifications themselves to ensure that authenticity, integrity, and/or plausibility of received signals are checked and the appropriate actions (or non-actions) are taken.  </p>
+<h1 id="rfc.section.7">
+<a href="#rfc.section.7">7.</a> IANA Considerations</h1>
+<p id="rfc.section.7.p.1">There are no IANA impacts in this memo.</p>
+<h1 id="rfc.section.8">
+<a href="#rfc.section.8">8.</a> <a href="#contrib" id="contrib">Contributors</a>
+</h1>
+<p id="rfc.section.8.p.1">The content and concepts within this document are a product of the discussion carried out in the Design Team.</p>
+<p id="rfc.section.8.p.2">Michael Ramalho provided the text for the Jitter model.</p>
+<h1 id="rfc.section.9">
+<a href="#rfc.section.9">9.</a> Acknowledgments</h1>
+<p id="rfc.section.9.p.1">Much of this document is derived from previous work on congestion control at the IETF.</p>
+<p id="rfc.section.9.p.2">The authors would like to thank Harald Alvestrand, Anna Brunstrom, Luca De Cicco, Wesley Eddy, Lars Eggert, Kevin Gross, Vinayak Hegde, Randell Jesup, Mirja Kuehlewind, Karen Nielsen, Piers O'Hanlon, Colin Perkins, Michael Ramalho, Zaheduzzaman Sarker, Timothy B. Terriberry, Michael Welzl, Mo Zanaty, and Xiaoqing Zhu for providing valuable feedback on earlier versions of this draft.  Additionally, also thank the participants of the design team for their comments and discussion related to the evaluation criteria.</p>
+<h1 id="rfc.references">
+<a href="#rfc.references">10.</a> References</h1>
+<h1 id="rfc.references.1">
+<a href="#rfc.references.1">10.1.</a> Normative References</h1>
+<table><tbody>
+<tr>
+<td class="reference"><b id="I-D.ietf-rmcat-cc-requirements">[I-D.ietf-rmcat-cc-requirements]</b></td>
+<td class="top">
+<a>Jesup, R.</a> and <a>Z. Sarker</a>, "<a href="https://tools.ietf.org/html/draft-ietf-rmcat-cc-requirements-09">Congestion Control Requirements for Interactive Real-Time Media</a>", Internet-Draft draft-ietf-rmcat-cc-requirements-09, December 2014.</td>
+</tr>
+<tr>
+<td class="reference"><b id="I-D.ietf-rmcat-wireless-tests">[I-D.ietf-rmcat-wireless-tests]</b></td>
+<td class="top">
+<a>Sarker, Z.</a>, <a>Johansson, I.</a>, <a>Zhu, X.</a>, <a>Fu, J.</a>, <a>Tan, W.</a> and <a>M. Ramalho</a>, "<a href="https://tools.ietf.org/html/draft-ietf-rmcat-wireless-tests-08">Evaluation Test Cases for Interactive Real-Time Media over Wireless Networks</a>", Internet-Draft draft-ietf-rmcat-wireless-tests-08, July 2019.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC3550">[RFC3550]</b></td>
+<td class="top">
+<a>Schulzrinne, H.</a>, <a>Casner, S.</a>, <a>Frederick, R.</a> and <a>V. Jacobson</a>, "<a href="https://tools.ietf.org/html/rfc3550">RTP: A Transport Protocol for Real-Time Applications</a>", STD 64, RFC 3550, DOI 10.17487/RFC3550, July 2003.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC3551">[RFC3551]</b></td>
+<td class="top">
+<a>Schulzrinne, H.</a> and <a>S. Casner</a>, "<a href="https://tools.ietf.org/html/rfc3551">RTP Profile for Audio and Video Conferences with Minimal Control</a>", STD 65, RFC 3551, DOI 10.17487/RFC3551, July 2003.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC3611">[RFC3611]</b></td>
+<td class="top">
+<a>Friedman, T.</a>, <a>Caceres, R.</a> and <a>A. Clark</a>, "<a href="https://tools.ietf.org/html/rfc3611">RTP Control Protocol Extended Reports (RTCP XR)</a>", RFC 3611, DOI 10.17487/RFC3611, November 2003.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC4585">[RFC4585]</b></td>
+<td class="top">
+<a>Ott, J.</a>, <a>Wenger, S.</a>, <a>Sato, N.</a>, <a>Burmeister, C.</a> and <a>J. Rey</a>, "<a href="https://tools.ietf.org/html/rfc4585">Extended RTP Profile for Real-time Transport Control Protocol (RTCP)-Based Feedback (RTP/AVPF)</a>", RFC 4585, DOI 10.17487/RFC4585, July 2006.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC5506">[RFC5506]</b></td>
+<td class="top">
+<a>Johansson, I.</a> and <a>M. Westerlund</a>, "<a href="https://tools.ietf.org/html/rfc5506">Support for Reduced-Size Real-Time Transport Control Protocol (RTCP): Opportunities and Consequences</a>", RFC 5506, DOI 10.17487/RFC5506, April 2009.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8083">[RFC8083]</b></td>
+<td class="top">
+<a>Perkins, C.</a> and <a>V. Singh</a>, "<a href="https://tools.ietf.org/html/rfc8083">Multimedia Congestion Control: Circuit Breakers for Unicast RTP Sessions</a>", RFC 8083, DOI 10.17487/RFC8083, March 2017.</td>
+</tr>
+</tbody></table>
+<h1 id="rfc.references.2">
+<a href="#rfc.references.2">10.2.</a> Informative References</h1>
+<table><tbody>
+<tr>
+<td class="reference"><b id="HEVC-seq">[HEVC-seq]</b></td>
+<td class="top">
+<a>HEVC</a>, "<a>Test Sequences</a>", http://www.netlab.tkk.fi/~varun/test_sequences/ </td>
+</tr>
+<tr>
+<td class="reference"><b id="I-D.ietf-netvc-testing">[I-D.ietf-netvc-testing]</b></td>
+<td class="top">
+<a>Daede, T.</a>, <a>Norkin, A.</a> and <a>I. Brailovskiy</a>, "<a href="https://tools.ietf.org/html/draft-ietf-netvc-testing-09">Video Codec Testing and Quality Measurement</a>", Internet-Draft draft-ietf-netvc-testing-09, January 2020.</td>
+</tr>
+<tr>
+<td class="reference"><b id="I-D.ietf-rmcat-eval-test">[I-D.ietf-rmcat-eval-test]</b></td>
+<td class="top">
+<a>Sarker, Z.</a>, <a>Singh, V.</a>, <a>Zhu, X.</a> and <a>M. Ramalho</a>, "<a href="https://tools.ietf.org/html/draft-ietf-rmcat-eval-test-10">Test Cases for Evaluating RMCAT Proposals</a>", Internet-Draft draft-ietf-rmcat-eval-test-10, May 2019.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC5033">[RFC5033]</b></td>
+<td class="top">
+<a>Floyd, S.</a> and <a>M. Allman</a>, "<a href="https://tools.ietf.org/html/rfc5033">Specifying New Congestion Control Algorithms</a>", BCP 133, RFC 5033, DOI 10.17487/RFC5033, August 2007.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC5166">[RFC5166]</b></td>
+<td class="top">
+<a>Floyd, S.</a>, "<a href="https://tools.ietf.org/html/rfc5166">Metrics for the Evaluation of Congestion Control Mechanisms</a>", RFC 5166, DOI 10.17487/RFC5166, March 2008.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8593">[RFC8593]</b></td>
+<td class="top">
+<a>Zhu, X.</a>, <a>Mena, S.</a> and <a>Z. Sarker</a>, "<a href="https://tools.ietf.org/html/rfc8593">Video Traffic Models for RTP Congestion Control Evaluations</a>", RFC 8593, DOI 10.17487/RFC8593, May 2019.</td>
+</tr>
+<tr>
+<td class="reference"><b id="xiph-seq">[xiph-seq]</b></td>
+<td class="top">
+<a>Daede, T.</a>, "<a>Video Test Media Set</a>", https://people.xiph.org/~tdaede/sets/ </td>
+</tr>
+</tbody></table>
+<h1 id="rfc.appendix.A">
+<a href="#rfc.appendix.A">Appendix A.</a> <a href="#misc" id="misc">Application Trade-off</a>
+</h1>
+<p id="rfc.section.A.p.1">Application trade-off is yet to be defined. see <a href="#I-D.ietf-rmcat-cc-requirements" class="xref">RMCAT requirements</a> document. Perhaps each experiment should define the application's expectation or trade-off.</p>
+<h1 id="rfc.appendix.A.1">
+<a href="#rfc.appendix.A.1">A.1.</a> <a href="#misc-2" id="misc-2">Measuring Quality</a>
+</h1>
+<p id="rfc.section.A.1.p.1">No quality metric is defined for performance evaluation, it is currently an open issue. However, there is consensus that congestion control algorithm should be able to show that it is useful for interactive video by performing analysis using a real codec and video sequences. </p>
+<h1 id="rfc.appendix.B">
+<a href="#rfc.appendix.B">Appendix B.</a> <a href="#App-cl" id="App-cl">Change Log</a>
+</h1>
+<p id="rfc.section.B.p.1">Note to the RFC-Editor: please remove this section prior to publication as an RFC.</p>
+<h1 id="rfc.appendix.B.1">
+<a href="#rfc.appendix.B.1">B.1.</a> Changes in draft-ietf-rmcat-eval-criteria-07</h1>
+<p id="rfc.section.B.1.p.1">Updated the draft according to the discussion at IETF-101.</p>
+<p></p>
+
+<ul>
+<li>Updated the discussion on fairness.  Thanks to Xiaoqing Zhu for providing text.</li>
+<li>Fixed a simple loss model and provided pointers to more sophisticated ones.</li>
+<li>Fixed the choice of the jitter model.</li>
+</ul>
+<h1 id="rfc.appendix.B.2">
+<a href="#rfc.appendix.B.2">B.2.</a> Changes in draft-ietf-rmcat-eval-criteria-06</h1>
+<p></p>
+
+<ul><li>Updated Jitter.</li></ul>
+<h1 id="rfc.appendix.B.3">
+<a href="#rfc.appendix.B.3">B.3.</a> Changes in draft-ietf-rmcat-eval-criteria-05</h1>
+<p></p>
+
+<ul><li>Improved text surrounding wireless tests, video sequences, and short-TCP model.</li></ul>
+<h1 id="rfc.appendix.B.4">
+<a href="#rfc.appendix.B.4">B.4.</a> Changes in draft-ietf-rmcat-eval-criteria-04</h1>
+<p></p>
+
+<ul>
+<li>Removed the guidelines section, as most of the sections are now covered: wireless tests, video model, etc.</li>
+<li>Improved Short TCP model based on the suggestion to use httparchive.org.</li>
+</ul>
+<h1 id="rfc.appendix.B.5">
+<a href="#rfc.appendix.B.5">B.5.</a> Changes in draft-ietf-rmcat-eval-criteria-03</h1>
+<p></p>
+
+<ul>
+<li>Keep-alive version.</li>
+<li>Moved link parameters and traffic models from eval-test</li>
+</ul>
+<h1 id="rfc.appendix.B.6">
+<a href="#rfc.appendix.B.6">B.6.</a> Changes in draft-ietf-rmcat-eval-criteria-02</h1>
+<p></p>
+
+<ul>
+<li>Incorporated fairness test as a working test.</li>
+<li>Updated text on mimimum evaluation requirements.</li>
+</ul>
+<h1 id="rfc.appendix.B.7">
+<a href="#rfc.appendix.B.7">B.7.</a> Changes in draft-ietf-rmcat-eval-criteria-01</h1>
+<p></p>
+
+<ul>
+<li>Removed Appendix B.</li>
+<li>Removed Section on Evaluation Parameters.</li>
+</ul>
+<h1 id="rfc.appendix.B.8">
+<a href="#rfc.appendix.B.8">B.8.</a> Changes in draft-ietf-rmcat-eval-criteria-00</h1>
+<p></p>
+
+<ul>
+<li>Updated references.</li>
+<li>Resubmitted as WG draft.</li>
+</ul>
+<h1 id="rfc.appendix.B.9">
+<a href="#rfc.appendix.B.9">B.9.</a> Changes in draft-singh-rmcat-cc-eval-04</h1>
+<p></p>
+
+<ul>
+<li>Incorporate feedback from IETF 87, Berlin.</li>
+<li>Clarified metrics: convergence time, bandwidth utilization.</li>
+<li>Changed fairness criteria to fairness test.</li>
+<li>Added measuring pre- and post-repair loss.</li>
+<li>Added open issue of measuring video quality to appendix.</li>
+<li>clarified use of DropTail and AQM.</li>
+<li>Updated text in "Minimum Requirements for Evaluation"</li>
+</ul>
+<h1 id="rfc.appendix.B.10">
+<a href="#rfc.appendix.B.10">B.10.</a> Changes in draft-singh-rmcat-cc-eval-03</h1>
+<p></p>
+
+<ul>
+<li>Incorporate the discussion within the design team.</li>
+<li>Added a section on evaluation parameters, it describes the flow and network characteristics.</li>
+<li>Added Appendix with self-fairness experiment.</li>
+<li>Changed bottleneck parameters from a proposal to an example set.</li>
+<li>
+</ul>
+<h1 id="rfc.appendix.B.11">
+<a href="#rfc.appendix.B.11">B.11.</a> Changes in draft-singh-rmcat-cc-eval-02</h1>
+<p></p>
+
+<ul><li>Added scenario descriptions.</li></ul>
+<h1 id="rfc.appendix.B.12">
+<a href="#rfc.appendix.B.12">B.12.</a> Changes in draft-singh-rmcat-cc-eval-01</h1>
+<p></p>
+
+<ul>
+<li>Removed QoE metrics.</li>
+<li>Changed stability to steady-state.</li>
+<li>Added measuring impact against few and many flows.</li>
+<li>Added guideline for idle and data-limited periods.</li>
+<li>Added reference to TCP evaluation suite in example evaluation scenarios.</li>
+</ul>
+<h1 id="rfc.authors"><a href="#rfc.authors">Authors' Addresses</a></h1>
+<div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Varun Singh</span> 
+	  <span class="n hidden">
+		<span class="family-name">Singh</span>
+	  </span>
+	</span>
+	<span class="org vcardline">CALLSTATS I/O Oy </span>
+	<span class="adr">
+	  <span class="vcardline">Runeberginkatu 4c A 4</span>
+
+	  <span class="vcardline">
+		<span class="locality">Helsinki</span>,  
+		<span class="region"></span>
+		<span class="code">00100</span>
+	  </span>
+	  <span class="country-name vcardline">Finland</span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:varun.singh@iki.fi">varun.singh@iki.fi</a></span>
+
+<span class="vcardline">URI: <a href="https://www.callstats.io/about%20">https://www.callstats.io/about </a></span>
+
+  </address>
+</div><div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Joerg Ott</span> 
+	  <span class="n hidden">
+		<span class="family-name">Ott</span>
+	  </span>
+	</span>
+	<span class="org vcardline">Technical University of Munich</span>
+	<span class="adr">
+	  <span class="vcardline">Faculty of Informatics</span>
+<span class="vcardline">Boltzmannstrasse 3</span>
+
+	  <span class="vcardline">
+		<span class="locality">Garching bei M&#252;nchen</span>,  
+		<span class="region">DE</span> 
+		<span class="code">85748</span>
+	  </span>
+	  <span class="country-name vcardline">Germany</span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:ott@in.tum.de">ott@in.tum.de</a></span>
+
+  </address>
+</div><div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Stefan Holmer</span> 
+	  <span class="n hidden">
+		<span class="family-name">Holmer</span>
+	  </span>
+	</span>
+	<span class="org vcardline">Google</span>
+	<span class="adr">
+	  <span class="vcardline">Kungsbron 2</span>
+
+	  <span class="vcardline">
+		<span class="locality">Stockholm</span>,  
+		<span class="region"></span>
+		<span class="code">11122</span>
+	  </span>
+	  <span class="country-name vcardline">Sweden</span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:holmer@google.com">holmer@google.com</a></span>
+
+  </address>
+</div>
+
+</body>
+</html>
