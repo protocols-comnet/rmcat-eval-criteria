@@ -26,7 +26,7 @@
 <?rfc toc="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc symrefs="yes" ?>
-<rfc ipr="trust200902" docName="draft-ietf-rmcat-eval-criteria-13" category="info">
+<rfc ipr="trust200902" docName="draft-ietf-rmcat-eval-criteria-10" category="info">
     <!-- What is the category field value-->
     <front>
         <title abbrev="Evaluating Congestion Control for RMCAT">
@@ -44,7 +44,7 @@
               <code>00100</code> <city>Helsinki</city>
               <country>Finland</country>
             </postal>
-            <email>varun.singh@iki.fi</email>
+            <email>varun@callstats.io</email>
             <uri>
               https://www.callstats.io/about
             </uri>
@@ -79,7 +79,7 @@
           </address>
         </author>
 
-        <date year="2020" month="3"/>
+        <date year="2019"/>
         <area>TSV</area>
         <workgroup>RMCAT WG</workgroup>
         <keyword>RTP</keyword>
@@ -112,41 +112,15 @@
             algorithms are expected to operate within the envelope of the
             circuit breakers defined in <xref target="RFC8083">RFC8083</xref>.</t>
 
-            <t>This document only provides the broad set of network
-            parameters and and traffic models for evaluating a new
-            congestion control algorithm.  The minimal requirements
-            for congestion control proposals is to produce or present
-            results for the test scenarios described in <xref
-            target="I-D.ietf-rmcat-eval-test" /> (Basic Test Cases),
-            which also defines the specifics for the test cases.
-            Additionally, proponents may produce evaluation results
-            for the <xref target="I-D.ietf-rmcat-wireless-tests">
-            wireless test scenarios</xref>.
+            <t>This document only provides broad-level criteria for
+            evaluating a new congestion control algorithm. The minimal
+            requirement for congestion control proposals is to produce or present
+            results for the test scenarios described in
+            <xref target="I-D.ietf-rmcat-eval-test" /> (Basic Test Cases).
+            Additionally, proponents may produce evaluation results for the
+            <xref target="I-D.ietf-rmcat-wireless-tests"> wireless test
+            scenarios</xref>.
             </t>
-
-            <t>
-	      This document does not cover application-specific
-	      implications of congestion control algorithms and how
-	      those could be evaluated.  Therefore, no quality metrics
-	      are defined for performance evaluation; quality metrics
-	      and algorithms to infer those vary between media types.
-	      Metrics and algorithms to assess, e.g., quality of
-	      experience evolve continuously so that determining
-	      suitable choices is left for future work. However, there
-	      is consensus that each congestion control algorithm
-	      should be able to show that it is useful for interactive
-	      video by performing analysis using a real codecs and
-	      video sequences and state-of-the-art quality metrics.
-	    </t>
-	    <t>
-	      Beyond optimizing individual metrics, real-time
-	      applications may have further options to trade off
-	      performance, e.g., across multiple media; refer to the
-	      <xref target="I-D.ietf-rmcat-cc-requirements">RMCAT
-	      requirements</xref> document.  Such trade-offs may be
-	      defined in the future.
-	    </t>
-
         </section>
 
         <section title="Terminology" anchor="sec-terminology">
@@ -191,8 +165,7 @@
          packet (the RTP logging format is described in <xref
          target="rtp-logging" />). The logging can be done inside the
          application or at the endpoints using PCAP (packet capture, e.g.,
-         tcpdump <xref target="tcpdump"/>, wireshark <xref target="wireshark"/>).
-	 The following metrics are calculated based on the
+         tcpdump, wireshark). The following are calculated based on the
          information in the packet logs:
          <list style="numbers">
             <t>Sending rate, Receiver rate, Goodput (measured at 200ms intervals)</t>
@@ -358,11 +331,7 @@
           error-resilience) and residual packet loss (after applying
           error-resilience).</t>
 
-	  <t>These data should suffice to compute the media-encoding independent
-	  metrics described above.  Use of a common log will allow simplified
-	  post-processing and analysis across different implementations.
-	  </t>
-          <!-- <t>The retransmissions for post-repair loss metric be logged in a
+            <!-- <t>The retransmissions for post-repair loss metric be logged in a
             separate file, as the repair streams have different payload type
             and/or SSRC.</t> -->
         </section>
@@ -582,9 +551,8 @@
 	  It is known that independent loss models may reflect reality
 	  poorly and hence more sophisticated loss models could be
 	  considered.  Suitable models for correlated losses includes
-	  the Gilbert-Elliot model <xref target="gilbert-elliott"/> and
-	  losses generated by modeling a queue including its
-	  (different) drop behaviors.
+	  the Gilbert-Elliot model and losses generated by modeling a
+	  queue including its (different) drop behaviors.
 	</t>
       </section>
 
@@ -595,35 +563,31 @@
         use the jitter definition below that does not allow for re-ordering of
         packets on the competing flow (see NR-RBPDV definition below).</t>
 
-        <t>Jitter is an overloaded term in communications. It is
-        typically used to refer to the variation of a metric (e.g.,
-        delay) with respect to some reference metric (e.g., average
-        delay or minimum delay). For example, RFC 3550 jitter is
-        computed as the smoothed difference in packet arrival times
-        relative to their respective expected arrival times, which is
-        particularly meaningful if the underlying packet delay
+        <t>Jitter is an overloaded term in communications. Its meaning is
+        typically associated with the variation of a metric (e.g., delay) with
+        respect to some reference metric (e.g., average delay or minimum
+        delay). For example, RFC 3550 jitter is a smoothed estimate of jitter
+        which is particularly meaningful if the underlying packet delay
         variation was caused by a Gaussian random process.</t>
 
-        <t>Because jitter is an overloaded term, we use the term
-        Packet Delay Variation (PDV) instead to describe the variation
-        of delay of individual packets in the same sense as the IETF
-        IPPM WG has defined PDV in their documents (e.g., RFC 3393)
-        and as the ITU-T SG16 has defined IP Packet Delay Variation
-        (IPDV) in their documents (e.g., Y.1540).</t>
+        <t>Because jitter is an overloaded term, we instead use the term
+        Packet Delay Variation (PDV) to describe the variation of delay of
+        individual packets in the same sense as the IETF IPPM WG has defined
+        PDV in their documents (e.g., RFC 3393) and as the ITU-T SG16 has
+        defined IP Packet Delay Variation (IPDV) in their documents (e.g.,
+        Y.1540).</t>
 
-        <t>Most PDV distributions in packet network systems are
-        one-sided distributions, the measurement of which with a
-        finite number of measurement samples results in one-sided
-        histograms. In the usual packet network transport case, there
-        is typically one packet that transited the network with the
-        minimum delay; a (large) number of packets transit the network
-        within some (smaller) positive variation from this minimum
-        delay, and a (small) number of the packets transit the network
-        with delays higher than the median or average transit time
-        (these are outliers). Although infrequent, outliers can cause
-        significant deleterious operation in adaptive systems and
-        should be considered in rate adaptation designs for RTP
-        congestion control.</t>
+        <t>Most PDV distributions in packet network systems are one-sided
+        distributions (the measurement of which with a finite number of
+        measurement samples result in one-sided histograms). In the usual
+        packet network transport case there is typically one packet that
+        transited the network with the minimum delay, then a majority of
+        packets also transit the system within some variation from this
+        minimum delay, and then a minority of the packets transit the network
+        with delays higher than the median or average transit time (these are
+        outliers). Although infrequent, outliers can cause significant
+        deleterious operation in adaptive systems and should be considered in
+        rate adaptation designs for RTP congestion control.</t>
 
         <t>In this section we define two different bounded PDV
         characteristics, 1) Random Bounded PDV and 2) Approximately Random
@@ -649,19 +613,15 @@
         variable x and x_mean is the mean of x.</t>
 
         <t>We assume here that s(n) is the original source time of packet n
-        and the post-jitter induced emission time, j(n), for packet n is:
-	</t>
-	<t>j(n) = {[z(n) + x_mean] + s(n)}.</t>
-	<t>
-	  It follows that the separation in the post-jitter time of
-	  packets n and n+1 is {[s(n+1)-s(n)] - [z(n)-z(n+1)]}. Since
-	  the first term is always a positive quantity, we note that
-	  packet reordering at the receiver is possible whenever the
-	  second term is greater than the first. Said another way,
-	  whenever the difference in possible zero mean PDV sample
-	  delays (i.e., [x_max-x_min]) exceeds the inter-departure
-	  time of any two sent packets, we have the possibility of
-	  packet re-ordering.</t>
+        and the post-jitter induced emission time, j(n), for packet n is j(n)
+        = {[z(n) + x_mean] + s(n)}. It follows that the separation in the
+        post-jitter time of packets n and n+1 is {[s(n+1)-s(n)] -
+        [z(n)-z(n+1)]}. Since the first term is always a positive quantity, we
+        note that packet reordering at the receiver is possible whenever the
+        second term is greater than the first. Said another way, whenever the
+        difference in possible zero mean PDV sample delays (i.e.,
+        [x_max-x_min]) exceeds the inter-departure time of any two sent
+        packets, we have the possibility of packet re-ordering.</t>
 
         <t>There are important use cases in real networks where packets can
         become re-ordered such as in load balancing topologies and during
@@ -721,15 +681,13 @@
       </section>
     </section>
 
-    <!--
     <section title="WiFi or Cellular Links">
         <t>
           <xref target="I-D.ietf-rmcat-wireless-tests" /> describes the test
           cases to simulate networks with wireless links. The document
           describes mechanism to simulate both cellular and WiFi networks.
         </t>
-	</section>
-    -->
+    </section>
 
     <section anchor="app-additional" title="Traffic Models">
 
@@ -744,11 +702,9 @@
         time, i.e., some start in the ON state while others start in the OFF
         state.</t>
 
-        <t>The short TCP flows can be modeled as follows: 30
-        connections start simultaneously fetching small (30-50 KB)
-        amounts of data, evenly distributed.  This covers the case
-        where the short TCP flows are fetching web page resources rather
-        than video files.</t>
+        <t>The short TCP flows can be modeled as follows: 30 connections start
+        simultaneously fetching small (30-50 KB) amounts of data. This covers the
+        case where the short TCP flows are not fetching a video file.</t>
 
         <t>The idle period between bursts of starting a group of TCP flows is
         typically derived from an exponential distribution with the mean value of
@@ -772,18 +728,12 @@
 	  describes two
           types of video traffic models for evaluating candidate algorithms for RTP congestion control.
           The first model statistically characterizes the behavior of a video
-          encoder, whereas the second model uses video traces.
+          encoder. Whereas the second model uses video traces.
         </t>
-        <t>
-	  Sample video test sequences are available at <xref
-	  target="xiph-seq"></xref>.  The following two video streams
-	  are the recommended minimum for testing: Foreman (CIF
-	  sequence) and FourPeople (720p); both come as raw video data
-	  to be encoded dynamically.  As these video sequences are
-	  short (300 and 600 frames, respectively, they shall be
-	  stitched together repeatedly until the desired length is
-	  reached.
-	</t>
+        <t> For example, test sequences are available at:
+            <xref target="xiph-seq"></xref> and <xref target="HEVC-seq"></xref>.
+            The currently chosen video streams are: Foreman and FourPeople.</t>
+
       </section>
 
       <section title="Background UDP">
@@ -811,7 +761,7 @@
           <t>
 	    This document specifies evaluation criteria and parameters
 	    for assessing and comparing the performance of congestion
-	    control protocols and algorithms for real-time
+	    control protocola and algorithm for real-time
 	    communication.  This memo itself is thus not subject to
 	    security considerations but the protocols and algorithms
 	    evaluated may be.  In particular, successful operation
@@ -895,8 +845,8 @@
             &rfc5506;
             <!--RMCAT related -->
 	    &rfc8083;
-            &rfc8593;
             &I-D.ietf-rmcat-cc-requirements;
+            &I-D.ietf-rmcat-wireless-tests;
             </references>
 
             <references title="Informative References">
@@ -904,44 +854,8 @@
             &rfc5166; <!-- CC Metrics -->
             <!-- &rfc5681; Standard TCP -->
             &I-D.ietf-rmcat-eval-test;
-            &I-D.ietf-rmcat-wireless-tests;
+            &rfc8593;
             &I-D.ietf-netvc-testing;
-            <reference anchor="gilbert-elliott">
-                <front>
-                    <title>The Gilbert-Elliott Model for Packet Loss in Real Time Services on the Internet</title>
-                    <author surname="Hasslinger" fullname="Gerhard Hasslinger">
-		      <organization/>
-		    </author>
-                    <author surname="Hohlfeld" fullname="Oliver Hohlfeld">
-                      <organization />
-                    </author>
-                    <date month="3" year="2008" />
-                    <abstract>
-                    <t>The estimation of quality for real-time services over telecommunication networks requires realistic models for impairments and failures during transmission. We focus on the classical Gilbert-Elliott model whose second order statistics is derived over arbitrary time scales and used to fit packet loss processes of traffic traces measured in the IP back- bone of Deutsche Telekom. The results show that simple Markov models are appropriate to capture the observed loss pattern.
-                    </t></abstract>
-                </front>
-                <seriesInfo name="14th GI/ITG Conference - Measurement, Modelling and Evalutation of Computer and Communication Systems" value=""/>
-            </reference>
-            <reference anchor="tcpdump">
-                <front>
-                  <title>Homepage of tcpdump and libpcap</title>
-		  <author>
-		    <organization/>
-		  </author>
-                  <date month="" year="" />
-                </front>
-                <seriesInfo name="https://www.tcpdump.org/index.html" value=""/>
-            </reference>
-            <reference anchor="wireshark">
-                <front>
-                  <title>Homepage of Wireshark</title>
-		  <author>
-		    <organization/>
-		  </author>
-                  <date month="" year="" />
-                </front>
-                <seriesInfo name="https://www.wireshark.org" value=""/>
-            </reference>
             <!-- <?rfc include="reference.3GPP.R1.081955"?>
             <reference anchor="SA4-EVAL">
                 <front>
@@ -1002,10 +916,10 @@
 
                   <date month="" year="" />
                 </front>
-                <seriesInfo name="https://media.xiph.org/video/derf/" value="" />
+                <seriesInfo name="https://people.xiph.org/~tdaede/sets/" value="" />
             </reference>
 
-<!--            <reference anchor="HEVC-seq">
+            <reference anchor="HEVC-seq">
                 <front>
                   <title>Test Sequences</title>
 
@@ -1016,11 +930,9 @@
                 <seriesInfo name="http://www.netlab.tkk.fi/~varun/test_sequences/"
                         value="" />
             </reference>
--->
 
-</references>
+        </references>
 
-<!--
         <section anchor="misc"  title="Application Trade-off">
           <t>Application trade-off is yet to be defined. see <xref
           target="I-D.ietf-rmcat-cc-requirements">RMCAT requirements</xref>
@@ -1034,7 +946,6 @@
             codec and video sequences. </t>
           </section>
         </section>
--->
 
         <section anchor="App-cl" title="Change Log">
         <t>Note to the RFC-Editor: please remove this section prior to
