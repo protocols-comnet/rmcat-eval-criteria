@@ -108,8 +108,8 @@
 
             <t>The guidelines proposed in the document are intended to help
             prevent a congestion collapse, promote fair capacity usage and
-            optimize the media flow's throughput. Furthermore, the proposed
-            algorithms are expected to operate within the envelope of the
+            optimize the media flow's throughput.  Furthermore, the proposed
+            congestion control algorithms are expected to operate within the envelope of the
             circuit breakers defined in <xref target="RFC8083">RFC8083</xref>.</t>
 
             <t>This document only provides the broad set of network
@@ -343,17 +343,20 @@
 	    details:
 	  </t>
 	    
-<figure><artwork><![CDATA[
-        Send or receive timestamp (unix)
-        RTP payload type
-        SSRC
-        RTP sequence no
-        RTP timestamp
-        marker bit
-        payload size
-]]></artwork></figure>
-	  
-          <t>If the congestion control implements, retransmissions or FEC, the
+	  <figure><artwork><![CDATA[
+        Send or receive timestamp (Unix): <int32>.<int32>  -- sec.usec decimal 
+        RTP payload type                  <int8>           -- decimal
+        SSRC                              <int32>          -- hexadecimal
+        RTP sequence no                   <int24>          -- decimal
+        RTP timestamp                     <int32>          -- decimal
+        marker bit                        "M" | ""         -- character
+        payload size                      <int16>          -- decimal
+	]]></artwork></figure>
+
+	  <t>Each line of the log file should be terminated with CRLF, CR,
+	  or LF characters. Empty lines are disregarded.
+	  </t>
+          <t>If the congestion control implements retransmissions or FEC, the
           evaluation should report both packet loss (before applying
           error-resilience) and residual packet loss (after applying
           error-resilience).</t>
